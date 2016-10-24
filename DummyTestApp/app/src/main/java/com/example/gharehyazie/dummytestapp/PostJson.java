@@ -21,7 +21,6 @@ public class PostJson extends AsyncTask<String, String, String> {
 
 
     public void postData(String first) {
-
         try {
             URL url = new URL("http://46.101.146.4/");
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -52,12 +51,13 @@ public class PostJson extends AsyncTask<String, String, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
     protected String doInBackground(String... params) {
+            postData(params[0]);
 
-        postData(params[0]);
 
         return null;
     }
