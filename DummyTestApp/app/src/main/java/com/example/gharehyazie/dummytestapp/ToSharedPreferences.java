@@ -1,5 +1,6 @@
 package com.example.gharehyazie.dummytestapp;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -11,10 +12,10 @@ import java.util.UUID;
  * Created by Mohsen on 10/24/2016.
  */
 
-public class ToSharedPreferences {
+public class ToSharedPreferences  {
 
     public static void generateUUID(Context context) {
-        Log.e("context",context.getApplicationInfo().toString());
+        Log.e("context",context.getClass().toString());
         SharedPreferences sharedPrefs = context.getSharedPreferences("deviceID", Context.MODE_PRIVATE);
         SharedPreferences.Editor ed;
         if(!sharedPrefs.contains("initialized")){
@@ -46,6 +47,7 @@ public class ToSharedPreferences {
         String temp = sharedPreferences.getString(key, defaultValue);
         return temp;
     }
+
 
 
 }

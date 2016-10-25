@@ -8,9 +8,10 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    LifeCycleReporter reporter = new LifeCycleReporter();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getApplication().registerActivityLifecycleCallbacks(reporter);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new ToSharedPreferences().generateUUID(this);
