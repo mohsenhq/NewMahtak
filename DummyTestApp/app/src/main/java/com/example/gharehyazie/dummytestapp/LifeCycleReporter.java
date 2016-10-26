@@ -5,6 +5,8 @@ import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +17,7 @@ import java.util.Map;
 public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks {
     Map<String, Long> durationMap = new HashMap<String, Long>();
     Map<String, Long> timeMap = new HashMap<String, Long>();
-String mainActivity = null;
+    String mainActivity = null;
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
@@ -26,7 +28,7 @@ String mainActivity = null;
     public void onActivityStarted(Activity activity) {
         if (mainActivity == null) {
             mainActivity = activity.getClass().getSimpleName();
-
+            new ToSharedPreferences().generateUUID(activity);
         }
         Log.e("mainActivity", mainActivity);
         timeMap.put(activity.getClass().getSimpleName(), System.currentTimeMillis());
@@ -42,9 +44,9 @@ String mainActivity = null;
     public void onActivityPaused(Activity activity) {
         Long difference = (System.currentTimeMillis() - timeMap.get(activity.getClass().getSimpleName())) / 1000;
         try {
-            durationMap.put(activity.getClass().getSimpleName() , durationMap.get(activity.getClass().getSimpleName()) + difference);
+            durationMap.put(activity.getClass().getSimpleName(), durationMap.get(activity.getClass().getSimpleName()) + difference);
         } catch (Exception e) {
-            durationMap.put(activity.getClass().getSimpleName() , difference);
+            durationMap.put(activity.getClass().getSimpleName(), difference);
         }
         Log.e(activity.getClass().getSimpleName(), "onPause()" + durationMap.get(activity.getClass().getSimpleName()));
     }
@@ -61,12 +63,15 @@ String mainActivity = null;
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        if (mainActivity.equals(activity.getClass().getSimpleName()) ) {
+        if (mainActivity.equals(activity.getClass().getSimpleName())) {
             Log.e("worked", durationMap.toString());
-            new PostJson().execute(durationMap.toString());
+            JSONObject lifeCycle = new JSONObject(durationMap);
 
+            PostJson send=new PostJson();
+            Log.e("isOnline", String.valueOf((send.isOnline(activity))));
+            if (send.isOnline(activity)) {
+                send.execute(lifeCycle.toString());
+            }
         }
     }
-
-
 }
