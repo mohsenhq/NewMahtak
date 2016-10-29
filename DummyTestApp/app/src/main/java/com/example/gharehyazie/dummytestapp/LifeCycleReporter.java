@@ -5,8 +5,10 @@ import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +31,7 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
         if (mainActivity == null) {
             mainActivity = activity.getClass().getSimpleName();
             new ToSharedPreferences().generateUUID(activity);
+            durationMap.put("date",System.currentTimeMillis());
         }
         Log.e("mainActivity", mainActivity);
         timeMap.put(activity.getClass().getSimpleName(), System.currentTimeMillis());
@@ -64,13 +67,20 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
     @Override
     public void onActivityDestroyed(Activity activity) {
         if (mainActivity.equals(activity.getClass().getSimpleName())) {
-            Log.e("worked", durationMap.toString());
             JSONObject lifeCycle = new JSONObject(durationMap);
+            try {
+                lifeCycle.put("date",String.valueOf(new Date((Long) lifeCycle.get("date"))));
+                Log.e("date",lifeCycle.getString("date"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            ToSharedPreferences SHP = new ToSharedPreferences();
 
-            PostJson send=new PostJson();
-            Log.e("isOnline", String.valueOf((send.isOnline(activity))));
+            PostJson send = new PostJson();
             if (send.isOnline(activity)) {
                 send.execute(lifeCycle.toString());
+            }else{
+                SHP.putStringInPreferences(activity,"lifeCycle",lifeCycle.toString(),"lifeCycle");
             }
         }
     }
