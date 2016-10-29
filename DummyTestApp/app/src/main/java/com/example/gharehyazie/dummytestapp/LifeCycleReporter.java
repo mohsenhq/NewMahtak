@@ -69,23 +69,43 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
         if (mainActivity.equals(activity.getClass().getSimpleName())) {
 
             ToSharedPreferences SHP = new ToSharedPreferences();
-            PostJson send = new PostJson();
-            if (send.isOnline(activity)) {
-                HashMap lifeCycleID = new HashMap<>();
-                lifeCycleID.putAll(SHP.getAll(activity, "deviceID"));
-                lifeCycleID.putAll(durationMap);
-                JSONObject result = new JSONObject(lifeCycleID);
-                try {
-                    String date = String.valueOf(new Date((Long) result.get("date")));
-                    result.put("date", date);
-                    Log.e("date", result.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                send.execute(result.toString());
+            Map lifeCycleID = new HashMap<>();
+            lifeCycleID.putAll(SHP.getAll(activity, "deviceID"));
+            lifeCycleID.putAll(durationMap);
+            JSONObject result = new JSONObject(lifeCycleID);
+            try {
+                String date = String.valueOf(new Date((Long) result.get("date")));
+                result.put("date", date);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            if (new PostJson().isOnline(activity)) {
+                int i = 0;
+                    while (i < 1000) {
+                        String s = String.valueOf(i);
+                        if (SHP.getStringFromPreferences(activity, null, s, "data") != null) {
+                            new PostJson().execute(SHP.getStringFromPreferences(activity, null, s, "data"));
+                            SHP.putStringInPreferences(activity, s, null, "data");
+                            i++;
+                        } else {
+                            break;
+                        }
+                    }
+                    new PostJson().execute(result.toString());
 
             } else {
-
+                int i = 0;
+                while (i < 1000) {
+                    String s = String.valueOf(i);
+                    if (SHP.getStringFromPreferences(activity, null, s, "data") == null) {
+                        SHP.putStringInPreferences(activity, s, result.toString(), "data");
+                        break;
+                    } else {
+                        i++;
+                    }
+                }
             }
         }
     }

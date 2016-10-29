@@ -66,8 +66,6 @@ public class PostJson extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
         postData(params[0]);
-
-
         return null;
     }
 

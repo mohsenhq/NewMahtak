@@ -33,7 +33,7 @@ public class ToSharedPreferences {
         }
     }
 
-    public static void putStringInPreferences(Context context, String key, String value, String FileKey) {
+    public void putStringInPreferences(Context context, String key, String value, String FileKey) {
         generateUUID(context);
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(FileKey, Context.MODE_PRIVATE);
@@ -42,19 +42,17 @@ public class ToSharedPreferences {
         editor.commit();
 
 
-        JSONObject jsonObject=new JSONObject(sharedPreferences.getAll());
-        Log.e("Model sharedP", String.valueOf(jsonObject));
     }
 
-    public static String getStringFromPreferences(Context context, String defaultValue, String key, String pKey) {
+    public String getStringFromPreferences(Context context, String defaultValue, String key, String pKey) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(pKey, Context.MODE_PRIVATE);
         String temp = sharedPreferences.getString(key, defaultValue);
         return temp;
     }
 
 
-    public  static Map<String, ?> getAll (Context context , String pKey){
-        SharedPreferences sharedPreferences =context.getSharedPreferences(pKey,Context.MODE_PRIVATE);
+    public  Map<String, ?> getAll(Context context, String pKey) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(pKey, Context.MODE_PRIVATE);
         return sharedPreferences.getAll();
     }
 }
