@@ -8,6 +8,7 @@ import android.util.Log;
 import org.json.JSONObject;
 
 import java.io.StringWriter;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -52,4 +53,8 @@ public class ToSharedPreferences {
     }
 
 
+    public  static Map<String, ?> getAll (Context context , String pKey){
+        SharedPreferences sharedPreferences =context.getSharedPreferences(pKey,Context.MODE_PRIVATE);
+        return sharedPreferences.getAll();
+    }
 }

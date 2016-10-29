@@ -31,7 +31,7 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
         if (mainActivity == null) {
             mainActivity = activity.getClass().getSimpleName();
             new ToSharedPreferences().generateUUID(activity);
-            durationMap.put("date",System.currentTimeMillis());
+            durationMap.put("date", System.currentTimeMillis());
         }
         Log.e("mainActivity", mainActivity);
         timeMap.put(activity.getClass().getSimpleName(), System.currentTimeMillis());
@@ -67,20 +67,25 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
     @Override
     public void onActivityDestroyed(Activity activity) {
         if (mainActivity.equals(activity.getClass().getSimpleName())) {
-            JSONObject lifeCycle = new JSONObject(durationMap);
-            try {
-                lifeCycle.put("date",String.valueOf(new Date((Long) lifeCycle.get("date"))));
-                Log.e("date",lifeCycle.getString("date"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            ToSharedPreferences SHP = new ToSharedPreferences();
 
+            ToSharedPreferences SHP = new ToSharedPreferences();
             PostJson send = new PostJson();
             if (send.isOnline(activity)) {
-                send.execute(lifeCycle.toString());
-            }else{
-                SHP.putStringInPreferences(activity,"lifeCycle",lifeCycle.toString(),"lifeCycle");
+                HashMap lifeCycleID = new HashMap<>();
+                lifeCycleID.putAll(SHP.getAll(activity, "deviceID"));
+                lifeCycleID.putAll(durationMap);
+                JSONObject result = new JSONObject(lifeCycleID);
+                try {
+                    String date = String.valueOf(new Date((Long) result.get("date")));
+                    result.put("date", date);
+                    Log.e("date", result.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                send.execute(result.toString());
+
+            } else {
+
             }
         }
     }
