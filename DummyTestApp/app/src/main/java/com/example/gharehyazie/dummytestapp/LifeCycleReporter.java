@@ -131,36 +131,26 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
              * and if device is offline saves the data to shared preferences for next time bye file key "data"
              */
             if (new PostJson().isOnline(activity)) {
-                int i = 0;
-                while (i < 1000) {
+                for (int i = SHP.getAll(activity, "data").size(); i == 0; i--) {
                     String s = String.valueOf(i);
                     if (SHP.getStringFromPreferences(activity, null, s, "data") != null) {
                         new PostJson().execute(SHP.getStringFromPreferences(activity, null, s, "data"));
                         SHP.putStringInPreferences(activity, s, null, "data");
-                        i++;
-                    } else {
-                        break;
                     }
                 }
-                new PostJson().execute(result.toString());
+
 
             } else {
-                int i = 0;
-                while (i < 1000) {
-                    String s = String.valueOf(i);
-                    if (SHP.getStringFromPreferences(activity, null, s, "data") == null) {
-                        SHP.putStringInPreferences(activity, s, result.toString(), "data");
-                        break;
-                    } else {
-                        i++;
-                    }
-                }
-            }
-            /**
-             * unregisters the ActivityLifecycleCallbacks for preventing duplicate data on the next start of app
-             */
-            activity.getApplication().unregisterActivityLifecycleCallbacks(this);
-        }
+                int i = SHP.getAll(activity, "data").size();
+                String s = String.valueOf(i) + 1;
+                SHP.putStringInPreferences(activity, s, result.toString(), "data");
 
+            }
+        }
+        /**
+         * unregisters the ActivityLifecycleCallbacks for preventing duplicate data on the next start of app
+         */
+        activity.getApplication().unregisterActivityLifecycleCallbacks(this);
     }
+
 }
