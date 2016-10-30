@@ -107,6 +107,8 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
                     }
                 }
             }
+            activity.getApplication().unregisterActivityLifecycleCallbacks(this);
         }
+
     }
 }
