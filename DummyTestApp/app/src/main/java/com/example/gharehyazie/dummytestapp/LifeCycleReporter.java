@@ -15,6 +15,7 @@ package com.example.gharehyazie.dummytestapp;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -139,6 +140,7 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
                     }
                 }
 
+                new PostJson().execute(result.toString());
 
             } else {
                 int i = SHP.getAll(activity, "data").size();

@@ -41,10 +41,11 @@ public class PostJson extends AsyncTask<String, String, String> {
      *
      * @param first the first is a string that will be sent to server
      */
-    public void postData(String first) {
+    public String postData(String first) {
         /**
          * using android httpURLConnection sends a post request with json body to the URL
          */
+        String respond=null;
         try {
             URL url = new URL("http://46.101.146.4/");
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -68,7 +69,7 @@ public class PostJson extends AsyncTask<String, String, String> {
             /**
              *print the post request responde to Log.e
              */
-            String respond = String.valueOf(httpURLConnection.getResponseCode());
+            respond = String.valueOf(httpURLConnection.getResponseCode());
             Log.e("postRespond", respond);
 
         } catch (ProtocolException e) {
@@ -80,13 +81,13 @@ public class PostJson extends AsyncTask<String, String, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        return respond;
     }
 
     @Override
     protected String doInBackground(String... params) {
-        postData(params[0]);
-        return null;
+        String respond=postData(params[0]);
+        return respond;
     }
 
 
