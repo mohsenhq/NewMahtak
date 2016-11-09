@@ -148,11 +148,12 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
                 SHP.putStringInPreferences(activity, s, result.toString(), "data");
 
             }
+            activity.getApplication().unregisterActivityLifecycleCallbacks(this);
+
         }
         /**
          * unregisters the ActivityLifecycleCallbacks for preventing duplicate data on the next start of app
          */
-        activity.getApplication().unregisterActivityLifecycleCallbacks(this);
     }
 
 }

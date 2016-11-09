@@ -54,15 +54,9 @@ public class PostJson extends AsyncTask<String, String, String> {
             httpURLConnection.setRequestProperty("Content-Type", "application/json"); // data type = json
             httpURLConnection.connect();
 
-            JSONObject jsonObject = new JSONObject();
-            /**
-             *set value of start date key first
-             */
-            jsonObject.put("startdate", first);
-            jsonObject.put("enddate", "s");
 
             DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
-            wr.writeBytes(jsonObject.toString());
+            wr.writeBytes(first);
             wr.flush();
             wr.close();
 
@@ -77,8 +71,6 @@ public class PostJson extends AsyncTask<String, String, String> {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
             e.printStackTrace();
         }
         return respond;
