@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -33,11 +34,11 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
     /**
      * The Duration map.
      */
-    Map<String, Long> durationMap = new HashMap<String, Long>();
+    Map<String, Long> durationMap = new LinkedHashMap<>();
     /**
      * The Time map.
      */
-    Map<String, Long> timeMap = new HashMap<String, Long>();
+    Map<String, Long> timeMap = new LinkedHashMap<>();
 
     /**
      * name of the app main calls for using in onDestroyed method
@@ -113,7 +114,7 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
              * save both deviceID from shared preferences and durationMap to result JSONObject
              */
             ToSharedPreferences SHP = new ToSharedPreferences();
-            Map lifeCycleID = new HashMap<>();
+            Map lifeCycleID = new LinkedHashMap<>();
             lifeCycleID.putAll(SHP.getAll(activity, "deviceID"));
             lifeCycleID.putAll(durationMap);
             JSONObject result = new JSONObject(lifeCycleID);
@@ -132,21 +133,22 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
              * and if device is offline saves the data to shared preferences for next time bye file key "data"
              */
             if (new PostJson().isOnline(activity)) {
-                for (int i = SHP.getAll(activity, "data").size(); i == 0; i--) {
+                for (int i = SHP.getAll(activity, "data").size()+1; i == 0; i--) {
                     String s = String.valueOf(i);
                     if (SHP.getStringFromPreferences(activity, null, s, "data") != null) {
                         new PostJson().execute(SHP.getStringFromPreferences(activity, null, s, "data"));
                         SHP.putStringInPreferences(activity, s, null, "data");
                     }
+
                 }
+                System.out.println(SHP.getAll(activity, "data"));
 
                 new PostJson().execute(result.toString());
 
             } else {
-                int i = SHP.getAll(activity, "data").size();
-                String s = String.valueOf(i) + 1;
+                int i = SHP.getAll(activity, "data").size() + 1;
+                String s = String.valueOf(i);
                 SHP.putStringInPreferences(activity, s, result.toString(), "data");
-
             }
             activity.getApplication().unregisterActivityLifecycleCallbacks(this);
 
