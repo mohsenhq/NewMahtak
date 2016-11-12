@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -133,15 +134,19 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
              * and if device is offline saves the data to shared preferences for next time bye file key "data"
              */
             if (new PostJson().isOnline(activity)) {
-                for (int i = SHP.getAll(activity, "data").size()+1; i == 0; i--) {
-                    String s = String.valueOf(i);
-                    if (SHP.getStringFromPreferences(activity, null, s, "data") != null) {
-                        new PostJson().execute(SHP.getStringFromPreferences(activity, null, s, "data"));
-                        SHP.putStringInPreferences(activity, s, null, "data");
+                System.out.println(SHP.getAll(activity, "data"));
+                System.out.println(SHP.getAll(activity, "data").size());
+
+                Map<String,?> keys=SHP.getAll(activity,"data");
+                for (Map.Entry<String,?> entry : keys.entrySet()) {
+                    if (SHP.getStringFromPreferences(activity, null, entry.getKey(), "data") != null) {
+                        new PostJson().execute(SHP.getStringFromPreferences(activity, null, entry.getKey(), "data"));
+                        SHP.putStringInPreferences(activity, entry.getKey(), null, "data");
                     }
 
                 }
                 System.out.println(SHP.getAll(activity, "data"));
+                System.out.println(SHP.getAll(activity, "data").size());
 
                 new PostJson().execute(result.toString());
 
