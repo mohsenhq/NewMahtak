@@ -14,15 +14,13 @@ package com.example.gharehyazie.dummytestapp;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -32,10 +30,7 @@ import java.util.Map;
  */
 public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks {
 
-    /**
-     * The Duration map.
-     */
-    Map<String, Long> durationMap = new LinkedHashMap<>();
+    ToSharedPreferences SHP;
     /**
      * The Time map.
      */
@@ -44,7 +39,7 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
     /**
      * name of the app main calls for using in onDestroyed method
      */
-    String mainActivity = null;
+    Context mainActivity = null;
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
@@ -56,16 +51,22 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
      */
     @Override
     public void onActivityStarted(Activity activity) {
+        SHP = new ToSharedPreferences();
+
         /**
          * If condition works when app installed and opend for the first time
          */
         if (mainActivity == null) {
-            mainActivity = activity.getClass().getSimpleName();
+            mainActivity = activity;
+            if (SHP.getStringFromPreferences(mainActivity,"0",mainActivity.getClass().getSimpleName(),"temp") != "0") {
+                SHP.putStringInPreferences(mainActivity,"Terminated","true","temp");
+                sendOrSave();
+            }
             new ToSharedPreferences().generateUUID(activity);
             /**
              * sets the current date
              */
-            durationMap.put("date", System.currentTimeMillis());
+            SHP.putStringInPreferences(mainActivity,"date", String.valueOf(new Date((Long)System.currentTimeMillis())),"temp");
         }
         /**
          * sets the onStart time
@@ -81,16 +82,13 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
     /**
      * @param activity = context that contains the info of the onStarted activity.
      *                 difference calculates the time in seconds form on start to on pause of activity and add the value to the
-     *                 durationMap
      */
     @Override
     public void onActivityPaused(Activity activity) {
         Long difference = (System.currentTimeMillis() - timeMap.get(activity.getClass().getSimpleName())) / 1000;
-        try {
-            durationMap.put(activity.getClass().getSimpleName(), durationMap.get(activity.getClass().getSimpleName()) + difference);
-        } catch (Exception e) {
-            durationMap.put(activity.getClass().getSimpleName(), difference);
-        }
+
+        String differenceString= String.valueOf(Long.valueOf(SHP.getStringFromPreferences(mainActivity,"0",activity.getClass().getSimpleName(),"temp")) + difference);
+        SHP.putStringInPreferences(mainActivity,activity.getClass().getSimpleName(),differenceString,"temp");
     }
 
     @Override
@@ -109,58 +107,48 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
          * condition checks if the app main activity is closed meaning the app is closed
          */
 
-        if (mainActivity.equals(activity.getClass().getSimpleName())) {
+        if (mainActivity.equals(activity)) {
+            sendOrSave();
 
             /**
-             * save both deviceID from shared preferences and durationMap to result JSONObject
+             * unregisters the ActivityLifecycleCallbacks for preventing duplicate data on the next start of app
              */
-            ToSharedPreferences SHP = new ToSharedPreferences();
-            Map lifeCycleID = new LinkedHashMap<>();
-            lifeCycleID.putAll(SHP.getAll(activity, "deviceID"));
-            lifeCycleID.putAll(durationMap);
-            JSONObject result = new JSONObject(lifeCycleID);
-            /**
-             * converts date value to date format from milliseconds
-             */
-            try {
-                String date = String.valueOf(new Date((Long) result.get("date")));
-                result.put("date", date);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            /**
-             * when device is online  checks if there is any on sent data and send them + current data
-             * and if device is offline saves the data to shared preferences for next time bye file key "data"
-             */
-            if (new PostJson().isOnline(activity)) {
-                System.out.println(SHP.getAll(activity, "data"));
-                System.out.println(SHP.getAll(activity, "data").size());
-
-                Map<String,?> keys=SHP.getAll(activity,"data");
-                for (Map.Entry<String,?> entry : keys.entrySet()) {
-                    if (SHP.getStringFromPreferences(activity, null, entry.getKey(), "data") != null) {
-                        new PostJson().execute(SHP.getStringFromPreferences(activity, null, entry.getKey(), "data"));
-                        SHP.putStringInPreferences(activity, entry.getKey(), null, "data");
-                    }
-
-                }
-                System.out.println(SHP.getAll(activity, "data"));
-                System.out.println(SHP.getAll(activity, "data").size());
-
-                new PostJson().execute(result.toString());
-
-            } else {
-                int i = SHP.getAll(activity, "data").size() + 1;
-                String s = String.valueOf(i);
-                SHP.putStringInPreferences(activity, s, result.toString(), "data");
-            }
             activity.getApplication().unregisterActivityLifecycleCallbacks(this);
-
         }
+    }
+
+    public void sendOrSave (){
         /**
-         * unregisters the ActivityLifecycleCallbacks for preventing duplicate data on the next start of app
+         * save both deviceID from shared preferences and temp to result JSONObject
          */
+        Map lifeCycleID = new LinkedHashMap<>();
+        lifeCycleID.putAll(SHP.getAll(mainActivity, "deviceID"));
+        lifeCycleID.putAll(SHP.getAll(mainActivity,"temp"));
+        SHP.removeAll(mainActivity,"temp");
+
+        JSONObject result = new JSONObject(lifeCycleID);
+
+        /**
+         * when device is online  checks if there is any on sent data and send them + current data
+         * and if device is offline saves the data to shared preferences for next time bye file key "data"
+         */
+        if (new PostJson().isOnline(mainActivity)) {
+
+            Map<String, ?> keys = SHP.getAll(mainActivity, "data");
+            for (Map.Entry<String, ?> entry : keys.entrySet()) {
+                if (SHP.getStringFromPreferences(mainActivity, null, entry.getKey(), "data") != null) {
+                    new PostJson().execute(SHP.getStringFromPreferences(mainActivity, null, entry.getKey(), "data"));
+                    SHP.putStringInPreferences(mainActivity, entry.getKey(), null, "data");
+                }
+            }
+
+            new PostJson().execute(result.toString());
+
+        } else {
+            int i = SHP.getAll(mainActivity, "data").size() + 1;
+            String s = String.valueOf(i);
+            SHP.putStringInPreferences(mainActivity, s, result.toString(), "data");
+        }
     }
 
 }

@@ -47,12 +47,12 @@ public class ToSharedPreferences {
      * @param context the context of called class
      * @param key     the key as String to be saved
      * @param value   the value of key param as String to be saved
-     * @param FileKey the file key to save
+     * @param fileKey the file key to save
      */
-    public void putStringInPreferences(Context context, String key, String value, String FileKey) {
+    public void putStringInPreferences(Context context, String key, String value, String fileKey) {
         generateUUID(context);
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences(FileKey, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(fileKey, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
         editor.commit();
@@ -66,11 +66,11 @@ public class ToSharedPreferences {
      * @param context      the context
      * @param defaultValue the default value
      * @param key          the key to read
-     * @param pKey         the pkey the file key to read
+     * @param fileKey         the fileKey the file key to read
      * @return the string from preferences
      */
-    public String getStringFromPreferences(Context context, String defaultValue, String key, String pKey) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(pKey, Context.MODE_PRIVATE);
+    public String getStringFromPreferences(Context context, String defaultValue, String key, String fileKey) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(fileKey, Context.MODE_PRIVATE);
         String temp = sharedPreferences.getString(key, defaultValue);
         return temp;
     }
@@ -80,11 +80,17 @@ public class ToSharedPreferences {
      * Gets all.
      *
      * @param context the context
-     * @param pKey    the pkey the file key to read
-     * @return the all data on the file by pkey
+     * @param fileKey    the fileKey the file key to read
+     * @return the all data on the file by fileKey
      */
-    public Map<String, ?> getAll(Context context, String pKey) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(pKey, Context.MODE_PRIVATE);
+    public Map<String, ?> getAll(Context context, String fileKey) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(fileKey, Context.MODE_PRIVATE);
         return sharedPreferences.getAll();
+    }
+    
+    public void removeAll(Context context,String fileKey){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(fileKey,Context.MODE_PRIVATE);
+        sharedPreferences.edit().clear().commit();
+
     }
 }
