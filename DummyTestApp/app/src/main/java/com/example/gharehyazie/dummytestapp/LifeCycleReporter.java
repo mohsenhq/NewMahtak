@@ -17,7 +17,6 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
@@ -58,15 +57,15 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
          */
         if (mainActivity == null) {
             mainActivity = activity;
-            if (SHP.getStringFromPreferences(mainActivity,"0",mainActivity.getClass().getSimpleName(),"temp") != "0") {
-                SHP.putStringInPreferences(mainActivity,"Terminated","true","temp");
+            if (SHP.getStringFromPreferences(mainActivity, "0", mainActivity.getClass().getSimpleName(), "temp") != "0") {
+                SHP.putStringInPreferences(mainActivity, "Terminated", "true", "temp");
                 sendOrSave();
             }
             new ToSharedPreferences().generateUUID(activity);
             /**
              * sets the current date
              */
-            SHP.putStringInPreferences(mainActivity,"date", String.valueOf(new Date((Long)System.currentTimeMillis())),"temp");
+            SHP.putStringInPreferences(mainActivity, "date", String.valueOf(new Date((Long) System.currentTimeMillis())), "temp");
         }
         /**
          * sets the onStart time
@@ -87,8 +86,8 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
     public void onActivityPaused(Activity activity) {
         Long difference = (System.currentTimeMillis() - timeMap.get(activity.getClass().getSimpleName())) / 1000;
 
-        String differenceString= String.valueOf(Long.valueOf(SHP.getStringFromPreferences(mainActivity,"0",activity.getClass().getSimpleName(),"temp")) + difference);
-        SHP.putStringInPreferences(mainActivity,activity.getClass().getSimpleName(),differenceString,"temp");
+        String differenceString = String.valueOf(Long.valueOf(SHP.getStringFromPreferences(mainActivity, "0", activity.getClass().getSimpleName(), "temp")) + difference);
+        SHP.putStringInPreferences(mainActivity, activity.getClass().getSimpleName(), differenceString, "temp");
     }
 
     @Override
@@ -117,14 +116,14 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
         }
     }
 
-    public void sendOrSave (){
+    public void sendOrSave() {
         /**
          * save both deviceID from shared preferences and temp to result JSONObject
          */
         Map lifeCycleID = new LinkedHashMap<>();
         lifeCycleID.putAll(SHP.getAll(mainActivity, "deviceID"));
-        lifeCycleID.putAll(SHP.getAll(mainActivity,"temp"));
-        SHP.removeAll(mainActivity,"temp");
+        lifeCycleID.putAll(SHP.getAll(mainActivity, "temp"));
+        SHP.removeAll(mainActivity, "temp");
 
         JSONObject result = new JSONObject(lifeCycleID);
 
