@@ -1,10 +1,5 @@
 package com.example.gharehyazie.dummytestapp;
-/**
- * Created by Mohsen on 10/24/2016.
- * <p>
- * saves data to shared preferences privately that only this app can access.
- * <p>
- */
+
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,12 +8,16 @@ import android.os.Build;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Saves data to shared preferences privately that only this app can access.
+ */
 
 public class ToSharedPreferences {
 
     /**
-     * Generate uuid.
-     * an id that is unique for each installation
+     * Generates UUID an id that is unique for each installation and saves
+     * the Model ,Brand ,Manufacturer and SDK int in first time app opens after
+     * installation.
      *
      * @param context the context of called class
      */
@@ -26,7 +25,7 @@ public class ToSharedPreferences {
 
         /**
          * saves UUID ,Model ,Brand ,Manufacturer and SDK int to the sharedPreferences by file key "deviceID" privately.
-          */
+         */
         SharedPreferences sharedPrefs = context.getSharedPreferences("deviceID", Context.MODE_PRIVATE);
         SharedPreferences.Editor ed;
         if (!sharedPrefs.contains("UUID")) {
@@ -42,11 +41,11 @@ public class ToSharedPreferences {
     }
 
     /**
-     * Put string in preferences.
+     * Puts given string in shared preferences.
      *
      * @param context the context of called class
-     * @param key     the key as String to be saved
-     * @param value   the value of key param as String to be saved
+     * @param key     String to be saved
+     * @param value   String of key param to be saved
      * @param fileKey the file key to save
      */
     public void putStringInPreferences(Context context, String key, String value, String fileKey) {
@@ -61,13 +60,13 @@ public class ToSharedPreferences {
     }
 
     /**
-     * Gets string from preferences.
+     * Gets string from shared preferences.
      *
      * @param context      the context
-     * @param defaultValue the default value
+     * @param defaultValue if the key doesn't exists
      * @param key          the key to read
-     * @param fileKey         the fileKey the file key to read
-     * @return the string from preferences
+     * @param fileKey      the key of file to read
+     * @return string value of called key from preferences
      */
     public String getStringFromPreferences(Context context, String defaultValue, String key, String fileKey) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(fileKey, Context.MODE_PRIVATE);
@@ -77,19 +76,25 @@ public class ToSharedPreferences {
 
 
     /**
-     * Gets all.
+     * Gets all keys and values of given file key.
      *
      * @param context the context
-     * @param fileKey    the fileKey the file key to read
-     * @return the all data on the file by fileKey
+     * @param fileKey the key of file to read
+     * @return the all keys and values of them as a Map from given fileKey
      */
     public Map<String, ?> getAll(Context context, String fileKey) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(fileKey, Context.MODE_PRIVATE);
         return sharedPreferences.getAll();
     }
-    
-    public void removeAll(Context context,String fileKey){
-        SharedPreferences sharedPreferences = context.getSharedPreferences(fileKey,Context.MODE_PRIVATE);
+
+    /**
+     * Removes all data in the given fileKey
+     *
+     * @param context the context
+     * @param fileKey the key of file to remove
+     */
+    public void removeAll(Context context, String fileKey) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(fileKey, Context.MODE_PRIVATE);
         sharedPreferences.edit().clear().commit();
 
     }

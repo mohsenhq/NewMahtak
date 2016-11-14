@@ -37,11 +37,12 @@ public class PostJson extends AsyncTask<String, String, String> {
     }
 
     /**
-     * Post data.
+     * Send the collected data to te server using POST method by AsyncTask
+     * in background Thread.
      *
-     * @param first the first is a string that will be sent to server
+     * @param string the that will be sent to server
      */
-    public String postData(String first) {
+    public String postData(String string) {
         /**
          * using android httpURLConnection sends a post request with json body to the URL
          */
@@ -56,7 +57,7 @@ public class PostJson extends AsyncTask<String, String, String> {
 
 
             DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
-            wr.writeBytes(first);
+            wr.writeBytes(string);
             wr.flush();
             wr.close();
 
