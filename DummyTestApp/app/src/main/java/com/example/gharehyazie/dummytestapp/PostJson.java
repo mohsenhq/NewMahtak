@@ -11,9 +11,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -46,7 +43,7 @@ public class PostJson extends AsyncTask<String, String, String> {
         /**
          * using android httpURLConnection sends a post request with json body to the URL
          */
-        String respond=null;
+        String respond = null;
         try {
             URL url = new URL("http://46.101.146.4/");
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -79,7 +76,7 @@ public class PostJson extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        String respond=postData(params[0]);
+        String respond = postData(params[0]);
         return respond;
     }
 
