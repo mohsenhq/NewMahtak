@@ -37,6 +37,7 @@ public class ToSharedPreferences {
             ed.putString("Manufacturer", Build.MANUFACTURER);
             ed.putString("SDK int", String.valueOf(Build.VERSION.SDK_INT));
             ed.commit();
+
         }
     }
 
@@ -55,7 +56,6 @@ public class ToSharedPreferences {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
         editor.commit();
-
 
     }
 
@@ -85,6 +85,7 @@ public class ToSharedPreferences {
     public Map<String, ?> getAll(Context context, String fileKey) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(fileKey, Context.MODE_PRIVATE);
         return sharedPreferences.getAll();
+
     }
 
     /**
@@ -96,6 +97,19 @@ public class ToSharedPreferences {
     public void removeAll(Context context, String fileKey) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(fileKey, Context.MODE_PRIVATE);
         sharedPreferences.edit().clear().commit();
+
+    }
+    /**
+     * Puts given string from custom action in shared preferences.
+     *
+     * @param key     String to be saved
+     * @param value   String of key param to be saved
+     */
+    public void addCustomRecord(Context context,String key, String value) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("temp", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, value);
+        editor.commit();
 
     }
 }

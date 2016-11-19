@@ -38,7 +38,7 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
     Map<String, Long> timeMap = new LinkedHashMap<>();
 
     /**
-     * name of the app main calls for using in onDestroyed method.
+     * Name of the app main calls for using in onDestroyed method.
      */
     Context mainActivity = null;
 
@@ -73,7 +73,7 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
             SHP.putStringInPreferences(mainActivity, "date", String.valueOf(new Date((Long) System.currentTimeMillis())), "temp");
         }
         /**
-         * sets the onStart time
+         * Sets the onStart time
          */
         timeMap.put(activity.getClass().getSimpleName(), System.currentTimeMillis());
     }
@@ -109,19 +109,19 @@ public class LifeCycleReporter implements Application.ActivityLifecycleCallbacks
      * If the destroyed activity be the app mainActivity calls the createPostJsonBody method
      * and unregisters lifeCycle class.
      *
-     * @param activity  Activity that is Destroyed
+     * @param activity Activity that is Destroyed
      */
     @Override
     public void onActivityDestroyed(Activity activity) {
         /**
-         * condition checks if the app main activity is closed meaning the app is closed
+         * Condition checks if the app main activity is closed meaning the app is closed
          */
 
         if (mainActivity.equals(activity)) {
             createPostJsonBody();
 
             /**
-             * unregisters the ActivityLifecycleCallbacks for preventing duplicate data on the next start of app
+             * Unregisters the ActivityLifecycleCallbacks for preventing duplicate data on the next start of app
              */
             activity.getApplication().unregisterActivityLifecycleCallbacks(this);
         }
