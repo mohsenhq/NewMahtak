@@ -1,7 +1,5 @@
 package com.example.gharehyazie.dummytestapp;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -14,7 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by MahTak on 11/2/2016.
@@ -26,31 +24,29 @@ import static org.junit.Assert.*;
 public class PostJsonTest {
 
     @Test
-    public void get() throws Exception {
+    public void databaseSendTest() throws Exception {
+        //Send
+
+        JSONObject jsonObjectToSend = new JSONObject();
+        jsonObjectToSend.put("test", "one");
+        String test = jsonObjectToSend.toString();
+        new PostJson().postData(test);
+
+        //Receive
         URL url = new URL("http://46.101.146.4:8081");
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setRequestProperty("Content-Type", "application/json"); // data type = json
         httpURLConnection.connect();
         BufferedReader in = null;
         in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-        JSONArray jsonArray= new JSONArray(in.readLine());
-        jsonArray.remove(1);
-        assertEquals("not the same",jsonArray.toString(),"hi");
+        JSONArray jsonArray = new JSONArray(in.readLine());
+        JSONObject jsonObjectReceived = jsonArray.getJSONObject(0);
+        jsonObjectReceived.remove("_id");
+
+
+        assertEquals("not the same", jsonObjectToSend.toString(), jsonObjectReceived.toString());
     }
 
-    @Test
-    public void send() throws Exception {
-        //Arrange
-        JSONObject jsonObject=new JSONObject();
-        jsonObject.put("test","one");
-        String t1 = jsonObject.toString();
 
-        //Act
-        String respond =new PostJson().postData(t1);
-
-        //Assert
-
-        assertEquals(respond,"2001");
-    }
 
 }
