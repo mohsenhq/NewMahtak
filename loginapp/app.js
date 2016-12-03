@@ -78,7 +78,7 @@ app.use(function (req, res, next) {
 
 app.use('/', routes);
 app.use('/users', users);
-
+app.use('/verify1', routes);
 // Set Port
 app.set('port', (process.env.PORT || 3000));
 

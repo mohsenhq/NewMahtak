@@ -4,7 +4,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 var User = require('../models/user');
-
+var Application = require('../models/application');
 // Register
 router.get('/register', function(req, res){
 	res.render('register');
@@ -55,6 +55,40 @@ router.post('/register', function(req, res){
 	}
 });
 
+// Add App
+router.post('/index', function(req,res){
+	var appName = req.body.appName;
+	var companyDomain = req.body.companyDomain;
+	var appVersion = req.body.appVersion;
+
+	// Validation
+	req.checkBody('appName', 'Application Name is require').notEmpty();
+	req.checkBody('companyDomain', 'Company Domain is required').notEmpty();
+	req.checkBody('appVersion', 'Aplication Version is required').notEmpty();
+
+	var errors = req.validationErrors();
+
+	if(errors){
+		res.render('index',{
+			errors:errors
+		});
+	} else {
+		var newApplication = new Application({
+			appName: appName,
+			companyDomain: companyDomain,
+			appVersion: appVersion
+		});
+		Application.addApplication(newApplication, function(err, application){
+			if(err) throw err;
+			console.log(application);
+		});
+		
+		req.flash('success_msg', 'Your App added');
+
+		res.redirect('/applications');
+	}
+});
+
 passport.use(new LocalStrategy(
   function(username, password, done) {
   	User.getUserByUsername(username, function(err,user){
@@ -96,6 +130,7 @@ router.get('/logout', function(req, res){
 	req.flash('success_msg', 'you are logged out');
 
 	res.redirect('/users/login');
-})
+});
+
 
 module.exports = router;
