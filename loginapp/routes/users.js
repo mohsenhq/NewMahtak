@@ -74,6 +74,7 @@ router.post('/index', function(req,res){
 		});
 	} else {
 		var newApplication = new Application({
+			username: req.user.username,
 			appName: appName,
 			companyDomain: companyDomain,
 			appVersion: appVersion

@@ -2,6 +2,9 @@ var mongoose = require('mongoose');
 
 // Application Schema
 var ApplicationSchema = mongoose.Schema({
+	username: {
+		type: String
+	},
 	appName: {
 		type: String
 	},
