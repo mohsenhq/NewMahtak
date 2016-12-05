@@ -24,6 +24,10 @@ module.exports.addApplication = function(newApplication,callback){
 	    
 	};
 
+module.exports.viewTable = function(callback){
+	var query = {};
+	Application.find(query, callback);
+};
 
 module.exports.getUserByAppName = function(appName, callback){
 	var query = {appName: appName};
