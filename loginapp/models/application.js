@@ -24,8 +24,8 @@ module.exports.addApplication = function(newApplication,callback){
 	    
 	};
 
-module.exports.viewTable = function(callback){
-	var query = {};
+module.exports.viewTable = function(username, callback){
+	var query = {username: username};
 	Application.find(query, callback);
 };
 

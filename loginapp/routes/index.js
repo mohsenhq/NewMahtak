@@ -7,9 +7,8 @@ router.get('/', ensureAuthenticated, function(req, res){
 });
 
 router.get('/applications', ensureAuthenticated, function(req, res){
-	Application.viewTable( function(err, application){
+	Application.viewTable(res.locals.user.username, function(err, application){
 		if(err) throw err;
-		console.log(application);
 		res.render('applications',{apps : application });
 	});
 });
