@@ -15,15 +15,14 @@ router.get('/login', function(req, res){
 	res.render('login');
 });
 
-// Applications
-router.get('/applications', function(req, res){
-Application.viewTable( function(err, application){
-		if(err) throw err;
-		console.log(application);
-		res.render('applications',{apps : application });
-});
-	
-});
+// // Applications
+// router.get('/applications', function(req, res){
+// Application.viewTable( function(err, application){
+// 		if(err) throw err;
+// 		console.log(application);
+// 		res.render('applications',{apps : application });
+// });
+// });
 
 // Register User
 router.post('/register', function(req, res){

@@ -1,13 +1,17 @@
 var express = require('express');
 var router = express.Router();
+var Application = require('../models/application');
 
 router.get('/', ensureAuthenticated, function(req, res){
 	res.render('index');
 });
 
 router.get('/applications', ensureAuthenticated, function(req, res){
-	
-	res.redirect('/users/applications');
+	Application.viewTable( function(err, application){
+		if(err) throw err;
+		console.log(application);
+		res.render('applications',{apps : application });
+	});
 });
 
 function ensureAuthenticated(req, res, next){
