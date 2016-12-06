@@ -65,7 +65,7 @@ router.post('/register', function(req, res){
 });
 
 // Add App
-router.post('/index', function(req,res){
+router.post('/addApp', function(req,res){
 	var appName = req.body.appName;
 	var companyDomain = req.body.companyDomain;
 	var appVersion = req.body.appVersion;
@@ -95,7 +95,7 @@ router.post('/index', function(req,res){
 		
 		req.flash('success_msg', 'Your App added');
 
-		res.redirect('/applications');
+		res.redirect('/');
 	}
 });
 
