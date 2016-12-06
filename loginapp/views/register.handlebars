@@ -1,31 +1,56 @@
 <h2 class="page-header">Register</h2>
 {{#if errors}}
-      {{#each errors}}
-        <div class="alert alert-danger">{{msg}}</div>
-      {{/each}}
+{{#each errors}}
+<div class="alert alert-danger">{{msg}}</div>
+{{/each}}
 {{/if}}
 <form method="post" action="/users/register">
    <div class="form-group">
-    <label>Name</label>
-    <input type="text" class="form-control" placeholder="Name" name="name">
-  </div>
-  <div class="form-group">
-    <label>Username</label>
-    <input type="text" class="form-control" placeholder="Username" name="username">
-  </div>
+      <label>Name</label>
+      <input type="text" class="form-control" placeholder="Name" name="name" required />
+   </div>
    <div class="form-group">
-    <label>Email</label>
-    <input type="email" class="form-control" placeholder="Email" name="email">
-  </div>
-  <div class="form-group">
-    <label>Password</label>
-    <input type="password" class="form-control" placeholder="Password" name="password">
-  </div>
-  <div class="form-group">
-    <label>Confirm Password</label>
-    <input type="password" class="form-control" placeholder="Password" name="password2">
-  </div>
-    <div class="form-group">
+      <label>Username</label>
+      <input type="text" class="form-control" placeholder="Username" name="username" required />
+   </div>
+   <div class="form-group">
+      <label>Email</label>
+      <input type="email" class="form-control" placeholder="Email" name="email" required />
+   </div>
+   <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" placeholder="Password" name="password" id="password"  oninput="isPass(this)" required />
+      <script language='javascript' type='text/javascript'>
+         function isPass(input) {
+            if (input.value.length < 8 ) {
+                input.setCustomValidity('Password must be 8 chr or more');
+            } else if (input.value.match(/\d+/g) == null){
+                input.setCustomValidity('Password must contain a number');
+            }
+             else {
+                // input is valid -- reset the error message
+                input.setCustomValidity('');
+            }
+            
+            
+         }
+      </script>
+   </div>
+   <div class="form-group">
+      <label>Confirm Password</label>
+      <input type="password" class="form-control" placeholder="Password" name="password2" id="password2"  oninput="check(this)" required />
+      <script language='javascript' type='text/javascript'>
+         function check(input) {
+             if (input.value != document.getElementById('password').value) {
+                 input.setCustomValidity('Password Must be Matching.');
+             } else {
+                 // input is valid -- reset the error message
+                 input.setCustomValidity('');
+             }
+         }
+      </script>
+   </div>
+   <div class="form-group">
       <button type="submit" class="btn btn-default">Submit</button>
-    </div>
+   </div>
 </form>
