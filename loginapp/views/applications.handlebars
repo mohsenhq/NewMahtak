@@ -2,20 +2,43 @@
 <p>Your Applications</p>
 <p id="data"></p>
 
-<h3>Three equal columns</h3>
-      <p>Get three equal-width columns <strong>starting at desktops and scaling to large desktops</strong>. On mobile devices, tablets and below, the columns will automatically stack.</p>
-      <div class="row">
-        <div class="col-md-4">.col-md-4</div>
-        <div class="col-md-4">.col-md-4</div>
-        <div class="col-md-4">.col-md-4</div>
-      </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<div class="entry">
-  {{#if apps}}
-    
-    {{#each apps}}
-    {{@key}}: AppName= {{this.appName}} , CompanyDomain={{this.companyDomain}} , AppVersion={{this.appVersion}}</br> </br>
+{{#if apps}}
+<div class="table-responsive">
+<table  class="table">
+   <tbody>
+      {{#each apps}}
+      <tr>
+         <td style="width: 40%;">
+           <p style="text-align:left;">
+                 <font size=4> <b>{{this.appName}}</b> </font>
+              <span style="float:right;">{{this.appVersion}}</span>
+           </p>
+           <font color="#9B9A9A"> {{this.companyDomain}} </font>
+         </td>
 
-{{/each}}
-  {{/if}}
+         <td style="text-align:right;">
+           <div class="btn-group">
+
+           <a class="input-group-addon" href="#">
+           <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+           </a>
+
+           <a class="input-group-addon" href="#">
+           <i class="fa fa-cloud-download fa-2x" aria-hidden="true"></i>
+           </a>
+
+           <a class="input-group-addon" href="#">
+           <i class="fa fa-area-chart fa-2x" aria-hidden="true"></i>  
+           </a>
+
+           </div>
+         </td>
+           
+      </tr>
+      {{/each}}
+   </tbody>
+</table>
 </div>
+{{/if}}
