@@ -107,11 +107,19 @@
             },
             username: {
                 required: true,
-                alphanumeric: true
+                alphanumeric: true,
+                remote: {
+                    url: 'http://localhost:3000/users/checkUsername',
+                    type: 'POST'
+                }
             },
             email: {
                 required: true,
-                email: true
+                email: true,
+                remote: {
+                    url: 'http://localhost:3000/users/checkEmail',
+                    type: 'POST'
+                }
             },
             password: {
                 required: true,
