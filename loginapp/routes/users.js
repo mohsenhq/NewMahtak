@@ -15,15 +15,7 @@ router.get('/login', function(req, res) {
     res.render('login');
 });
 
-// // Applications
-// router.get('/applications', function(req, res){
-// Application.viewTable( function(err, application){
-// 		if(err) throw err;
-// 		console.log(application);
-// 		res.render('applications',{apps : application });
-// });
-// });
-
+// Checks form username in data base 
 router.post('/checkUsername', function(req, res) {
     var username = req.body.username;
     User.getUserByUsername(username, function(err, user) {
@@ -36,6 +28,7 @@ router.post('/checkUsername', function(req, res) {
     });
 });
 
+// Checks form Email in data base 
 router.post('/checkEmail', function(req, res) {
     var email = req.body.email;
     User.getUserByEmail(email, function(err, user) {
@@ -125,12 +118,13 @@ router.post('/addApp', function(req, res) {
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
+        // Find User in the database by @username if there was no User sends error message
         User.getUserByUsername(username, function(err, user) {
             if (err) throw err;
             if (!user) {
-                return done(null, false, { massage: 'unknown user' });
+                return done(null, false, { message: 'unknown user' });
             }
-
+            // Compare entered pass with database 
             User.comparePassword(password, user.password, function(err, isMatch) {
                 if (err) throw err;
                 if (isMatch) {
