@@ -1,9 +1,9 @@
 <h2 class="page-header">Applications</h2>
+<body>
 <p>Your Applications</p>
 <p id="data"></p>
-
+<script language="javascript" type="text/javascript" src="../routes/index.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 {{#if apps}}
 <div class="table-responsive">
 <table  class="table">
@@ -20,9 +20,9 @@
 
          <td style="text-align:right;">
            <div class="btn-group">
-
-           <a class="input-group-addon" href="/test">
-           <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true" id="Edit" title="Edit"></i>
+            
+           <a class="input-group-addon"  href="/test">
+           <i type="button" class="fa fa-pencil-square-o fa-2x" aria-hidden="true" id="Edit" title="Edit"></i>
            </a>
 
            <a class="input-group-addon" href="#">
@@ -42,3 +42,4 @@
 </table>
 </div>
 {{/if}}
+</body>

@@ -1,4 +1,6 @@
 var express = require('express');
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+var btoa = require('btoa');
 var router = express.Router();
 var Application = require('../models/application');
 
@@ -13,9 +15,21 @@ router.get('/addApp', ensureAuthenticated, function(req, res) {
 });
 
 router.get('/test', ensureAuthenticated, function(req, res) {
-    // res.redirect('http://www.google.com');
-
+    CallWebAPI();
+    res.redirect('/');
 });
+
+function authenticateUser(user, password) {
+    var token = user + ":" + password;
+
+    // Should i be encoding this value????? does it matter???
+    // Base64 Encoding -> btoa
+    var hash = btoa(token);
+
+    return "Basic " + hash;
+};
+
+
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -25,5 +39,13 @@ function ensureAuthenticated(req, res, next) {
         res.redirect('/users/login');
     }
 }
+
+function CallWebAPI() {
+    var username = "a";
+    var request = new XMLHttpRequest();
+    request.open("POST", "http://198.143.180.135:8080/job/Module/buildWithParameters?token=mohsen&AAR=aarName=" + username, false);
+    request.setRequestHeader("Authorization", authenticateUser('mohsenhq', 'Mohsenhq102w.hq'));
+    request.send();
+};
 
 module.exports = router;
