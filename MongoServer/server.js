@@ -2,7 +2,7 @@ var mongodb = require('mongodb')
 var MongoClient = mongodb.MongoClient
 var url = 'mongodb://localhost:27017/data'
 const http = require('http')  
-const port = 80
+const port = 8082
 const requestHandler = (request, response) => {  
 var body = []
 var res = []
