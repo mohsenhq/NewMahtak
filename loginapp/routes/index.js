@@ -14,8 +14,8 @@ router.get('/addApp', ensureAuthenticated, function(req, res) {
     res.render('index');
 });
 
-router.get('/test', ensureAuthenticated, function(req, res) {
-    CallWebAPI();
+router.get('/test/*', ensureAuthenticated, function(req, res) {
+    CallWebAPI(req.params[0]);
     res.redirect('/');
 });
 
@@ -40,8 +40,8 @@ function ensureAuthenticated(req, res, next) {
     }
 }
 
-function CallWebAPI() {
-    var username = "a";
+function CallWebAPI(a) {
+    var username = a;
     var request = new XMLHttpRequest();
     request.open("POST", "http://198.143.180.135:8080/job/Module/buildWithParameters?token=mohsen&AAR=aarName=" + username, false);
     request.setRequestHeader("Authorization", authenticateUser('mohsenhq', 'Mohsenhq102w.hq'));
