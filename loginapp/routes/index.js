@@ -14,7 +14,7 @@ router.get('/addApp', ensureAuthenticated, function(req, res) {
     res.render('index');
 });
 
-router.get('/test/*', ensureAuthenticated, function(req, res) {
+router.get('/Build/*', ensureAuthenticated, function(req, res) {
     CallWebAPI(req.params[0]);
     res.redirect('/');
 });
