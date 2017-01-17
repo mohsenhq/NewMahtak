@@ -21,12 +21,8 @@ http.createServer(function(request, response) {
       console.error(err);
     });
 
-    response.writeHead(200,{'Content-Type': 'application/json'},{'Access-Control-Allow-Origin': '*'});
-    // Note: the 2 lines above could be replaced with this next one:
-    // response.writeHead(200, {'Content-Type': 'application/json'})
+    response.writeHead(200, {'Content-Type': 'application/json'})    
     
-
-    // var responseBody = 
     MongoClient.connect('mongodb://localhost:27017/data', function (err, db) {
         if (err) {
                     console.log('Unable to connect to the mongoDB server. Error:', err)
