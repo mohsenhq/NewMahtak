@@ -5,6 +5,9 @@ var http = require('http');
 var oooo=[];
 
 http.createServer(function(request, response) {
+
+response.setHeader('Access-Control-Allow-Headers','*');
+
   var headers = request.headers;
   var method = request.method;
   var url = request.url;
@@ -42,7 +45,7 @@ http.createServer(function(request, response) {
 
     // END OF NEW STUFF
   });
-}).listen(8088);
+}).listen(80);
 
 
 
