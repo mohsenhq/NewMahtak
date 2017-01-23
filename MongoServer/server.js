@@ -15,29 +15,56 @@ const requestHandler = (request, response) => {
             if (err) {
                 console.log('Unable to connect to the mongoDB server. Error:', err)
             } else {
+
                 // data collection
                 var dataCollection = db.collection('data')
                 dataCollection.insert(bodyJson, function(err, result) {
-                        if (err) {
-                            console.log(err)
-                        }
-                    })
-                    // usage date 
-                console.log(bodyJson['date'].substring(4, 10));
-                dateData = bodyJson['date'];
+                    if (err) {
+                        console.log(err)
+                    }
+                })
+
+                // install date 
+                var installDateCollection = db.collection('installDate')
+                var rest = [];
+
+                function queryCollection(collection, callback) {
+                    collection.find({ 'UUID': bodyJson['UUID'] }, { 'collection': 1 }).toArray(
+                        function(err, result) {
+                            if (err) {
+                                console.log(err)
+                            } else if (result.length > 0) {
+                                rest.push(result)
+                                callback()
+                            }
+                        })
+                }
+
+                queryCollection(dataCollection, function() {
+
+                    if (bodyJson.hasOwnProperty('install date') && rest[0].length == 1) {
+                        console.log('hi')
+                        var installDate = bodyJson['install date'].substring(4, 10)
+                        installDateCollection.update({ 'date': installDate }, { '$inc': { 'newInstalls': 1 } }, { 'upsert': true }, function(err, result) {
+                            if (err) {
+                                console.log(err)
+                            }
+                        })
+                    }
+                })
+
+                // usage date 
                 var usageDateCollection = db.collection('usageDate')
                 if (bodyJson.hasOwnProperty('date')) {
-                    var dateData = bodyJson['date'].substring(4, 10);
+                    dateData = bodyJson['date'].substring(4, 10)
                     usageDateCollection.update({ 'date': dateData }, { '$inc': { 'sequence': 1 } }, { 'upsert': true }, function(err, result) {
                         if (err) {
                             console.log(err)
                         }
-                    });
-
-                    // usageDateCollection.insert({ "": "" }
+                    })
                 }
-                db.close()
             }
+            // db.close()
         })
     })
     response.end('Done')
