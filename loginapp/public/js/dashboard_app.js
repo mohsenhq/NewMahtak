@@ -26,7 +26,7 @@ $.ajax({
 });
 
 function test(test) {
-    console.log(test[0].MainActivity);
+    console.log(test);
 
     StandaloneDashboard(function(db) {
         // YOU CAN DELETE THE ENTIRE CONTENTS OF THIS FUNCTION AND CUSTOMIZE
