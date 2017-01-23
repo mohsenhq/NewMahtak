@@ -5,7 +5,7 @@
 // maintain the most stable and secure 
 
 $.ajax({
-    url: '/query',
+    url: '/usageDate',
     type: 'POST',
     data: '',
     contentType: 'application/json; charset-utf-8',
@@ -16,7 +16,7 @@ $.ajax({
         // console.log(data[0]);
         // alert("success");
         // $('#msg').html("Success");
-        test(data);
+        log(data);
     },
     error: function(xhr, status, error) {
         console.log(error);
@@ -25,8 +25,29 @@ $.ajax({
     }
 });
 
-function test(test) {
-    console.log(test);
+$.ajax({
+    url: '/installDate',
+    type: 'POST',
+    data: '',
+    contentType: 'application/json; charset-utf-8',
+    // crossDomain: true,
+    dataType: 'json',
+    // header : {'Access-Control-Allow-Origin': '*'},
+    success: function(data) {
+        // console.log(data[0]);
+        // alert("success");
+        // $('#msg').html("Success");
+        log(data);
+    },
+    error: function(xhr, status, error) {
+        console.log(error);
+        // alert("fail");
+        // $('#msg').html("ERROR...! Please check the console (F12)");
+    }
+});
+
+function log(logData) {
+    console.log(logData);
 
     StandaloneDashboard(function(db) {
         // YOU CAN DELETE THE ENTIRE CONTENTS OF THIS FUNCTION AND CUSTOMIZE
@@ -40,7 +61,7 @@ function test(test) {
         chart.setCaption("Sales");
         chart.setDimensions(6, 6);
         chart.setLabels(["1", "2", "3"]);
-        chart.addSeries([test[0].MainActivity, test[1].MainActivity, test[2].MainActivity]);
+        chart.addSeries([logData[0].MainActivity, logData[1].MainActivity, logData[2].MainActivity]);
         db.addComponent(chart);
 
         // You can add multiple charts to the same dashboard. In fact you can add many 

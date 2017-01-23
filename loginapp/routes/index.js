@@ -29,15 +29,15 @@ router.get('/MahtakDashboard', ensureAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, '../public', 'index2.html'));
 });
 
-router.post('/query', ensureAuthenticated, function(req, res) {
+router.post('/installDate', ensureAuthenticated, function(req, res) {
     console.log("test2");
     var oooo = [];
     MongoClient.connect('mongodb://localhost:27017/data', function(err, db) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
-            var collection = db.collection('data');
-            collection.find({}).sort({ _id: -1 }).limit(10).toArray(function(err, results) {
+            var collection = db.collection('installDate');
+            collection.find({}).sort({ _id: -1 }).toArray(function(err, results) {
                 oooo = results;
                 console.log(results);
                 res.write(JSON.stringify(results));
@@ -46,9 +46,25 @@ router.post('/query', ensureAuthenticated, function(req, res) {
             });
         }
     });
+});
 
-    // res.write(JSON.stringify(oooo));
-    // res.end();
+router.post('/usageDate', ensureAuthenticated, function(req, res) {
+    console.log("test2");
+    var oooo = [];
+    MongoClient.connect('mongodb://localhost:27017/data', function(err, db) {
+        if (err) {
+            console.log('Unable to connect to the mongoDB server. Error:', err)
+        } else {
+            var collection = db.collection('usageDate');
+            collection.find({}).sort({ _id: -1 }).toArray(function(err, results) {
+                oooo = results;
+                console.log(results);
+                res.write(JSON.stringify(results));
+                res.end();
+
+            });
+        }
+    });
 });
 
 function authenticateUser(user, password) {
