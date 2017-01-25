@@ -3,6 +3,28 @@ var MongoClient = mongodb.MongoClient
 var url = 'mongodb://localhost:27017/data'
 const http = require('http')
 const port = 8082
+var cron = require('node-schedule')
+
+cron.scheduleJob('0 1 0 * * *', function() {
+    MongoClient.connect(url, function(err, db) {
+        if (err) {
+            console.log('Unable to connect to the mongoDB server. Error:', err)
+        } else {
+            currentDate = new Date().toDateString().substring(4, 10)
+            db.collection('usageDate').insert({ currentDate: 0 }, function(err, result) {
+                if (err) {
+                    console.log(err)
+                }
+            })
+            db.collection('installDate').insert({ currentDate: 0 }, function(err, result) {
+                if (err) {
+                    console.log(err)
+                }
+            })
+
+        }
+    })
+})
 const requestHandler = (request, response) => {
     var body = []
     var res = []
@@ -11,6 +33,8 @@ const requestHandler = (request, response) => {
     }).on('end', function() {
         body = Buffer.concat(body).toString()
         bodyJson = JSON.parse(body)
+        reqDate = new Date(bodyJson.date)
+        reqInstallDate = new Date(bodyJson['install date'])
         MongoClient.connect(url, function(err, db) {
             if (err) {
                 console.log('Unable to connect to the mongoDB server. Error:', err)
@@ -26,7 +50,7 @@ const requestHandler = (request, response) => {
 
                 // install date 
                 var installDateCollection = db.collection('installDate')
-                var rest = [];
+                var rest = []
 
                 function queryCollection(collection, callback) {
                     collection.find({ 'UUID': bodyJson['UUID'] }, { 'collection': 1 }).toArray(
@@ -43,7 +67,7 @@ const requestHandler = (request, response) => {
                 queryCollection(dataCollection, function() {
 
                     if (bodyJson.hasOwnProperty('install date') && rest[0].length == 1) {
-                        var installDate = bodyJson['install date'].substring(4, 10)
+                        var installDate = reqInstallDate.toDateString().substring(4, 10)
                         installDateCollection.update({ 'date': installDate }, { '$inc': { 'newInstalls': 1 } }, { 'upsert': true }, function(err, result) {
                             if (err) {
                                 console.log(err)
@@ -55,7 +79,7 @@ const requestHandler = (request, response) => {
                 // usage date 
                 var usageDateCollection = db.collection('usageDate')
                 if (bodyJson.hasOwnProperty('date')) {
-                    dateData = bodyJson['date'].substring(4, 10)
+                    dateData = reqDate.toDateString().substring(4, 10)
                     usageDateCollection.update({ 'date': dateData }, { '$inc': { 'sequence': 1 } }, { 'upsert': true }, function(err, result) {
                         if (err) {
                             console.log(err)

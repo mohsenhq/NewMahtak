@@ -37,10 +37,13 @@ router.post('/installDate', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('installDate');
-            collection.find({}).sort({ _id: -1 }).toArray(function(err, results) {
-                oooo = results;
-                console.log(results);
-                res.write(JSON.stringify(results));
+            collection.find({}, { _id: 0 }).sort({ _id: -1 }).toArray(function(err, results) {
+                var installDateArray = { 'dates': [], 'newInstalls': [] };
+                for (i = 0; i < results.length; i++) {
+                    installDateArray.dates.push(results[i].date);
+                    installDateArray.newInstalls.push(results[i].newInstalls);
+                }
+                res.write(JSON.stringify(installDateArray));
                 res.end();
 
             });
@@ -49,19 +52,19 @@ router.post('/installDate', ensureAuthenticated, function(req, res) {
 });
 
 router.post('/usageDate', ensureAuthenticated, function(req, res) {
-    console.log("test2");
-    var oooo = [];
     MongoClient.connect('mongodb://localhost:27017/data', function(err, db) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('usageDate');
-            collection.find({}).sort({ _id: -1 }).toArray(function(err, results) {
-                oooo = results;
-                console.log(results);
-                res.write(JSON.stringify(results));
+            collection.find({}, { _id: 0 }).sort({ _id: -1 }).toArray(function(err, results) {
+                var usageDateArray = { 'dates': [], 'sequences': [] };
+                for (i = 0; i < results.length; i++) {
+                    usageDateArray.dates.push(results[i].date);
+                    usageDateArray.sequences.push(results[i].sequence);
+                }
+                res.write(JSON.stringify(usageDateArray));
                 res.end();
-
             });
         }
     });
