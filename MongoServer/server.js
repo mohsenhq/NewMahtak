@@ -22,6 +22,11 @@ cron.scheduleJob('0 1 0 * * *', function() {
                 }
             })
 
+            // db.collection('dailyUsers').insert({ currentDate: '' }, function(err, result) {
+            //     if (err) {
+            //         console.log(err)
+            //     }
+            // })
         }
     })
 })
@@ -43,10 +48,18 @@ const requestHandler = (request, response) => {
                 // data collection
                 var dataCollection = db.collection('data')
                 dataCollection.insert(bodyJson, function(err, result) {
-                    if (err) {
-                        console.log(err)
-                    }
-                })
+                        if (err) {
+                            console.log(err)
+                        }
+                    })
+                    // // daily Users
+                    // currentDate = new Date().toDateString().substring(4, 10)
+                    // var dataCollection = db.collection('dailyUsers')
+                    // dataCollection.update({ currentDate: 1 }, { $push: { scores: 89 } }, function(err, result) {
+                    //     if (err) {
+                    //         console.log(err)
+                    //     }
+                    // })
 
                 // install date 
                 var installDateCollection = db.collection('installDate')

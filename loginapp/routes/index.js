@@ -30,8 +30,6 @@ router.get('/MahtakDashboard', ensureAuthenticated, function(req, res) {
 });
 
 router.post('/installDate', ensureAuthenticated, function(req, res) {
-    console.log("test2");
-    var oooo = [];
     MongoClient.connect('mongodb://localhost:27017/data', function(err, db) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
