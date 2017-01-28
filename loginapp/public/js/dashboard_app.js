@@ -1,27 +1,33 @@
+// log given argument
 function log(logData) {
     console.log(logData);
 }
+// new Dashboard
 rf.StandaloneDashboard(function(db) {
+    // Dashboard title
     db.setDashboardTitle("APP Dashboard");
+    // create new Chart and locks it
     var chart = new ChartComponent();
-    chart.setCaption("App Usage and new Installs");
+    chart.setCaption("All Users vs new Installs");
     chart.setDimensions(10, 6);
     chart.setYAxis('Number of Users');
-    // chart.addYAxis('newInstalls', "newInstalls");
-
     chart.lock();
     db.addComponent(chart);
 
-
+    // create new Kpi and locks it  
     var kpi = new KPIComponent();
     kpi.setDimensions(2, 2);
     kpi.setCaption("Total users");
     kpi.lock();
     db.addComponent(kpi);
 
-
+    /**
+     * post request to get dailyUsers
+     * if success: add dates as chart's Labels and usersNumber as it's Series 
+     * set data point limitation to 30
+     */
     $.ajax({
-        url: '/usageDate',
+        url: '/dailyUsers',
         type: 'POST',
         data: '',
         contentType: 'application/json; charset-utf-8',
@@ -30,10 +36,10 @@ rf.StandaloneDashboard(function(db) {
             log(data);
             if (data.dates.length < 31) {
                 chart.setLabels(data.dates);
-                chart.addSeries('usage', 'Usage', data.sequences, { seriesDisplayType: 'line' });
+                chart.addSeries('totalUsers', 'Total Users', data.usersNumber, { seriesDisplayType: 'line' });
             } else {
                 chart.setLabels(data.dates.slice(0, 30));
-                chart.addSeries('usage', 'Usage', data.sequences.slice(0, 30), { seriesDisplayType: 'line' });
+                chart.addSeries('totalUsers', 'Total Users', data.usersNumber.slice(0, 30), { seriesDisplayType: 'line' });
             }
         },
         error: function(xhr, status, error) {
@@ -41,6 +47,11 @@ rf.StandaloneDashboard(function(db) {
         }
     });
 
+    /**
+     * post request to get installDate
+     * if success: add newInstalls as chart's Series 
+     * set data point limitation to 30
+     */
     $.ajax({
         url: '/installDate',
         type: 'POST',
@@ -59,12 +70,16 @@ rf.StandaloneDashboard(function(db) {
                     seriesDisplayType: 'line'
                 });
             }
+            // unlocks the chart
             chart.unlock();
+
+            // set kpi value "total user" equal to the sum of new Installs
             a = 0;
             for (i = 0; i < data.newInstalls.length; i++) {
                 a += data.newInstalls[i];
             }
             kpi.setValue(a);
+            //unlocks kpi
             kpi.unlock();
 
         },

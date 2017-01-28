@@ -23,12 +23,12 @@ router.get('/Build/*', ensureAuthenticated, function(req, res) {
     res.redirect('/');
 });
 
+// opens dashboard html page 
 router.get('/MahtakDashboard', ensureAuthenticated, function(req, res) {
-    // CallWebAPI(req.params[0]);
-    // res.redirect(path.join(__dirname, '../public', 'index2.html'));
     res.sendFile(path.join(__dirname, '../public', 'index2.html'));
 });
 
+// query @installDate db and responds @dates and @newInstalls 
 router.post('/installDate', ensureAuthenticated, function(req, res) {
     MongoClient.connect('mongodb://localhost:27017/data', function(err, db) {
         if (err) {
@@ -49,37 +49,57 @@ router.post('/installDate', ensureAuthenticated, function(req, res) {
     });
 });
 
-router.post('/usageDate', ensureAuthenticated, function(req, res) {
+// query @dailyUsers db and responds @dates and @usersNumber
+router.post('/dailyUsers', ensureAuthenticated, function(req, res) {
     MongoClient.connect('mongodb://localhost:27017/data', function(err, db) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
-            var collection = db.collection('usageDate');
+            var collection = db.collection('dailyUsers');
             collection.find({}, { _id: 0 }).sort({ _id: -1 }).toArray(function(err, results) {
-                var usageDateArray = { 'dates': [], 'sequences': [] };
+                var dailyUsersArray = { 'dates': [], 'usersNumber': [] };
                 for (i = 0; i < results.length; i++) {
-                    usageDateArray.dates.push(results[i].date);
-                    usageDateArray.sequences.push(results[i].sequence);
+                    dailyUsersArray.dates.push(results[i].date);
+                    dailyUsersArray.usersNumber.push(results[i].UUID.length);
                 }
-                res.write(JSON.stringify(usageDateArray));
+                res.write(JSON.stringify(dailyUsersArray));
                 res.end();
             });
         }
     });
 });
 
+// router.post('/usageDate', ensureAuthenticated, function(req, res) {
+//     MongoClient.connect('mongodb://localhost:27017/data', function(err, db) {
+//         if (err) {
+//             console.log('Unable to connect to the mongoDB server. Error:', err)
+//         } else {
+//             var collection = db.collection('usageDate');
+//             collection.find({}, { _id: 0 }).sort({ _id: -1 }).toArray(function(err, results) {
+//                 var usageDateArray = { 'dates': [], 'sequences': [] };
+//                 for (i = 0; i < results.length; i++) {
+//                     usageDateArray.dates.push(results[i].date);
+//                     usageDateArray.sequences.push(results[i].sequence);
+//                 }
+//                 res.write(JSON.stringify(usageDateArray));
+//                 res.end();
+//             });
+//         }
+//     });
+// });
+
 function authenticateUser(user, password) {
     var token = user + ":" + password;
-
-    // Should i be encoding this value????? does it matter???
     // Base64 Encoding -> btoa
     var hash = btoa(token);
-
     return "Basic " + hash;
 };
 
 
-
+/**
+ * checks if request is from logged in user
+ * if not returns to login page
+ */
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
@@ -89,6 +109,7 @@ function ensureAuthenticated(req, res, next) {
     }
 }
 
+//calls jenkins to build aar file 
 function CallWebAPI(a) {
     var username = a;
     var request = new XMLHttpRequest();
