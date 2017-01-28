@@ -11,12 +11,12 @@ cron.scheduleJob('0 1 0 * * *', function() {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             currentDate = new Date().toDateString().substring(4, 10)
-            db.collection('usageDate').insert({ currentDate: 0 }, function(err, result) {
+            db.collection('usageDate').insert({ 'date': currentDate, 'sequence': 0 }, function(err, result) {
                 if (err) {
                     console.log(err)
                 }
             })
-            db.collection('installDate').insert({ currentDate: 0 }, function(err, result) {
+            db.collection('installDate').insert({ 'date': currentDate, 'newInstalls': 0 }, function(err, result) {
                 if (err) {
                     console.log(err)
                 }
