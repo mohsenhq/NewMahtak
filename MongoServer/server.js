@@ -65,16 +65,17 @@ const requestHandler = (request, response) => {
                  */
                 var dataCollection = db.collection('data')
                 dataCollection.insert(bodyJson, function(err, result) {
-                        if (err) {
-                            console.log(err)
-                        }
-                    })
-                    /** 
-                     * daily Users 
-                     * inserts uniqe UUIDs based on install date to db
-                     */
+                    if (err) {
+                        console.log(err)
+                    }
+                })
+
+                /** 
+                 * daily Users 
+                 * inserts uniqe UUIDs based on install date to db
+                 */
                 var dataCollection = db.collection('dailyUsers')
-                dataCollection.update({ 'date': installDate }, { $addToSet: { 'UUID': bodyJson['UUID'] } }, function(err, result) {
+                dataCollection.update({ 'date': installDate, 'APP': bodyJson['packageName'] }, { $addToSet: { 'UUID': bodyJson['UUID'] } }, { 'upsert': true }, function(err, result) {
                     if (err) {
                         console.log(err)
                     }
@@ -100,9 +101,8 @@ const requestHandler = (request, response) => {
                 }
 
                 queryCollection(db.collection('data'), function() {
-                			console.log(rest)
                     if (bodyJson.hasOwnProperty('install date') && rest[0].length == 1) {
-                        installDateCollection.update({ 'date': installDate }, { '$inc': { 'newInstalls': 1 } }, { 'upsert': true }, function(err, result) {
+                        installDateCollection.update({ 'date': installDate, 'APP': bodyJson['packageName'] }, { '$inc': { 'newInstalls': 1 } }, { 'upsert': true }, function(err, result) {
                             if (err) {
                                 console.log(err)
                             }
@@ -113,7 +113,7 @@ const requestHandler = (request, response) => {
                 // usage date 
                 var usageDateCollection = db.collection('usageDate')
                 if (bodyJson.hasOwnProperty('date')) {
-                    usageDateCollection.update({ 'date': dateData }, { '$inc': { 'sequence': 1 } }, { 'upsert': true }, function(err, result) {
+                    usageDateCollection.update({ 'date': dateData, 'APP': bodyJson['packageName'] }, { '$inc': { 'sequence': 1 } }, { 'upsert': true }, function(err, result) {
                         if (err) {
                             console.log(err)
                         }
