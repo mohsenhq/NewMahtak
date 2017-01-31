@@ -99,8 +99,8 @@ const requestHandler = (request, response) => {
                         })
                 }
 
-                queryCollection(dataCollection, function() {
-
+                queryCollection(db.collection('data'), function() {
+                			console.log(rest)
                     if (bodyJson.hasOwnProperty('install date') && rest[0].length == 1) {
                         installDateCollection.update({ 'date': installDate }, { '$inc': { 'newInstalls': 1 } }, { 'upsert': true }, function(err, result) {
                             if (err) {
