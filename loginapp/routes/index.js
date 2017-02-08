@@ -30,7 +30,7 @@ router.get('/MahtakDashboard', ensureAuthenticated, function(req, res) {
 
 // query @installDate db and responds @dates and @newInstalls 
 router.post('/installDate', ensureAuthenticated, function(req, res) {
-    MongoClient.connect('mongodb://localhost:27017/data', function(err, db) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, db) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
@@ -51,7 +51,7 @@ router.post('/installDate', ensureAuthenticated, function(req, res) {
 
 // query @dailyUsers db and responds @dates and @usersNumber
 router.post('/dailyUsers', ensureAuthenticated, function(req, res) {
-    MongoClient.connect('mongodb://localhost:27017/data', function(err, db) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, db) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
@@ -70,7 +70,7 @@ router.post('/dailyUsers', ensureAuthenticated, function(req, res) {
 });
 
 router.post('/usageDate', ensureAuthenticated, function(req, res) {
-    MongoClient.connect('mongodb://localhost:27017/data', function(err, db) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, db) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
