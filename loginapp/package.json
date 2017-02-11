@@ -1,31 +1,32 @@
 {
-  "name": "loginapp",
-  "version": "1.0.0",
-  "description": "simple login system ",
-  "main": "app.js",
-  "scripts": {
-    "test": "mocha"
-  },
-  "author": "Mohsen",
-  "license": "ISC",
-  "dependencies": {
-    "bcryptjs": "*",
-    "body-parser": "*",
-    "connect-flash": "*",
-    "cookie-parser": "^1.4.1",
-    "express": "*",
-    "express-handlebars": "*",
-    "express-messages": "*",
-    "express-session": "*",
-    "express-validator": "*",
-    "mongodb": "*",
-    "mongoose": "*",
-    "passport": "*",
-    "passport-http": "*",
-    "passport-local": "*"
-  },
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0"
-  }
+    "name": "loginapp",
+    "version": "1.0.0",
+    "description": "simple login system ",
+    "main": "app.js",
+    "scripts": {
+        "test": "mocha"
+    },
+    "author": "Mohsen",
+    "license": "ISC",
+    "dependencies": {
+        "bcryptjs": "*",
+        "body-parser": "*",
+        "connect-flash": "*",
+        "cookie-parser": "^1.4.1",
+        "express": "*",
+        "express-handlebars": "*",
+        "express-messages": "*",
+        "express-session": "*",
+        "express-validator": "*",
+        "mongodb": "*",
+        "mongoose": "*",
+        "passport": "*",
+        "passport-http": "*",
+        "passport-local": "*"
+    },
+    "devDependencies": {
+        "chai": "^3.5.0",
+        "mocha": "^3.2.0",
+        "supertest": "^3.0.0"
+    }
 }
