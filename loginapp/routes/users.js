@@ -145,7 +145,7 @@ passport.deserializeUser(function(id, done) {
         done(err, user);
     });
 });
-
+// logging in 
 router.post('/login',
     passport.authenticate('local', { successRedirect: '/', failureRedirect: '/users/login', failureFlash: true }),
     function(req, res) {
