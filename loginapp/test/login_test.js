@@ -19,23 +19,97 @@ describe('User', function() {
         done();
     });
     describe('Login test', function() {
-        it('should redirect to /', function(done) {
+        app.request.isAuthenticated = function() {
+            return true;
+        };
+        it('1: should redirect to /', function(done) {
             request(app)
                 .post('/users/login')
                 .send({ username: 'test', password: '1234qwer' })
-                // .field('username', 'test')
-                // .field('password', '1234qwer')
-                .expect(302, function(err, res) {
-                    if (err) throw err;
+                .expect(302)
+                .end(function(err, res) {
                     expect(res.header.location).to.equal('/');
+                    if (err) return done(err);
                     done();
                 });
-
-            after(function(done) {
-                User.remove().exec();
-                return done();
-            });
-
-        })
-    })
+        });
+        // it('1: render /', function(done) {
+        //     request(app)
+        //         .get('/')
+        //         .expect(200)
+        //         .end(function(err, res) {
+        //             expect(res.text).to.be.ok;
+        //             if (err) return done(err);
+        //             done();
+        //         });
+        // });
+        it('2: return json Installdate', function(done) {
+            request(app)
+                .post('/installDate')
+                .expect(200)
+                .end(function(err, res) {
+                    // console.log((res.text));
+                    expect(res.text).to.be.ok;
+                    if (err) return done(err);
+                    done();
+                });
+        });
+        it('3: return json DailyUsers', function(done) {
+            request(app)
+                .post('/dailyUsers')
+                .expect(200)
+                .end(function(err, res) {
+                    // console.log((res.text));
+                    expect(res.text).to.be.ok;
+                    if (err) return done(err);
+                    done();
+                });
+        });
+        it('4: return json UsageDate', function(done) {
+            request(app)
+                .post('/usageDate')
+                .expect(200)
+                .end(function(err, res) {
+                    // console.log((res.text));
+                    expect(res.text).to.be.ok;
+                    if (err) return done(err);
+                    done();
+                });
+        });
+        it('5: call webapi', function(done) {
+            request(app)
+                .get('/build/test')
+                .expect(302)
+                .end(function(err, res) {
+                    expect(res.header.location).to.equal('/');
+                    expect(res.text).to.be.ok;
+                    if (err) return done(err);
+                    done();
+                });
+        });
+        it('6: call Dashboard', function(done) {
+            request(app)
+                .get('/MahtakDashboard')
+                .expect(200)
+                .end(function(err, res) {
+                    expect(res.text).to.contain('<title>RazorFlow Quick Start</title>');
+                    if (err) return done(err);
+                    done();
+                });
+        });
+        it('7: addApp', function(done) {
+            request(app)
+                .get('/addApp')
+                .expect(200)
+                .end(function(err, res) {
+                    expect(res.text).to.be.ok;
+                    if (err) return done(err);
+                    done();
+                });
+        });
+        after(function(done) {
+            User.remove().exec();
+            return done();
+        });
+    });
 });

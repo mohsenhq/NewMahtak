@@ -15,7 +15,7 @@ router.get('/login', function(req, res) {
     res.render('login');
 });
 
-// Checks form username in data base 
+// Checks form username in data base for Validation
 router.post('/checkUsername', function(req, res) {
     var username = req.body.username;
     User.getUserByUsername(username, function(err, user) {
@@ -28,7 +28,7 @@ router.post('/checkUsername', function(req, res) {
     });
 });
 
-// Checks form Email in data base 
+// Checks form Email in data base for Validation
 router.post('/checkEmail', function(req, res) {
     var email = req.body.email;
     User.getUserByEmail(email, function(err, user) {
