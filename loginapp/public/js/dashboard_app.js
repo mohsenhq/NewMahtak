@@ -5,6 +5,37 @@ function log(logData) {
 // new Dashboard
 rf.StandaloneDashboard(function(db) {
 
+
+    var pieChart = new ChartComponent();
+    pieChart.setDimensions(4, 4);
+    pieChart.setCaption("Device Types");
+    pieChart.onItemClick(function(obj) {
+        console.log(obj);
+        alert("The value you clicked was ", obj.value);
+        alert("The label you clicked was ", obj.label);
+
+    });
+    pieChart.lock();
+    db.addComponent(pieChart);
+
+    $.ajax({
+        url: '/deviceType',
+        type: 'POST',
+        data: '',
+        contentType: 'application/json; charset-utf-8',
+        dataType: 'json',
+        success: function(data) {
+            log(data);
+            pieChart.setLabels(data.types);
+            pieChart.setPieValues(data.percent);
+            pieChart.unlock();
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+
+
     // var form = new FormComponent();
     // form.setDimensions(3, 4);
     // form.addDateRangeField("data_period", "Data Period");
