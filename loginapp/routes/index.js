@@ -35,7 +35,7 @@ router.post('/installDate', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('installDate');
-            collection.find({}, { _id: 0 }).sort({ _id: -1 }).toArray(function(err, results) {
+            collection.find({}, { _id: 0 }).sort({ _id: +1 }).toArray(function(err, results) {
                 var installDateArray = { 'dates': [], 'newInstalls': [] };
                 for (i = 0; i < results.length; i++) {
                     installDateArray.dates.push(results[i].date);
@@ -56,7 +56,7 @@ router.post('/dailyUsers', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('dailyUsers');
-            collection.find({}, { _id: 0 }).sort({ _id: -1 }).toArray(function(err, results) {
+            collection.find({}, { _id: 0 }).sort({ _id: +1 }).toArray(function(err, results) {
                 var dailyUsersArray = { 'dates': [], 'usersNumber': [] };
                 for (i = 0; i < results.length; i++) {
                     dailyUsersArray.dates.push(results[i].date);
@@ -75,7 +75,7 @@ router.post('/usageDate', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('usageDate');
-            collection.find({}, { _id: 0 }).sort({ _id: -1 }).toArray(function(err, results) {
+            collection.find({}, { _id: 0 }).sort({ _id: +1 }).toArray(function(err, results) {
                 var usageDateArray = { 'dates': [], 'sequences': [] };
                 for (i = 0; i < results.length; i++) {
                     usageDateArray.dates.push(results[i].date);
@@ -94,7 +94,7 @@ router.post('/deviceType', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             // var collection = db.collection('usageDate');
-            // collection.find({}, { _id: 0 }).sort({ _id: -1 }).toArray(function(err, results) {
+            // collection.find({}, { _id: 0 }).sort({ _id: +1 }).toArray(function(err, results) {
             //     var usageDateArray = { 'dates': [], 'sequences': [] };
             //     for (i = 0; i < results.length; i++) {
             //         usageDateArray.dates.push(results[i].date);
@@ -103,7 +103,7 @@ router.post('/deviceType', ensureAuthenticated, function(req, res) {
             //     res.write(JSON.stringify(usageDateArray));
             //     res.end();
             // });
-            var deviceTypes = { 'types': ['Android', 'IOS', 'Other'], 'percent': [1000, 1, 0] };
+            var deviceTypes = { 'types': ['Android', 'IOS', 'Other'], 'percent': [80, 5, 15] };
             res.write(JSON.stringify(deviceTypes));
             res.end();
         }
