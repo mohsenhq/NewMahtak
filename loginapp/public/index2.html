@@ -5,15 +5,32 @@
     <title>Mahtak Dashboard</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
 </head>
 
 <body>
-    <canvas id="myChart" style="display: block;width: 400px;height: 400px;" width="690" height="690"></canvas>
+    <!--<canvas id="myChart" style="display: block;width: 400px;height: 400px;" width="690" height="690"></canvas>
     <canvas id="myChart2" style="display: block;width: 400px;height: 400px;" width="690" height="690"></canvas>
-    <canvas id="myChart3" style="display: block;width: 400px;height: 400px;" width="690" height="690"></canvas>
+    <canvas id="myChart3" style="display: block;width: 400px;height: 400px;" width="690" height="690"></canvas>-->
 
+    <form id='form1' style="position:relative">
+        <div id='d1' style="position:absolute; top:0px; left:0px; z-index:1">
+            <canvas id='myChart' width='200px' height='100px'>
+              Your browser does not support HTML5 Canvas.
+        </canvas>
+        </div>
+        <div id='d2' style="position:absolute; top:0px; left:12px; z-index:2">
+            <canvas id='myChart2' width='300' height='200'>
+              Your browser does not support HTML5 Canvas.
+        </canvas>
+        </div>
+        <div id='d3' style="position:absolute; top:0px; left:300px; z-index:3">
+            <canvas id='myChart3' width='200' height='100'>
+              Your browser does not support HTML5 Canvas.
+        </canvas>
+        </div>
+    </form>
 
 </body>
 <script>

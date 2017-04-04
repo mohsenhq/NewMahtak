@@ -25,7 +25,8 @@ router.get('/Build/*', ensureAuthenticated, function(req, res) {
 
 // opens dashboard html page 
 router.get('/MahtakDashboard', ensureAuthenticated, function(req, res) {
-    res.sendFile(path.join(__dirname, '../public', 'index2.html'));
+    // res.sendFile(path.join(__dirname, '../public', 'index2.html'));
+    res.render('dashboard');
 });
 
 // query @installDate db and responds @dates and @newInstalls 
