@@ -57,7 +57,7 @@ router.post('/dailyUsers', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('dailyUsers');
-            collection.find({}, { _id: 0 }).sort({ _id: +1 }).toArray(function(err, results) {
+            collection.find({}, { _id: 0 }).toArray(function(err, results) {
                 var dailyUsersArray = { 'dates': [], 'usersNumber': [] };
                 for (i = 0; i < results.length; i++) {
                     dailyUsersArray.dates.push(results[i].date);
