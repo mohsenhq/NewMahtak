@@ -9,14 +9,14 @@
           </canvas>
         </div>
       
-      <div id='d2' style="position: relative;width:400px;height:400px;">
-          <canvas id='myChart2' width='600' height='600' >
+        <div id='d3' style="position:relative">
+          <canvas id='myChart3' width='600' height='300'>
             Your browser does not support HTML5 Canvas.
           </canvas>
         </div>
-     
-        <div id='d3' style="position:relative">
-          <canvas id='myChart3' width='600' height='300'>
+
+        <div id='d2' style="position: relative;width:400px;height:400px;">
+          <canvas id='myChart2' width='600' height='600' >
             Your browser does not support HTML5 Canvas.
           </canvas>
         </div>
@@ -158,22 +158,21 @@
 
 // install date and total totalNumber set
  $.ajax({
-        url: '/installDate',
+        url: '/usageDate',
         type: 'POST',
         data: '',
         contentType: 'application/json; charset-utf-8',
         dataType: 'json',
-        success: function(data) {
-            console.log(data);
-            
+        success: function(data3) {
+            console.log(data3);
             var ctx3 = document.getElementById("myChart3").getContext("2d");
             var myChart3 = new Chart(ctx3, {
             type: 'line',
             data: {
-            labels: data.dates,
+            labels: data3.dates,
             datasets: [{
-              label: 'Daily installs',
-              data: data.newInstalls,
+              label: 'Daily Usage',
+              data: data3.sequences,
               backgroundColor: "rgba(153,255,51,0.4)"
             }]
     }
