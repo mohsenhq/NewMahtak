@@ -125,7 +125,8 @@ const requestHandler = (request, response) => {
                 if (bodyJson.hasOwnProperty('endDate')) {
                     endDate= new Date(bodyJson['endDate'])
                     startDate= new Date(bodyJson['date'])
-                    durationCollection.insert({ 'date': bodyJson['date'], 'APP': bodyJson['packageName'],'duration': (endDate - startDate)/1000}, function(err, result) {
+                    date = (startDate).toDateString().substring(4, 10)
+                    durationCollection.insert({ 'date': date, 'APP': bodyJson['packageName'],'duration': (endDate - startDate)/1000}, function(err, result) {
                         if (err) {
                             console.log(err)
                         }
