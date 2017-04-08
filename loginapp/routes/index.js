@@ -97,11 +97,11 @@ router.post('/duration', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('duration');
-            collection.find({}, { _id: 0 }).sort({ _id: +1 }).toArray(function(err, results) {
-                var duration = { 'labels': [], 'durations': [] };
+            collection.aggregate([{ $group: { _id: "$duration", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
+                var duration = { 'time': [], 'count': [] };
                 for (i = 0; i < results.length; i++) {
-                    duration.labels.push('');
-                    duration.durations.push(results[i].duration);
+                    duration.time.push(results[i]._id);
+                    duration.count.push(results[i].count);
                 }
                 res.write(JSON.stringify(duration));
                 res.end();
