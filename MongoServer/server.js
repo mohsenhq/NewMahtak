@@ -119,6 +119,18 @@ const requestHandler = (request, response) => {
                         }
                     })
                 }
+
+                // Duration table
+                var durationCollection = db.collection('duration')
+                if (bodyJson.hasOwnProperty('endDate')) {
+                    endDate= new Date(bodyJson['endDate'])
+                    startDate= new Date(bodyJson['date'])
+                    durationCollection.insert({ 'date': bodyJson['date'], 'APP': bodyJson['packageName'],'duration': (endDate - startDate)/1000}, function(err, result) {
+                        if (err) {
+                            console.log(err)
+                        }
+                    })
+                }
             }
             // db.close()
         })
