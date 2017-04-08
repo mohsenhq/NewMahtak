@@ -139,12 +139,33 @@ router.post('/operator', ensureAuthenticated, function(req, res) {
         } else {
             var collection = db.collection('data');
             collection.aggregate([{ $group: { _id: "$Network Operator name", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
-                var duration = { 'operator': [], 'count': [] };
+                var operators = { 'operator': [], 'count': [] };
                 for (i = 0; i < results.length; i++) {
-                    duration.operator.push(results[i]._id);
-                    duration.count.push(results[i].count);
+                    operators.operator.push(results[i]._id);
+                    operators.count.push(results[i].count);
                 }
-                res.write(JSON.stringify(duration));
+                res.write(JSON.stringify(operators));
+                res.end();
+            });
+        }
+    });
+});
+
+
+// query @
+router.post('/manufacturer', ensureAuthenticated, function(req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, db) {
+        if (err) {
+            console.log('Unable to connect to the mongoDB server. Error:', err)
+        } else {
+            var collection = db.collection('data');
+            collection.aggregate([{ $group: { _id: "$Manufacturer", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
+                var Manufacturers = { 'manufacturer': [], 'count': [] };
+                for (i = 0; i < results.length; i++) {
+                    Manufacturers.manufacturer.push(results[i]._id);
+                    Manufacturers.count.push(results[i].count);
+                }
+                res.write(JSON.stringify(Manufacturers));
                 res.end();
             });
         }
