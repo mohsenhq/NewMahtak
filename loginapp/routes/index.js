@@ -130,6 +130,29 @@ router.post('/dailyDuration', ensureAuthenticated, function(req, res) {
     });
 });
 
+
+// query @
+router.post('/operator', ensureAuthenticated, function(req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, db) {
+        if (err) {
+            console.log('Unable to connect to the mongoDB server. Error:', err)
+        } else {
+            var collection = db.collection('data');
+            collection.aggregate([{ $group: { _id: "$Network Operator name", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
+                var duration = { 'operator': [], 'count': [] };
+                for (i = 0; i < results.length; i++) {
+                    duration.operator.push(results[i]._id);
+                    duration.count.push(results[i].count);
+                }
+                res.write(JSON.stringify(duration));
+                res.end();
+            });
+        }
+    });
+});
+
+
+
 router.post('/deviceType', ensureAuthenticated, function(req, res) {
     MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, db) {
         if (err) {
