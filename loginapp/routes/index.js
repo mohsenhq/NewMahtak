@@ -196,6 +196,28 @@ router.post('/deviceType', ensureAuthenticated, function(req, res) {
     });
 });
 
+// query @
+router.post('/appVersion', ensureAuthenticated, function(req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, db) {
+        if (err) {
+            console.log('Unable to connect to the mongoDB server. Error:', err)
+        } else {
+            var collection = db.collection('data');
+            collection.aggregate([{ $group: { _id: "$versuinName", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
+                var Versions = { 'versuinName': [], 'count': [] };
+                for (i = 0; i < results.length; i++) {
+                    Versions.versuinName.push(results[i]._id);
+                    Versions.count.push(results[i].count);
+                }
+                res.write(JSON.stringify(Versions));
+                res.end();
+            });
+        }
+    });
+});
+
+
+
 function authenticateUser(user, password) {
     var token = user + ":" + password;
     // Base64 Encoding -> btoa

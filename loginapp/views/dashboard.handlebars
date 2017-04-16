@@ -39,6 +39,12 @@
     </canvas>
   </div>
 
+   <div id='d8' style="position: relative;width:400px;height:400px;">
+    <canvas id='myChart8' width='600' height='600'>
+      Your browser does not support HTML5 Canvas.
+    </canvas>
+  </div>
+
   <div id='d2' style="position: relative;width:400px;height:400px;">
     <canvas id='myChart2' width='600' height='600'>
       Your browser does not support HTML5 Canvas.
@@ -365,5 +371,45 @@
     }
   });
 
+
+$.ajax({
+    url: '/appVersion',
+    type: 'POST',
+    data: '',
+    contentType: 'application/json; charset-utf-8',
+    dataType: 'json',
+    success: function (data8) {
+      console.log(data8);
+      var ctx8 = document.getElementById("myChart8").getContext("2d");
+      var myPieChart8 = new Chart(ctx8, {
+        type: 'pie',
+        data: {
+          labels: data8.versuinName,
+          datasets: [{
+            data: data8.count,
+            backgroundColor: [
+              "#36A2EB",
+              "#FF6384",
+              "#FFCE56"
+            ],
+            hoverBackgroundColor: [
+              "#36A2EB",
+              "#FF6384",
+              "#FFCE56"
+            ]
+          }]
+        },
+        options: {
+          paddingLeft: 100,
+          paddingRight: 100,
+          paddingTop: 100,
+          paddingBottom: 100,
+        }
+      });
+    },
+    error: function (xhr, status, error) {
+      console.log(error);
+    }
+  });
 
 </script>
