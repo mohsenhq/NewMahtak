@@ -39,7 +39,7 @@
     </canvas>
   </div>
 
-   <div id='d8' style="position: relative;width:400px;height:400px;">
+  <div id='d8' style="position: relative;width:400px;height:400px;">
     <canvas id='myChart8' width='600' height='600'>
       Your browser does not support HTML5 Canvas.
     </canvas>
@@ -252,7 +252,7 @@
   });
 
 
- // daily duration Scatter
+  // daily duration Scatter
   $.ajax({
     url: '/dailyDuration',
     type: 'POST',
@@ -308,12 +308,18 @@
             backgroundColor: [
               "#36A2EB",
               "#FF6384",
-              "#FFCE56"
+              "#66ff66",
+              "#FFCE56",
+              "#ff33cc",
+              "#669999"
             ],
             hoverBackgroundColor: [
               "#36A2EB",
               "#FF6384",
-              "#FFCE56"
+              "#66ff66",
+              "#FFCE56",
+              "#ff33cc",
+              "#669999"
             ]
           }]
         },
@@ -330,7 +336,7 @@
     }
   });
 
-  
+
   $.ajax({
     url: '/manufacturer',
     type: 'POST',
@@ -349,12 +355,18 @@
             backgroundColor: [
               "#36A2EB",
               "#FF6384",
-              "#FFCE56"
+              "#66ff66",
+              "#FFCE56",
+              "#ff33cc",
+              "#669999"
             ],
             hoverBackgroundColor: [
               "#36A2EB",
               "#FF6384",
-              "#FFCE56"
+              "#66ff66",
+              "#FFCE56",
+              "#ff33cc",
+              "#669999"
             ]
           }]
         },
@@ -372,7 +384,7 @@
   });
 
 
-$.ajax({
+  $.ajax({
     url: '/appVersion',
     type: 'POST',
     data: '',
