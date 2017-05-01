@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -20,84 +21,188 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-  </head>
+</head>
 
-  <body class="login">
+<body class="login">
     <div>
-      <a class="hiddenanchor" id="signup"></a>
-      <a class="hiddenanchor" id="signin"></a>
+        <div class="alert">
+            <% if (error.length > 0){ %>
 
-      <div class="login_wrapper">
-        <div class="animate form login_form">
-          <section class="login_content">
-            <form>
-              <h1>Login Form</h1>
-              <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
-              </div>
-              <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
-              </div>
-              <div>
-                <a class="btn btn-default submit" href="index.html">Log in</a>
-                <a class="reset_pass" href="#">Lost your password?</a>
-              </div>
-
-              <div class="clearfix"></div>
-
-              <div class="separator">
-                <p class="change_link">New to site?
-                  <a href="#signup" class="to_register"> Create Account </a>
-                </p>
-
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                <div class="alert alert-danger">
+                    <%= error %>
                 </div>
-              </div>
-            </form>
-          </section>
+
+                <% } %>
+
+                    <% if (success_msg.length > 0){ %>
+
+                        <div class="alert alert-success">
+                            <%= success_msg %>
+                        </div>
+
+                        <% } %>
+                            <% if (error_msg.length > 0){ %>
+
+                                <div class="alert alert-danger">
+                                    <%= error_msg %>
+                                </div>
+
+                                <% } %>
         </div>
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
 
-        <div id="register" class="animate form registration_form">
-          <section class="login_content">
-            <form>
-              <h1>Create Account</h1>
-              <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
-              </div>
-              <div>
-                <input type="email" class="form-control" placeholder="Email" required="" />
-              </div>
-              <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
-              </div>
-              <div>
-                <a class="btn btn-default submit" href="index.html">Submit</a>
-              </div>
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    <form method="post" action="/users/login">
+                        <h1>Login Form</h1>
+                        <div>
+                            <input type="text" class="form-control" name="username" placeholder="Username" required="" />
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" name="password" placeholder="Password" required="" />
+                        </div>
+                        <div>
+                            <button class="btn btn-default submit">Log in</button>
+                            <a class="reset_pass" href="#">Lost your password?</a>
+                        </div>
 
-              <div class="clearfix"></div>
+                        <div class="clearfix"></div>
 
-              <div class="separator">
-                <p class="change_link">Already a member ?
-                  <a href="#signin" class="to_register"> Log in </a>
-                </p>
+                        <div class="separator">
+                            <p class="change_link">New to site?
+                                <a href="#signup" class="to_register"> Create Account </a>
+                            </p>
 
-                <div class="clearfix"></div>
-                <br />
+                            <div class="clearfix"></div>
+                            <br />
 
-                <div>
-                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-                </div>
-              </div>
-            </form>
-          </section>
+                            <div>
+                                <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                                <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+
+            <div id="register" class="animate form registration_form">
+                <section class="login_content">
+                    <form method="post" action="/users/register" id="register-form">
+                        <h1>Create Account</h1>
+                        <div>
+                            <input type="text" class="form-control" placeholder="Name" name="name" id="name" />
+                        </div>
+                        <div>
+                            <input type="text" class="form-control" placeholder="Username" name="username" id="userName" />
+                        </div>
+                        <div>
+                            <input type="email" class="form-control" placeholder="Email" name="email" id="email" />
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" placeholder="Password" name="password" id="password" />
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" placeholder="Confirm Password" name="password2" id="password2" />
+                        </div>
+                        <div>
+                            <button class="btn btn-default submit">Submit</button>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="separator">
+                            <p class="change_link">Already a member ?
+                                <a href="#signin" class="to_register"> Log in </a>
+                            </p>
+
+                            <div class="clearfix"></div>
+                            <br />
+
+                            <div>
+                                <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                                <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
         </div>
-      </div>
     </div>
-  </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/additional-methods.min.js"></script>
+    <script language='javascript' type='text/javascript'>
+        $(function() {
+
+            $.validator.setDefaults({
+                errorClass: 'help-block',
+                highlight: function(element) {
+                    $(element)
+                        .closest('.form-group')
+                        .addClass('has-error');
+                },
+                unhighlight: function(element) {
+                    $(element)
+                        .closest('.form-group')
+                        .removeClass('has-error')
+                        .addClass('has-success');
+                },
+                errorPlacement: function(error, element) {
+                    error.insertAfter(element);
+                }
+            });
+
+            $.validator.addMethod('strongPassword', function(value, element) {
+                return this.optional(element) ||
+                    value.length >= 8 &&
+                    /\d/.test(value) &&
+                    /[a-z]/i.test(value);
+            }, 'password must be at leasst 8 characters long and contain at lest one number and one char.');
+
+            $("#register-form").validate({
+                rules: {
+                    name: {
+                        required: true,
+                        lettersonly: true
+                    },
+                    username: {
+                        required: true,
+                        alphanumeric: true,
+                        remote: {
+                            url: 'checkUsername',
+                            type: 'POST'
+                        }
+                    },
+                    email: {
+                        required: true,
+                        email: true,
+                        remote: {
+                            url: 'checkEmail',
+                            type: 'POST'
+                        }
+                    },
+                    password: {
+                        required: true,
+                        strongPassword: true
+                    },
+                    password2: {
+                        required: true,
+                        equalTo: '#password'
+                    },
+                },
+                messages: {
+                    username: {
+                        remote: 'Username already exists'
+                    },
+                    email: {
+                        remote: 'Email already exists.'
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
 </html>

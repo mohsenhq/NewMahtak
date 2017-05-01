@@ -11,7 +11,7 @@ var MongoClient = mongodb.MongoClient;
 router.get('/', ensureAuthenticated, function(req, res) {
     Application.viewTable(res.locals.user.username, function(err, application) {
         if (err) throw err;
-        res.render('applications', { apps: application });
+        res.render('index', { apps: application });
     });
 });
 router.get('/addApp', ensureAuthenticated, function(req, res) {
