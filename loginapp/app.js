@@ -21,9 +21,12 @@ var users = require('./routes/users');
 var app = express();
 
 // View Engine
-app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({ defaultLayout: 'layout' }));
-app.set('view engine', 'handlebars');
+// app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'production'));
+// app.engine('handlebars', exphbs({ defaultLayout: 'layout' }));
+// app.set('view engine', 'handlebars');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 // BodyParser Middleware
 app.use(bodyParser.json());
@@ -78,7 +81,6 @@ app.use(function(req, res, next) {
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/verify1', routes);
 // Set Port
 app.set('port', (process.env.PORT || 3000));
 
