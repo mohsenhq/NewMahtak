@@ -18,8 +18,13 @@ router.get('/', ensureAuthenticated, function(req, res) {
 });
 
 router.get('/projects', ensureAuthenticated, function(req, res) {
-    res.render('projects', { apps: appz });
+    res.redirect('projects', { apps: appz });
 });
+
+router.get('/chartjs', ensureAuthenticated, function(req, res) {
+    res.render('chartjs');
+});
+
 router.get('/addApp', ensureAuthenticated, function(req, res) {
     res.render('index');
 });

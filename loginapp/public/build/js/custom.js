@@ -2206,38 +2206,93 @@ function init_charts() {
 
     // Line chart
 
+    // if ($('#lineChart').length) {
+
+    //     var ctx = document.getElementById("lineChart");
+    //     var lineChart = new Chart(ctx, {
+    //         type: 'line',
+    //         data: {
+    //             labels: ["January", "February", "March", "April", "May", "June", "July"],
+    //             datasets: [{
+    //                 label: "My First dataset",
+    //                 backgroundColor: "rgba(38, 185, 154, 0.31)",
+    //                 borderColor: "rgba(38, 185, 154, 0.7)",
+    //                 pointBorderColor: "rgba(38, 185, 154, 0.7)",
+    //                 pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+    //                 pointHoverBackgroundColor: "#fff",
+    //                 pointHoverBorderColor: "rgba(220,220,220,1)",
+    //                 pointBorderWidth: 1,
+    //                 data: [31, 74, 6, 39, 20, 85, 7]
+    //             }, {
+    //                 label: "My Second dataset",
+    //                 backgroundColor: "rgba(3, 88, 106, 0.3)",
+    //                 borderColor: "rgba(3, 88, 106, 0.70)",
+    //                 pointBorderColor: "rgba(3, 88, 106, 0.70)",
+    //                 pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+    //                 pointHoverBackgroundColor: "#fff",
+    //                 pointHoverBorderColor: "rgba(151,187,205,1)",
+    //                 pointBorderWidth: 1,
+    //                 data: [82, 23, 66, 9, 99, 4, 2]
+    //             }]
+    //         },
+    //     });
+    // }
     if ($('#lineChart').length) {
 
-        var ctx = document.getElementById("lineChart");
-        var lineChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
-                datasets: [{
-                    label: "My First dataset",
-                    backgroundColor: "rgba(38, 185, 154, 0.31)",
-                    borderColor: "rgba(38, 185, 154, 0.7)",
-                    pointBorderColor: "rgba(38, 185, 154, 0.7)",
-                    pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
-                    pointHoverBackgroundColor: "#fff",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointBorderWidth: 1,
-                    data: [31, 74, 6, 39, 20, 85, 7]
-                }, {
-                    label: "My Second dataset",
-                    backgroundColor: "rgba(3, 88, 106, 0.3)",
-                    borderColor: "rgba(3, 88, 106, 0.70)",
-                    pointBorderColor: "rgba(3, 88, 106, 0.70)",
-                    pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
-                    pointHoverBackgroundColor: "#fff",
-                    pointHoverBorderColor: "rgba(151,187,205,1)",
-                    pointBorderWidth: 1,
-                    data: [82, 23, 66, 9, 99, 4, 2]
-                }]
+        $.ajax({
+            url: '/dailyUsers',
+            type: 'POST',
+            data: '',
+            contentType: 'application/json; charset-utf-8',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                var ctx = document.getElementById("lineChart");
+                var lineChart = new Chart(ctx, {
+                    type: 'line',
+
+                    // var ctx1 = document.getElementById("myChart1").getContext("2d");
+                    // var myChart1 = new Chart(ctx1, {
+                    //     type: 'line',
+                    data: {
+                        labels: data.dates,
+                        datasets: [{
+                            label: 'Daily Users',
+                            data: data.usersNumber,
+                            backgroundColor: "rgba(38, 185, 154, 0.31)",
+                            borderColor: "rgba(38, 185, 154, 0.7)",
+                            pointBorderColor: "rgba(38, 185, 154, 0.7)",
+                            pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+                            pointHoverBackgroundColor: "#fff",
+                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                            pointBorderWidth: 1,
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+                // if (data.dates.length < 31) {
+                //     chart.setLabels(data.dates);
+                //     chart.addSeries('totalUsers', 'Total Users', data.usersNumber, { seriesDisplayType: 'area' });
+                // } else {
+                //     chart.setLabels(data.dates.slice(0, 30));
+                //     chart.addSeries('totalUsers', 'Total Users', data.usersNumber.slice(0, 30), { seriesDisplayType: 'area' });
+                // }
             },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
         });
 
     }
+
 
     // Bar chart
 
