@@ -8,11 +8,17 @@ var Application = require('../models/application');
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 
+var appz;
 router.get('/', ensureAuthenticated, function(req, res) {
     Application.viewTable(res.locals.user.username, function(err, application) {
         if (err) throw err;
+        appz = application;
         res.render('index', { apps: application });
     });
+});
+
+router.get('/projects', ensureAuthenticated, function(req, res) {
+    res.render('projects', { apps: appz });
 });
 router.get('/addApp', ensureAuthenticated, function(req, res) {
     res.render('index');
@@ -20,7 +26,7 @@ router.get('/addApp', ensureAuthenticated, function(req, res) {
 
 router.get('/Build/*', ensureAuthenticated, function(req, res) {
     CallWebAPI(req.params[0]);
-    res.redirect('/');
+    res.redirect('/projects');
 });
 
 // opens dashboard html page 
@@ -37,10 +43,12 @@ router.post('/installDate', ensureAuthenticated, function(req, res) {
         } else {
             var collection = db.collection('installDate');
             collection.find({}, { _id: 0 }).sort({ _id: +1 }).toArray(function(err, results) {
-                var installDateArray = { 'dates': [], 'newInstalls': [] };
+                // var installDateArray = { 'dates': [], 'newInstalls': [] };
+                var installDateArray = [];
                 for (i = 0; i < results.length; i++) {
-                    installDateArray.dates.push(results[i].date);
-                    installDateArray.newInstalls.push(results[i].newInstalls);
+                    installDateArray.push([results[i].date, results[i].newInstalls]);
+                    // installDateArray.dates.push(results[i].date);
+                    // installDateArray.newInstalls.push(results[i].newInstalls);
                 }
                 res.write(JSON.stringify(installDateArray));
                 res.end();
