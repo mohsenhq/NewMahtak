@@ -11,7 +11,7 @@ cron.scheduleJob('0 0 0 * * *', function() {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             // present date
-            currentDate = new Date().toDateString().substring(4, 10)
+            currentDate = new Date().toDateString()//.substring(4, 10)
 
             // every day addes a 0 data to usageDate collection to avoid missing date
             db.collection('usageDate').insert({ 'date': currentDate, 'sequence': 0 }, function(err, result) {
@@ -49,7 +49,8 @@ const requestHandler = (request, response) => {
         bodyJson = JSON.parse(body)
             // date of current request
         reqDate = new Date(bodyJson.date)
-        dateData = reqDate.toDateString().substring(4, 10)
+        dateData = reqDate.toDateString()//.substring(4, 10)
+        console.log(dateData)
             // install date of app
         reqInstallDate = new Date(bodyJson['install date'])
         installDate = reqInstallDate.toDateString().substring(4, 10)
@@ -66,7 +67,9 @@ const requestHandler = (request, response) => {
                 var dataCollection = db.collection('data')
                 dataCollection.insert(bodyJson, function(err, result) {
                     if (err) {
-                        console.log(err)
+                        
+                        console.log("hello .. "+err)
+
                     }
                 })
 

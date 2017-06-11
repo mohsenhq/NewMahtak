@@ -13,16 +13,16 @@ router.get('/', ensureAuthenticated, function(req, res) {
     Application.viewTable(res.locals.user.username, function(err, application) {
         if (err) throw err;
         appz = application;
-        res.render('index', { apps: application });
+        res.render('projects', { apps: application });
     });
 });
 
 router.get('/projects', ensureAuthenticated, function(req, res) {
-    res.redirect('projects', { apps: appz });
+    res.render('index', { apps: appz });
 });
 
 router.get('/chartjs', ensureAuthenticated, function(req, res) {
-    res.render('chartjs');
+    res.render('chartjs', { apps: appz });
 });
 
 router.get('/addApp', ensureAuthenticated, function(req, res) {
