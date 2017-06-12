@@ -9,6 +9,7 @@ var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 
 var appz;
+var currentApp;
 router.get('/', ensureAuthenticated, function(req, res) {
     Application.viewTable(res.locals.user.username, function(err, application) {
         if (err) throw err;
@@ -22,6 +23,7 @@ router.get('/projects', ensureAuthenticated, function(req, res) {
 });
 
 router.get('/chartjs', ensureAuthenticated, function(req, res) {
+    currentApp = req.query.app;
     res.render('chartjs', { apps: appz });
 });
 
@@ -47,7 +49,7 @@ router.post('/installDate', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('installDate');
-            collection.find({}, { _id: 0 }).sort({ _id: +1 }).toArray(function(err, results) {
+            collection.find({ "APP": currentApp }, { _id: 0 }).sort({ _id: +1 }).toArray(function(err, results) {
                 // var installDateArray = { 'dates': [], 'newInstalls': [] };
                 var installDateArray = [];
                 for (i = 0; i < results.length; i++) {
@@ -70,7 +72,8 @@ router.post('/dailyUsers', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('dailyUsers');
-            collection.find({}, { _id: 0 }).toArray(function(err, results) {
+            collection.find({ "APP": currentApp }, { _id: 0 }).toArray(function(err, results) {
+                console.log(currentApp);
                 var dailyUsersArray = { 'dates': [], 'usersNumber': [] };
                 for (i = 0; i < results.length; i++) {
                     dailyUsersArray.dates.push(results[i].date);
@@ -90,7 +93,7 @@ router.post('/usageDate', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('usageDate');
-            collection.find({}, { _id: 0 }).sort({ _id: +1 }).toArray(function(err, results) {
+            collection.find({ "APP": currentApp }, { _id: 0 }).sort({ _id: +1 }).toArray(function(err, results) {
                 var usageDateArray = { 'dates': [], 'sequences': [] };
                 for (i = 0; i < results.length; i++) {
                     usageDateArray.dates.push(results[i].date);
@@ -110,7 +113,7 @@ router.post('/duration', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('duration');
-            collection.aggregate([{ $group: { _id: "$duration", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
+            collection.aggregate([{ $match: { "APP": currentApp } }, { $group: { _id: "$duration", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
                 var duration = { 'time': [], 'count': [] };
                 for (i = 0; i < results.length; i++) {
                     duration.time.push(results[i]._id);
@@ -130,7 +133,7 @@ router.post('/dailyDuration', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('duration');
-            collection.aggregate([{ $group: { _id: "$date", duration: { $sum: "$duration" } } }]).sort({ _id: +1 }).toArray(function(err, results) {
+            collection.aggregate([{ $match: { "APP": currentApp } }, { $group: { _id: "$date", duration: { $sum: "$duration" } } }]).sort({ _id: +1 }).toArray(function(err, results) {
                 var duration = { 'date': [], 'duration': [] };
                 for (i = 0; i < results.length; i++) {
                     duration.date.push(results[i]._id);
@@ -151,7 +154,7 @@ router.post('/operator', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('data');
-            collection.aggregate([{ $group: { _id: "$Network Operator name", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
+            collection.aggregate([{ $match: { "APP": currentApp } },{ $group: { _id: "$Network Operator name", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
                 var operators = { 'operator': [], 'count': [] };
                 for (i = 0; i < results.length; i++) {
                     operators.operator.push(results[i]._id);
@@ -172,7 +175,7 @@ router.post('/manufacturer', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('data');
-            collection.aggregate([{ $group: { _id: "$Manufacturer", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
+            collection.aggregate([{ $match: { "APP": currentApp } },{ $group: { _id: "$Manufacturer", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
                 var Manufacturers = { 'manufacturer': [], 'count': [] };
                 for (i = 0; i < results.length; i++) {
                     Manufacturers.manufacturer.push(results[i]._id);
@@ -216,7 +219,7 @@ router.post('/appVersion', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('data');
-            collection.aggregate([{ $group: { _id: "$versuinName", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
+            collection.aggregate([{ $match: { "APP": currentApp } },{ $group: { _id: "$versuinName", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
                 var Versions = { 'versuinName': [], 'count': [] };
                 for (i = 0; i < results.length; i++) {
                     Versions.versuinName.push(results[i]._id);

@@ -8,7 +8,7 @@ var ApplicationSchema = mongoose.Schema({
 	appName: {
 		type: String
 	},
-	companyDomain: {
+	PACKAGE_NAME: {
 		type: String
 	},
 	appVersion: {
