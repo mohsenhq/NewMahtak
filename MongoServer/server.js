@@ -78,7 +78,7 @@ const requestHandler = (request, response) => {
                  * inserts uniqe UUIDs based on install date to db
                  */
                 var dataCollection = db.collection('dailyUsers')
-                dataCollection.update({ 'date': installDate, 'APP': bodyJson['packageName'] }, { $addToSet: { 'UUID': bodyJson['UUID'] } }, { 'upsert': true }, function(err, result) {
+                dataCollection.update({ 'date': installDate, 'APP': bodyJson['PACKAGE_NAME'] }, { $addToSet: { 'UUID': bodyJson['UUID'] } }, { 'upsert': true }, function(err, result) {
                     if (err) {
                         console.log(err)
                     }
@@ -105,7 +105,7 @@ const requestHandler = (request, response) => {
 
                 queryCollection(db.collection('data'), function() {
                     if (bodyJson.hasOwnProperty('install date') && rest[0].length == 1) {
-                        installDateCollection.update({ 'date': installDate, 'APP': bodyJson['packageName'] }, { '$inc': { 'newInstalls': 1 } }, { 'upsert': true }, function(err, result) {
+                        installDateCollection.update({ 'date': installDate, 'APP': bodyJson['PACKAGE_NAME'] }, { '$inc': { 'newInstalls': 1 } }, { 'upsert': true }, function(err, result) {
                             if (err) {
                                 console.log(err)
                             }
@@ -116,7 +116,7 @@ const requestHandler = (request, response) => {
                 // usage date 
                 var usageDateCollection = db.collection('usageDate')
                 if (bodyJson.hasOwnProperty('date')) {
-                    usageDateCollection.update({ 'date': dateData, 'APP': bodyJson['packageName'] }, { '$inc': { 'sequence': 1 } }, { 'upsert': true }, function(err, result) {
+                    usageDateCollection.update({ 'date': dateData, 'APP': bodyJson['PACKAGE_NAME'] }, { '$inc': { 'sequence': 1 } }, { 'upsert': true }, function(err, result) {
                         if (err) {
                             console.log(err)
                         }
@@ -129,7 +129,7 @@ const requestHandler = (request, response) => {
                     endDate= new Date(bodyJson['endDate'])
                     startDate= new Date(bodyJson['date'])
                     date = (startDate).toDateString().substring(4, 10)
-                    durationCollection.insert({ 'date': date, 'APP': bodyJson['packageName'],'duration': (endDate - startDate)/1000}, function(err, result) {
+                    durationCollection.insert({ 'date': date, 'APP': bodyJson['PACKAGE_NAME'],'duration': (endDate - startDate)/1000}, function(err, result) {
                         if (err) {
                             console.log(err)
                         }
