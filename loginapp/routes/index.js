@@ -23,7 +23,9 @@ router.get('/projects', ensureAuthenticated, function(req, res) {
 });
 
 router.get('/chartjs', ensureAuthenticated, function(req, res) {
-    currentApp = req.query.app;
+    if (req.query.app != null) {
+        currentApp = req.query.app;
+    }
     res.render('chartjs', { apps: appz });
 });
 
@@ -73,7 +75,6 @@ router.post('/dailyUsers', ensureAuthenticated, function(req, res) {
         } else {
             var collection = db.collection('dailyUsers');
             collection.find({ "APP": currentApp }, { _id: 0 }).toArray(function(err, results) {
-                console.log(currentApp);
                 var dailyUsersArray = { 'dates': [], 'usersNumber': [] };
                 for (i = 0; i < results.length; i++) {
                     dailyUsersArray.dates.push(results[i].date);
@@ -154,7 +155,7 @@ router.post('/operator', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('data');
-            collection.aggregate([{ $match: { "APP": currentApp } },{ $group: { _id: "$Network Operator name", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
+            collection.aggregate([{ $match: { "APP": currentApp } }, { $group: { _id: "$Network Operator name", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
                 var operators = { 'operator': [], 'count': [] };
                 for (i = 0; i < results.length; i++) {
                     operators.operator.push(results[i]._id);
@@ -175,7 +176,7 @@ router.post('/manufacturer', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('data');
-            collection.aggregate([{ $match: { "APP": currentApp } },{ $group: { _id: "$Manufacturer", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
+            collection.aggregate([{ $match: { "APP": currentApp } }, { $group: { _id: "$Manufacturer", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
                 var Manufacturers = { 'manufacturer': [], 'count': [] };
                 for (i = 0; i < results.length; i++) {
                     Manufacturers.manufacturer.push(results[i]._id);
@@ -219,7 +220,7 @@ router.post('/appVersion', ensureAuthenticated, function(req, res) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
             var collection = db.collection('data');
-            collection.aggregate([{ $match: { "APP": currentApp } },{ $group: { _id: "$versuinName", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
+            collection.aggregate([{ $match: { "APP": currentApp } }, { $group: { _id: "$versuinName", count: { $sum: 1 } } }]).sort({ _id: +1 }).toArray(function(err, results) {
                 var Versions = { 'versuinName': [], 'count': [] };
                 for (i = 0; i < results.length; i++) {
                     Versions.versuinName.push(results[i]._id);
