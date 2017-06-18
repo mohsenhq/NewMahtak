@@ -26,6 +26,13 @@ router.get('/chartjs', ensureAuthenticated, function(req, res) {
     if (req.query.app != null) {
         currentApp = req.query.app;
     }
+    res.render('echarts', { apps: appz });
+});
+
+router.get('/chartjs2', ensureAuthenticated, function(req, res) {
+    if (req.query.app != null) {
+        currentApp = req.query.app;
+    }
     res.render('chartjs', { apps: appz });
 });
 

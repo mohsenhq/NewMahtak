@@ -3739,6 +3739,69 @@ function init_echarts() {
 
     }
 
+    if ($('#mainb2').length) {
+        $.ajax({
+            url: '/dailyUsers',
+            type: 'POST',
+            data: '',
+            contentType: 'application/json; charset-utf-8',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+
+                var echartBar = echarts.init(document.getElementById('mainb2'), theme);
+
+                echartBar.setOption({
+                    title: {
+                        text: 'Dailu Users',
+                        subtext: 'Number of users per day using the app'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: "daily users"
+                    },
+                    toolbox: {
+                        show: false
+                    },
+                    calculable: false,
+                    xAxis: [{
+                        type: 'category',
+                        data: data.dates,
+                    }],
+                    yAxis: [{
+                        type: 'value'
+                    }],
+                    series: [{
+                        name: 'Users',
+                        type: 'line',
+                        smooth: true,
+                        data: data.usersNumber,
+                        markPoint: {
+                            data: [{
+                                type: 'max',
+                                name: 'max'
+                            }, {
+                                type: 'min',
+                                name: 'min'
+                            }]
+                        },
+                        markLine: {
+                            data: [{
+                                type: 'average',
+                                name: 'average'
+                            }]
+                        }
+                    }]
+                });
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
 
 
 
