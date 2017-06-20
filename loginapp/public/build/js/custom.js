@@ -563,11 +563,10 @@ function init_flot_chart() {
             console.log(arr_data2);
 
             data2 = data;
-
             if ($("#chart_plot_01").length) {
                 console.log('Plot1');
 
-                $.plot($("#chart_plot_01"), [data], chart_plot_01_settings);
+                $.plot($("#chart_plot_01"), [data2], chart_plot_01_settings);
             }
             // var ctx3 = document.getElementById("myChart3").getContext("2d");
             // var myChart3 = new Chart(ctx3, {
@@ -2622,80 +2621,80 @@ function init_charts() {
 
     // daily usage of the app
 
-    if ($('#mybarChart')) {
-        $.ajax({
-            url: '/usageDate',
-            type: 'POST',
-            data: '',
-            contentType: 'application/json; charset-utf-8',
-            dataType: 'json',
-            success: function(data) {
-                console.log(data);
-                data2 = data;
+    // if ($('#mybarChart')) {
+    //     $.ajax({
+    //         url: '/usageDate',
+    //         type: 'POST',
+    //         data: '',
+    //         contentType: 'application/json; charset-utf-8',
+    //         dataType: 'json',
+    //         success: function(data) {
+    //             console.log(data);
+    //             data2 = data;
 
-                var ctx = document.getElementById("mybarChart");
-                var data = {
-                    labels: data.dates,
-                    datasets: [{
-                        label: "Daily Usage",
-                        data: data.sequences,
-                        backgroundColor: "rgba(153,255,51,0.4)"
-                    }]
-                };
-                var myChart3 = new Chart(ctx, {
-                    type: 'line',
-                    data: data,
-                    type: 'bar',
-                    options: {
+    //             var ctx = document.getElementById("mybarChart");
+    //             var data = {
+    //                 labels: data.dates,
+    //                 datasets: [{
+    //                     label: "Daily Usage",
+    //                     data: data.sequences,
+    //                     backgroundColor: "rgba(153,255,51,0.4)"
+    //                 }]
+    //             };
+    //             var myChart3 = new Chart(ctx, {
+    //                 type: 'line',
+    //                 data: data,
+    //                 type: 'bar',
+    //                 options: {
 
-                    }
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
-    }
+    //                 }
+    //             });
+    //         },
+    //         error: function(xhr, status, error) {
+    //             console.log(error);
+    //         }
+    //     });
+    // }
 
 
     // duration of app 
-    if ($('#polarArea')) {
-        $.ajax({
-            url: '/duration',
-            type: 'POST',
-            data: '',
-            contentType: 'application/json; charset-utf-8',
-            dataType: 'json',
-            success: function(data4) {
-                console.log(data4);
-                var ctx4 = document.getElementById("polarArea");
-                var myChart4 = new Chart(ctx4, {
-                    type: 'line',
-                    data: {
-                        labels: data4.time,
-                        datasets: [{
-                            label: 'Session time',
-                            data: data4.count,
-                            backgroundColor: "rgba(153,51,255,0.4)"
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }
-                });
+    // if ($('#polarArea')) {
+    //     $.ajax({
+    //         url: '/duration',
+    //         type: 'POST',
+    //         data: '',
+    //         contentType: 'application/json; charset-utf-8',
+    //         dataType: 'json',
+    //         success: function(data4) {
+    //             console.log(data4);
+    //             var ctx4 = document.getElementById("polarArea");
+    //             var myChart4 = new Chart(ctx4, {
+    //                 type: 'line',
+    //                 data: {
+    //                     labels: data4.time,
+    //                     datasets: [{
+    //                         label: 'Session time',
+    //                         data: data4.count,
+    //                         backgroundColor: "rgba(153,51,255,0.4)"
+    //                     }]
+    //                 },
+    //                 options: {
+    //                     scales: {
+    //                         yAxes: [{
+    //                             ticks: {
+    //                                 beginAtZero: true
+    //                             }
+    //                         }]
+    //                     }
+    //                 }
+    //             });
 
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
-    }
+    //         },
+    //         error: function(xhr, status, error) {
+    //             console.log(error);
+    //         }
+    //     });
+    // }
 
     // Doughnut chart
 
@@ -2807,12 +2806,6 @@ function init_charts() {
                     data: data,
                     type: 'pie',
                     otpions: {
-                        legend: {
-                            paddingLeft: 100,
-                            paddingRight: 100,
-                            paddingTop: 100,
-                            paddingBottom: 100
-                        },
                     }
                 });
             },
@@ -3739,6 +3732,7 @@ function init_echarts() {
 
     }
 
+    //daily Users line graph
     if ($('#mainb2').length) {
         $.ajax({
             url: '/dailyUsers',
@@ -3753,7 +3747,7 @@ function init_echarts() {
 
                 echartBar.setOption({
                     title: {
-                        text: 'Dailu Users',
+                        text: 'Daily Users',
                         subtext: 'Number of users per day using the app'
                     },
                     tooltip: {
@@ -3767,6 +3761,7 @@ function init_echarts() {
                     },
                     calculable: false,
                     xAxis: [{
+                        boundaryGap: false,
                         type: 'category',
                         data: data.dates,
                     }],
@@ -3802,8 +3797,133 @@ function init_echarts() {
         });
     }
 
+if ($('#mainb2').length) {
+        $.ajax({
+            url: '/dailyUsers',
+            type: 'POST',
+            data: '',
+            contentType: 'application/json; charset-utf-8',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
 
+                var echartBar = echarts.init(document.getElementById('mainb2'), theme);
 
+                echartBar.setOption({
+                    title: {
+                        text: 'Daily Users',
+                        subtext: 'Number of users per day using the app'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: "daily users"
+                    },
+                    toolbox: {
+                        show: false
+                    },
+                    calculable: false,
+                    xAxis: [{
+                        boundaryGap: false,
+                        type: 'category',
+                        data: data.dates,
+                    }],
+                    yAxis: [{
+                        type: 'value'
+                    }],
+                    series: [{
+                        name: 'Users',
+                        type: 'line',
+                        smooth: true,
+                        data: data.usersNumber,
+                        markPoint: {
+                            data: [{
+                                type: 'max',
+                                name: 'max'
+                            }, {
+                                type: 'min',
+                                name: 'min'
+                            }]
+                        },
+                        markLine: {
+                            data: [{
+                                type: 'average',
+                                name: 'average'
+                            }]
+                        }
+                    }]
+                });
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+    //daily usage graph
+    if ($('#mainb3').length) {
+        $.ajax({
+            url: '/usageDate',
+            type: 'POST',
+            data: '',
+            contentType: 'application/json; charset-utf-8',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+
+                var echartBar = echarts.init(document.getElementById('mainb3'), theme);
+
+                echartBar.setOption({
+                    title: {
+                        text: 'Daily Use',
+                        subtext: 'daily App usage'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: "daily usage"
+                    },
+                    toolbox: {
+                        show: false
+                    },
+                    calculable: false,
+                    xAxis: [{
+                        boundaryGap: false,
+                        type: 'category',
+                        data: data.dates,
+                    }],
+                    yAxis: [{
+                        type: 'value'
+                    }],
+                    series: [{
+                        name: 'usage',
+                        type: 'line',
+                        smooth: true,
+                        data: data.sequences,
+                        markPoint: {
+                            data: [{
+                                type: 'max',
+                                name: 'max'
+                            }, {
+                                type: 'min',
+                                name: 'min'
+                            }]
+                        },
+                        markLine: {
+                            data: [{
+                                type: 'average',
+                                name: 'average'
+                            }]
+                        }
+                    }]
+                });
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
 
     //echart Radar
 
@@ -5172,6 +5292,7 @@ function init_echarts() {
     //echart Map
 
     if ($('#echart_world_map').length) {
+            document.getElementById("totalInstalls").innerHTML="12345"
 
         var echartMap = echarts.init(document.getElementById('echart_world_map'), theme);
 
@@ -5778,6 +5899,65 @@ function init_echarts() {
             }]
         });
 
+
+        // if ($('#echart_pie3').length) {
+        //     $.ajax({
+        //         url: '/deviceType',
+        //         type: 'POST',
+        //         data: '',
+        //         contentType: 'application/json; charset-utf-8',
+        //         dataType: 'json',
+        //         success: function(data) {
+        //             console.log(data);
+
+        //             var echartBar = echarts.init(document.getElementById('echart_pie3'), theme);
+
+        //             echartBar.setOption({
+        //                 tooltip: {
+        //                     trigger: 'item',
+        //                     formatter: "{a} <br/>{b} : {c} ({d}%)"
+        //                 },
+        //                 legend: {
+        //                     x: 'center',
+        //                     y: 'bottom',
+        //                     data: ['rose1', 'rose7', 'rose3', 'rose4', 'rose5', 'rose6']
+        //                 },
+        //                 toolbox: {
+        //                     show: true,
+        //                     feature: {
+        //                         magicType: {
+        //                             show: true,
+        //                             type: ['pie', 'funnel']
+        //                         },
+        //                         restore: {
+        //                             show: true,
+        //                             title: "Restore"
+        //                         },
+        //                         saveAsImage: {
+        //                             show: true,
+        //                             title: "Save Image"
+        //                         }
+        //                     }
+        //                 },
+        //                 calculable: true,
+        //                 series: [{
+        //                     name: 'Area Mode',
+        //                     type: 'pie',
+        //                     radius: [25, 90],
+        //                     center: ['50%', 170],
+        //                     roseType: 'area',
+        //                     x: '50%',
+        //                     max: 40,
+        //                     sort: 'ascending',
+        //                     data: [{name:["a","n"]},{value:[1,2]}]
+        //                 }]
+        //             })
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.log(error);
+        //         }
+        //     });
+        // }
     }
 
 }
