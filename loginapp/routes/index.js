@@ -59,13 +59,16 @@ router.post('/installDate', ensureAuthenticated, function(req, res) {
         } else {
             var collection = db.collection('installDate');
             collection.find({ "APP": currentApp }, { _id: 0 }).sort({ _id: +1 }).toArray(function(err, results) {
-                // var installDateArray = { 'dates': [], 'newInstalls': [] };
-                var installDateArray = [];
+                var installDateArray = { 'dates': [], 'newInstalls': [] , 'totalInstalls':[]};
+                // var installDateArray = [];
+                var sumInstals = 0;
                 for (i = 0; i < results.length; i++) {
-                    installDateArray.push([results[i].date, results[i].newInstalls]);
-                    // installDateArray.dates.push(results[i].date);
-                    // installDateArray.newInstalls.push(results[i].newInstalls);
+                    // installDateArray.push([results[i].date, results[i].newInstalls]);
+                    installDateArray.dates.push(results[i].date);
+                    installDateArray.newInstalls.push(results[i].newInstalls);
+                    sumInstals += results[i].newInstalls;
                 }
+                installDateArray.totalInstalls.push(sumInstals);
                 res.write(JSON.stringify(installDateArray));
                 res.end();
 

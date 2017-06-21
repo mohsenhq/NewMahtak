@@ -2805,8 +2805,7 @@ function init_charts() {
                 var pieChart = new Chart(ctx, {
                     data: data,
                     type: 'pie',
-                    otpions: {
-                    }
+                    otpions: {}
                 });
             },
             error: function(xhr, status, error) {
@@ -3797,7 +3796,7 @@ function init_echarts() {
         });
     }
 
-if ($('#mainb2').length) {
+    if ($('#mainb2').length) {
         $.ajax({
             url: '/dailyUsers',
             type: 'POST',
@@ -3901,6 +3900,73 @@ if ($('#mainb2').length) {
                         type: 'line',
                         smooth: true,
                         data: data.sequences,
+                        markPoint: {
+                            data: [{
+                                type: 'max',
+                                name: 'max'
+                            }, {
+                                type: 'min',
+                                name: 'min'
+                            }]
+                        },
+                        markLine: {
+                            data: [{
+                                type: 'average',
+                                name: 'average'
+                            }]
+                        }
+                    }]
+                });
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    //daily usage graph
+    if ($('#mainb4').length) {
+        $.ajax({
+            url: '/installDate',
+            type: 'POST',
+            data: '',
+            contentType: 'application/json; charset-utf-8',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                console.log(data.totalInstalls[0]);
+                document.getElementById("totalInstalls").innerHTML = data.totalInstalls;
+
+                var echartBar = echarts.init(document.getElementById('mainb4'), theme);
+
+                echartBar.setOption({
+                    title: {
+                        text: 'Daily installs',
+                        subtext: 'daily App installation count'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: "daily installs"
+                    },
+                    toolbox: {
+                        show: false
+                    },
+                    calculable: false,
+                    xAxis: [{
+                        boundaryGap: true,
+                        type: 'category',
+                        data: data.dates,
+                    }],
+                    yAxis: [{
+                        type: 'value'
+                    }],
+                    series: [{
+                        name: 'install numbers',
+                        type: 'bar',
+                        smooth: true,
+                        data: data.newInstalls,
                         markPoint: {
                             data: [{
                                 type: 'max',
@@ -5292,7 +5358,6 @@ if ($('#mainb2').length) {
     //echart Map
 
     if ($('#echart_world_map').length) {
-            document.getElementById("totalInstalls").innerHTML="12345"
 
         var echartMap = echarts.init(document.getElementById('echart_world_map'), theme);
 
