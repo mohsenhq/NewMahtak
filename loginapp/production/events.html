@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <title>ECharts Chart Bootstrap Examples | Gentelella Alela! by Colorlib</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -16,11 +16,9 @@
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="../build/css/custom.css" rel="stylesheet">
 </head>
 
 <body class="nav-md">
@@ -283,11 +281,12 @@
             <!-- /top navigation -->
 
             <!-- page content -->
+
             <div class="right_col" role="main">
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>Projects <small>Listing design</small></h3>
+                            <h3>Echarts <small>Some examples to get you started</small></h3>
                         </div>
 
                         <div class="title_right">
@@ -305,10 +304,10 @@
                     <div class="clearfix"></div>
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <!--<div class="col-md-8 col-sm-8 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Projects</h2>
+                                    <h2>Bar Graph</h2>
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                         </li>
@@ -328,77 +327,69 @@
                                 </div>
                                 <div class="x_content">
 
-                                    <p>Simple table with project listing with progress and editing options</p>
+                                    <div id="mainb" style="height:350px;"></div>
 
-                                    <!-- start project list -->
-                                    <table class="table table-striped projects">
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 1%">#</th>
-                                                <th style="width: 20%">Application Name</th>
-                                                <th></th>
-                                                <!--
-                                                <th>Project Progress</th>
-                                                <th>Status</th>
-                                                -->
-                                                <th>#Edit</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <% for(var i=0; i<apps.length; i++) {%>
-                                                <tr>
-                                                    <td>#</td>
-                                                    <td>
-                                                        <a style="text-transform: capitalize;">
-                                                            <%= apps[i].appName %>
-                                                        </a>
-                                                        <br />
-                                                        <small><%= apps[i].appVersion %></small>
-                                                    </td>
-                                                    <td>
-                                                    </td>
-                                                    <!--
-                                                <td>
-                                                    <ul class="list-inline">
-                                                        <li>
-                                                            <img src="images/user.png" class="avatar" alt="Avatar">
-                                                        </li>
-                                                        <li>
-                                                            <img src="images/user.png" class="avatar" alt="Avatar">
-                                                        </li>
-                                                        <li>
-                                                            <img src="images/user.png" class="avatar" alt="Avatar">
-                                                        </li>
-                                                        <li>
-                                                            <img src="images/user.png" class="avatar" alt="Avatar">
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                                    <td class="project_progress">
-                                                        <div class="progress progress_sm">
-                                                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="57"></div>
-                                                        </div>
-                                                        <small>57% Complete</small>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-success btn-xs">Success</button>
-                                                    </td>
-                                                    -->
-                                                    <td>
-                                                        <a href="/chartjs?app=<%= apps[i].PACKAGE_NAME %>" class="btn btn-primary btn-xs"><i class="fa fa-area-chart"></i> View </a>
-                                                        <a href="#" class="btn btn-info btn-xs"><i class="fa fa-download"></i> Download </a>
-                                                        <a href="/Build/<%= apps[i].appName %>" class="btn btn-success btn-xs"><i class="fa fa-con"></i> Build </a>
-                                                        <a href="/" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                                                    </td>
-                                                </tr>
-                                                <% } %>
-
-                                        </tbody>
-                                    </table>
-                                    <!-- end project list -->
                                 </div>
                             </div>
+                        </div>-->
+
+
+
+                        <!--
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Line Graph</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Settings 1</a>
+                                                </li>
+                                                <li><a href="#">Settings 2</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+
+                                    <div id="mainb6" style="height:350px;"></div>
+
+                                </div>
+                            </div>
+                        </div>-->
+
+                        <div id="element">Testing</div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="x_panel" id="panel">
+                                <!--<select>
+                                    <option value="g1">g1</option>
+                                    <option value="g2">g2</option>
+                                    <option value="g3">g3</option>
+                                </select>
+                                <form id="form123">
+                                    <input type="checkbox" id="g1" value="g1"> <label for="g1">g1</label><br>
+                                    <input type="checkbox" id="g2" value="g2"> <label for="g2">g2</label><br>
+                                    <input type="checkbox" id="g3" value="g3"> <label for="g3">g3</label><br>
+                                    <button id="create" class="btn btn-default submit" style="float:right">Create</button>
+                                </form>-->
+                            </div>
                         </div>
+                        <div id="element2"></div>
+
+
+
+
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -423,11 +414,15 @@
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- ECharts -->
+    <script src="../vendors/echarts/dist/echarts.min.js"></script>
+    <script src="../vendors/echarts/map/js/world.js"></script>
+    <!-- Chart.js -->
+    <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
+    <script src="../build/js/custom.js"></script>
+
 </body>
 
 </html>
