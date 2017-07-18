@@ -556,7 +556,7 @@ function init_flot_chart() {
         url: '/installDate',
         type: 'POST',
         data: '',
-        contentType: 'application/json; charset-utf-8',
+        contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: function (data) {
             console.log(data);
@@ -2533,7 +2533,7 @@ function init_charts() {
             url: '/dailyUsers',
             type: 'POST',
             data: '',
-            contentType: 'application/json; charset-utf-8',
+            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
                 console.log(data);
@@ -2626,7 +2626,7 @@ function init_charts() {
     //         url: '/usageDate',
     //         type: 'POST',
     //         data: '',
-    //         contentType: 'application/json; charset-utf-8',
+    //         contentType: 'application/json; charset=utf-8',
     //         dataType: 'json',
     //         success: function(data) {
     //             console.log(data);
@@ -2663,7 +2663,7 @@ function init_charts() {
     //         url: '/duration',
     //         type: 'POST',
     //         data: '',
-    //         contentType: 'application/json; charset-utf-8',
+    //         contentType: 'application/json; charset=utf-8',
     //         dataType: 'json',
     //         success: function(data4) {
     //             console.log(data4);
@@ -2781,7 +2781,7 @@ function init_charts() {
             url: '/deviceType',
             type: 'POST',
             data: '',
-            contentType: 'application/json; charset-utf-8',
+            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
                 console.log(data);
@@ -3737,7 +3737,7 @@ function init_echarts() {
             url: '/dailyUsers',
             type: 'POST',
             data: '',
-            contentType: 'application/json; charset-utf-8',
+            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
                 console.log(data);
@@ -3802,7 +3802,7 @@ function init_echarts() {
             url: '/usageDate',
             type: 'POST',
             data: '',
-            contentType: 'application/json; charset-utf-8',
+            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
                 console.log(data);
@@ -3888,7 +3888,7 @@ function init_echarts() {
             url: '/installDate',
             type: 'POST',
             data: '',
-            contentType: 'application/json; charset-utf-8',
+            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
                 console.log(data);
@@ -3954,7 +3954,7 @@ function init_echarts() {
             url: '/duration',
             type: 'POST',
             data: '',
-            contentType: 'application/json; charset-utf-8',
+            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
                 console.log(data);
@@ -4046,7 +4046,7 @@ function init_echarts() {
         //     url: '/duration',
         //     type: 'POST',
         //     data: '',
-        //     contentType: 'application/json; charset-utf-8',
+        //     contentType: 'application/json; charset=utf-8',
         //     dataType: 'json',
         //     success: function(data) {
         //         console.log(data);
@@ -6145,7 +6145,7 @@ function init_echarts() {
         //         url: '/deviceType',
         //         type: 'POST',
         //         data: '',
-        //         contentType: 'application/json; charset-utf-8',
+        //         contentType: 'application/json; charset=utf-8',
         //         dataType: 'json',
         //         success: function(data) {
         //             console.log(data);
@@ -6202,64 +6202,249 @@ function init_echarts() {
 
     }
 
-}
 
-// var el2 = document.getElementById('element2');
-// var form = document.getElementById('form123');
-// document.getElementById('create').onclick = function(e) {
-//     var selchbox = []; // array that will store the value of selected checkboxes
-//     // gets all the input tags in frm, and their number
-//     var inpfields = form123.getElementsByTagName('input');
-//     // traverse the inpfields elements, and adds the value of selected (checked) checkbox in selchbox
-//     for (var i = 0; i < inpfields.length; i++) {
-//         if (inpfields[i].type == 'checkbox' && inpfields[i].checked == true) selchbox.push(inpfields[i].value);
-//     }
-//     console.log(selchbox);
-//     e.preventDefault();
-//     el2.innerHTML += '<div class="col-md-4 col-sm-4 col-xs-12"><div class="x_panel"><div class="x_title"><h2>Donut Graph</h2><ul class="nav navbar-right panel_toolbox"><li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a><ul class="dropdown-menu" role="menu"><li><a href="#">Settings 1</a></li><li><a href="#">Settings 2</a></li></ul></li><li><a class="close-link"><i class="fa fa-close"></i></a></li></ul><div class="clearfix"></div></div><div class="x_content"><div id="echart_donut" style="height:350px;"></div></div></div></div>';
-// }
-if ($('#panel').length) {
-    var array = ["Volvo", "Saab", "Mercades", "Audi"];
-    var panel = document.getElementById('panel');
+    // var el2 = document.getElementById('element2');
+    // var form = document.getElementById('form123');
+    // document.getElementById('create').onclick = function(e) {
+    //     var selchbox = []; // array that will store the value of selected checkboxes
+    //     // gets all the input tags in frm, and their number
+    //     var inpfields = form123.getElementsByTagName('input');
+    //     // traverse the inpfields elements, and adds the value of selected (checked) checkbox in selchbox
+    //     for (var i = 0; i < inpfields.length; i++) {
+    //         if (inpfields[i].type == 'checkbox' && inpfields[i].checked == true) selchbox.push(inpfields[i].value);
+    //     }
+    //     console.log(selchbox);
+    //     e.preventDefault();
+    //     el2.innerHTML += '<div class="col-md-4 col-sm-4 col-xs-12"><div class="x_panel"><div class="x_title"><h2>Donut Graph</h2><ul class="nav navbar-right panel_toolbox"><li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a><ul class="dropdown-menu" role="menu"><li><a href="#">Settings 1</a></li><li><a href="#">Settings 2</a></li></ul></li><li><a class="close-link"><i class="fa fa-close"></i></a></li></ul><div class="clearfix"></div></div><div class="x_content"><div id="echart_donut" style="height:350px;"></div></div></div></div>';
+    // }
+    if ($('#panel').length) {
 
-    // for( i=0 ; i<array.length ; i++){
-    array.forEach(function (entery) {
-        console.log(entery);
-        var div = document.createElement("div");
-        div.setAttribute("id", entery);
-        panel.appendChild(div);
-        var selectList = document.createElement("select");
-        // selectList.setAttribute("id", "mySelect");
-        div.appendChild(selectList);
-        for (i = 0; i < array.length; i++) {
-            var option = document.createElement("option");
-            option.setAttribute("value", array[i]);
-            option.text = array[i];
-            selectList.appendChild(option);
-        }
-        div.lastChild.selectedIndex = -1;
-        div.style.display = "none";
-    });
-    var submibBtn = document.createElement("button");
-    submibBtn.innerHTML = "create";
-    submibBtn.style.float = "right";
-    panel.appendChild(submibBtn);
+        $.ajax({
+            url: '/customEvent',
+            type: 'POST',
+            data: '',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
 
-    document.getElementById(array[0]).style.display = "block";
-    for (i = 0; i < panel.childElementCount - 1; i++) {
-        panel.children[i].onchange = function () {
-            this.nextSibling.style.display = "block";
-        }
-    }
-    submibBtn.onclick = function () {
-        var s = document.getElementsByTagName("select");
-        var values = [];
-        for (i = 0; i < s.length; i++) {
-            if (s[i].selectedIndex != -1) {
-                values.push(s[i].value);
+                var array = data;
+                var panel = document.getElementById('panel');
+
+                // for( i=0 ; i<array.length ; i++){
+                array.forEach(function (entery) {
+                    var div = document.createElement("div");
+                    div.setAttribute("id", entery);
+                    panel.appendChild(div);
+                    var selectList = document.createElement("select");
+                    // selectList.setAttribute("id", "mySelect");
+                    div.appendChild(selectList);
+                    for (i = 0; i < array.length; i++) {
+                        var option = document.createElement("option");
+                        option.setAttribute("value", array[i]);
+                        option.text = array[i];
+                        selectList.appendChild(option);
+                    }
+                    div.lastChild.selectedIndex = -1;
+                    div.style.display = "none";
+                });
+                var submibBtn = document.createElement("button");
+                submibBtn.innerHTML = "create";
+                submibBtn.style.float = "right";
+                panel.appendChild(submibBtn);
+
+                document.getElementById(array[0]).style.display = "block";
+                for (i = 0; i < panel.childElementCount - 1; i++) {
+                    panel.children[i].onchange = function () {
+                        this.nextSibling.style.display = "block";
+                    }
+                }
+                submibBtn.onclick = function () {
+                    var s = document.getElementsByTagName("select");
+                    var values = [];
+                    for (i = 0; i < s.length; i++) {
+                        if (s[i].selectedIndex != -1) {
+                            values.push(s[i].value);
+                        }
+                    };
+
+
+                    document.getElementById("panel2").style.display = "block";
+
+                    if ($('#custom').length) {
+                        $.ajax({
+                            url: '/custom',
+                            type: 'POST',
+                            contentType: 'application/json; charset=utf-8',
+                            dataType: 'json',
+                            processData: false,
+                            data: JSON.stringify({ "selectedEvents": values }),
+                            success: function (data) {
+                                console.log(data);
+                                values.forEach(function (value) {
+                                        console.log(data[value]);
+                                        var d = data[value];
+                                        var echartBar = echarts.init(document.getElementById('custom'), theme);
+                                        echartBar.setOption({
+                                            title: {
+                                                text: 'Custom Events',
+                                                subtext: 'Custom Events'
+                                            },
+                                            tooltip: {
+                                                trigger: 'axis'
+                                            },
+                                            legend: {
+                                                data: "daily installs"
+                                            },
+                                            toolbox: {
+                                                show: false
+                                            },
+                                            calculable: false,
+                                            xAxis: [{
+                                                boundaryGap: false,
+                                                type: 'category',
+                                                data: d.date,
+                                            }],
+                                            yAxis: [{
+                                                type: 'value'
+                                            }],
+                                            dataZoom: [{
+                                                type: 'inside',
+                                                start: 70,
+                                                end: 100,
+                                            }, {
+                                                type: 'slider',
+                                                show: true,
+                                                start: 70,
+                                                end: 100,
+                                                xAxisIndex: [0],
+                                                filterMode: 'filtered'
+                                            }, {
+                                                handleSize: '80%',
+                                                handleStyle: {
+                                                    color: '#fff',
+                                                    shadowBlur: 3,
+                                                    shadowColor: 'rgba(0, 0, 0, 0.6)',
+                                                    shadowOffsetX: 2,
+                                                    shadowOffsetY: 2
+                                                }
+                                            }],
+                                            series: [{
+                                                name: 'times',
+                                                type: 'line',
+                                                smooth: true,
+                                                itemStyle: {
+                                                    normal: {
+                                                        areaStyle: {
+                                                            type: 'default',
+                                                        }
+                                                    }
+                                                },
+                                                data: d.count,
+                                                markPoint: {
+                                                    data: [{
+                                                        type: 'max',
+                                                        name: 'max'
+                                                    }, {
+                                                        type: 'min',
+                                                        name: 'min'
+                                                    }]
+                                                },
+                                                markLine: {
+                                                    data: [{
+                                                        type: 'average',
+                                                        name: 'average'
+                                                    }]
+                                                }
+                                            }]
+                                        });
+                                    })
+                                    // var echartBar = echarts.init(document.getElementById('custom'), theme);
+                                    // echartBar.setOption({
+                                    //     title: {
+                                    //         text: 'Session time',
+                                    //         subtext: 'number of times'
+                                    //     },
+                                    //     tooltip: {
+                                    //         trigger: 'axis'
+                                    //     },
+                                    //     legend: {
+                                    //         data: "daily installs"
+                                    //     },
+                                    //     toolbox: {
+                                    //         show: false
+                                    //     },
+                                    //     calculable: false,
+                                    //     xAxis: [{
+                                    //         boundaryGap: false,
+                                    //         type: 'category',
+                                    //         data: data.time,
+                                    //     }],
+                                    //     yAxis: [{
+                                    //         type: 'value'
+                                    //     }],
+                                    //     dataZoom: [{
+                                    //         type: 'inside',
+                                    //         start: 70,
+                                    //         end: 100,
+                                    //     }, {
+                                    //         type: 'slider',
+                                    //         show: true,
+                                    //         start: 70,
+                                    //         end: 100,
+                                    //         xAxisIndex: [0],
+                                    //         filterMode: 'filtered'
+                                    //     }, {
+                                    //         handleSize: '80%',
+                                    //         handleStyle: {
+                                    //             color: '#fff',
+                                    //             shadowBlur: 3,
+                                    //             shadowColor: 'rgba(0, 0, 0, 0.6)',
+                                    //             shadowOffsetX: 2,
+                                    //             shadowOffsetY: 2
+                                    //         }
+                                    //     }],
+                                    //     series: [{
+                                    //         name: 'times',
+                                    //         type: 'line',
+                                    //         smooth: true,
+                                    //         itemStyle: {
+                                    //             normal: {
+                                    //                 areaStyle: {
+                                    //                     type: 'default',
+                                    //                 }
+                                    //             }
+                                    //         },
+                                    //         data: data.count,
+                                    //         markPoint: {
+                                    //             data: [{
+                                    //                 type: 'max',
+                                    //                 name: 'max'
+                                    //             }, {
+                                    //                 type: 'min',
+                                    //                 name: 'min'
+                                    //             }]
+                                    //         },
+                                    //         markLine: {
+                                    //             data: [{
+                                    //                 type: 'average',
+                                    //                 name: 'average'
+                                    //             }]
+                                    //         }
+                                    //     }]
+                                    // });
+                            },
+                            error: function (xhr, status, error) {
+                                console.log(error);
+                            }
+                        });
+                    }
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
             }
-        };
-        console.log(values);
+        });
+
     }
 }
 // //Create and append the options
