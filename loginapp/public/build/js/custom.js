@@ -6162,14 +6162,15 @@ function init_echarts() {
 
                 var array = data;
                 var panel = document.getElementById('abcd');
-
+                array.unshift("");
+                console.log(array);
                 // for each custom events creates a select element sets the values custom events.
                 array.forEach(function (entery) {
                     var div = document.createElement("div");
                     div.setAttribute("id", entery);
                     panel.appendChild(div);
                     var selectList = document.createElement("select");
-                    selectList.style.color = "black";
+                    // selectList.style.color = "black";
                     div.appendChild(selectList);
                     for (i = 0; i < array.length; i++) {
                         var option = document.createElement("option");
@@ -6177,27 +6178,22 @@ function init_echarts() {
                         option.text = array[i];
                         selectList.appendChild(option);
                     }
-                    div.lastChild.selectedIndex = -1;
+                    // div.lastChild.selectedIndex = -1;
                     div.style.display = "none";
                 });
-                // var submibBtn = document.createElement("button");
-                // submibBtn.innerHTML = "create";
-                // submibBtn.style.float = "right";
-                // submibBtn.style.bottom = "30px";
-                // panel.appendChild(submibBtn);
-
+                array.shift();
                 document.getElementById(array[0]).style.display = "block";
                 // after value selected in select element next element would be visible.
                 for (i = 0; i < panel.childElementCount - 1; i++) {
                     panel.children[i].onchange = function () {
                         var nextSelect = this.nextSibling;
                         nextSelect.style.display = "block";
-                        for (i = 0; i < nextSelect.lastChild.options.length; i++) {
-                            nextSelect.lastChild.options[i].disabled= false;
-                            console.log("hi");
-                        }
-                        nextSelect.lastChild.options[this.lastChild.selectedIndex].setAttribute("disabled", true);
-                        console.log(nextSelect.lastChild);
+                        // nextSelect.lastChild.selectedIndex=-1;
+                        // for (i = 0; i < nextSelect.lastChild.options.length; i++) {
+                        //     nextSelect.lastChild.options[i].disabled= false;
+                        // }
+                        console.log(nextSelect.lastChild.options[this.lastChild.selectedIndex]);
+                        nextSelect.lastChild.options[this.lastChild.selectedIndex].remove();
                     }
                 }
                 // onclick gets the value of select elements and create charts.
