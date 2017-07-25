@@ -197,7 +197,7 @@ router.post('/duration', ensureAuthenticated, function(req, res) {
     });
 });
 
-
+// ToDo item first
 router.post('/custom', ensureAuthenticated, function(req, res) {
     MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, db) {
         if (err) {
@@ -206,6 +206,12 @@ router.post('/custom', ensureAuthenticated, function(req, res) {
             var responds = {};
             var selectedEvents = req.body.selectedEvents;
             var collection = db.collection('data');
+            var customCharts = db.collection('customCharts');
+            customCharts.update({ 'APP': currentApp }, { $addToSet: { 'values': selectedEvents } }, { 'upsert': true }, function(err, result) {
+                if (err) {
+                    console.log("hello .. " + err)
+                }
+            });
             selectedEvents.forEach(function(element) {
                 collection.aggregate([{
                         $match: {
@@ -242,6 +248,28 @@ router.post('/custom', ensureAuthenticated, function(req, res) {
                 });
             });
             // });
+        }
+    });
+});
+
+router.post("/loadCustoms", ensureAuthenticated, function(req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, db) {
+        if (err) {
+            console.log('Unable to connect to the mongoDB server. Error:', err)
+        } else {
+            var customCharts = db.collection('customCharts');
+            customCharts.find({ 'APP': currentApp }).toArray(function(err, result) {
+                if (err) {
+                    console.log("hello .. " + err)
+                } else {
+                    if (result.length > 0) {
+                        res.write(JSON.stringify(result[0].values));
+                        res.end();
+                    }
+                }
+
+            });
+
         }
     });
 });
