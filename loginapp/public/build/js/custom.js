@@ -6322,13 +6322,22 @@ function init_echarts() {
             div1.setAttribute("class", "col-md-6 col-sm-6 col-xs-12");
             row.appendChild(div1);
 
-            var div2 = document.createElement("div");
-            div2.setAttribute("class", "x_panel");
-            div1.appendChild(div2);
+            var x_panel = document.createElement("div");
+            x_panel.setAttribute("class", "x_panel");
+            div1.appendChild(x_panel);
+
+            var x_title = document.createElement("div");
+            x_title.setAttribute("class", "x_title");
+            x_title.innerHTML = "<h2>Custom chart</h2><ul class='nav navbar-right panel_toolbox'><li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a></li><li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'><i class='fa fa-wrench'></i></a><ul class='dropdown-menu' role='menu'><li><a href='#'>Settings 1</a></li><li><a href='#'>Settings 2</a></li></ul></li><li><a class='close-link'><i class='fa fa-close'></i></a></li></ul><div class='clearfix'></div>";
+            x_panel.appendChild(x_title);
+
+            var x_content = document.createElement("div");
+            x_content.setAttribute("class", "x_content");
+            x_panel.appendChild(x_content);
 
             var custom = document.createElement("div");
             custom.style.height = "350px";
-            div2.appendChild(custom);
+            x_content.appendChild(custom);
 
             $.ajax({
                 url: '/custom',
