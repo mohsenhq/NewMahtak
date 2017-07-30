@@ -3893,6 +3893,7 @@ function init_echarts() {
             success: function(data) {
                 console.log(data);
                 document.getElementById("totalInstalls").innerHTML = data.totalInstalls;
+                document.getElementById("pageH3Title").innerHTML = data.app + "<br/> <small> App analytics data</small>";
 
                 var echartBar = echarts.init(document.getElementById('mainb4'), theme);
 
@@ -6381,7 +6382,7 @@ function init_echarts() {
                         });
 
                     }); //foreach end
-                    console.log(xaxisList[0]);
+                    // console.log(xaxisList[0].data)
                     var echartBar = echarts.init(custom, theme);
                     echartBar.setOption({
                         title: {
@@ -6401,7 +6402,7 @@ function init_echarts() {
                         xAxis: [{
                             boundaryGap: false,
                             type: 'category',
-                            data: xaxisList
+                            data: xaxisList[0].data
                         }],
                         yAxis: [{
                             type: 'value'

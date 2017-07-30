@@ -35,6 +35,15 @@ router.get('/chartjs', ensureAuthenticated, function(req, res) {
     });
 });
 
+router.get('/piwik', ensureAuthenticated, function(req, res) {
+    if (req.query.app != null) {
+        currentApp = req.query.app;
+    }
+    res.render('piwik', {
+        apps: appz
+    });
+});
+
 router.get('/events', ensureAuthenticated, function(req, res) {
     if (req.query.app != null) {
         currentApp = req.query.app;
@@ -86,7 +95,8 @@ router.post('/installDate', ensureAuthenticated, function(req, res) {
                 var installDateArray = {
                     'dates': [],
                     'newInstalls': [],
-                    'totalInstalls': []
+                    'totalInstalls': [],
+                    'app':[currentApp]
                 };
                 // var installDateArray = [];
                 var sumInstals = 0;
