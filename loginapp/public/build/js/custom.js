@@ -6439,23 +6439,30 @@ function init_echarts() {
         }
     }
 }
-// //Create and append the options
-// for (var i = 0; i < array.length; i++) {
-//     var option = document.createElement("option");
-//     option.setAttribute("value", array[i]);
-//     option.text = array[i];
-//     selectList.appendChild(option);
-// }
-// selectList.selectedIndex = -1;
-// if (div.lastChild.selectedIndex == -1) {
-//     panel.lastChild.onchange = function(e) {
-//         var div2 = div.cloneNode(true);
-//         div2.lastChild.selectedIndex = -1;
-//         panel.appendChild(div2);
-//         // panel.insertBefore(div2, div);
-//         console.log(panel.lastChild)
-//     }
-// }
+
+if ($('#piwik').length) {
+
+    var addSite = document.getElementById("addSite");
+    addSite.onclick = function() {
+
+        var siteName = document.getElementById("siteName").value;
+        var urls = [document.getElementById("urls").value];
+        $.ajax({
+            url: '/piwik/piwikAPI',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            processData: false,
+            data: JSON.stringify({
+                "siteName": siteName,
+                "urls": urls
+            }),
+            success: function(data) {
+
+            }
+        });
+    }
+}
 
 $(document).ready(function() {
 

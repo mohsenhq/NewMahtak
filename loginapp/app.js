@@ -15,6 +15,7 @@ mongoose.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/loginapp?authMe
 var db = mongoose.connection;
 
 var routes = require('./routes/index');
+var piwik = require('./routes/piwik');
 var users = require('./routes/users');
 
 // Init App
@@ -80,6 +81,7 @@ app.use(function(req, res, next) {
 
 
 app.use('/', routes);
+app.use('/piwik', piwik);
 app.use('/users', users);
 // Set Port
 app.set('port', (process.env.PORT || 3000));

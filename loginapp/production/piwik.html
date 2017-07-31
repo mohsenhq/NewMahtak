@@ -202,10 +202,49 @@
 
             <!-- page content -->
 
-            <div class="right_col" role="main">
-                
-                <!-- <iframe src="http://localhost/piwik/index.php?module=Widgetize&action=iframe&moduleToWidgetize=Dashboard&actionToWidgetize=index&idSite=1&period=week&date=yesterday" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="1400px"></iframe> -->
+            <div class="right_col" role="main" id="piwik">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_right">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="position:absolute">Add Site</button>
+                        </div>
+                        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
 
+                                    <div class="modal-header">
+                                        <div>
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                                        </div>
+                                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                    </div>.
+                                    <div class="modal-body" id="abcd">
+                                        <h4>Fill the below form to add site:</h4>
+                                        <p></p>
+
+
+                                        <form>
+                                            <div>
+                                                <label>Site Name:</label>
+                                                <input type="text" class="form-control" placeholder="siteName" name="siteName" id="siteName" />
+                                            </div>
+                                            <div>
+                                                <label>Site Address:</label>
+                                                <input type="text" class="form-control" placeholder="urls" name="urls" id="urls" />
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="addSite">Add site</button>
+                                    </div>
+                                    </form>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- /page content -->
 
