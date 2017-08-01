@@ -6458,7 +6458,60 @@ if ($('#piwik').length) {
                 "urls": urls
             }),
             success: function(data) {
+                data = JSON.parse(data);
+                console.log(data);
+                var listOfSites = document.getElementById("siteListTable");
+                listOfSites.innerHTML = "";
+                for (var i = 0; i < data.length; i++) {
+                    var ln = i + 1;
+                    listOfSites.innerHTML += "<tr><td>" + ln + "</td><td><a style='text-transform:capitalize;'>" + data[i].name + "</a></td><td>" + data[i].main_url + "</td><td><a href='/chartjs?app=<%= apps[i].PACKAGE_NAME %>' class='btn btn-primary btn-xs'><i class='fa fa-area-chart'></i> View </a><a href='#' class='btn btn-info btn-xs'><i class='fa fa-download'></i> Download </a><a href='/Build/<%= apps[i].appName %>' class='btn btn-success btn-xs'><i class='fa fa-con'></i> Build </a><a href='/' class='btn btn-danger btn-xs'><i class='fa fa-trash-o'></i> Delete </a></td></tr>"
+                }
+            }
+        });
+    }
+}
 
+if ($('#siteListTable').length) {
+    updateSiteList();
+    
+    var addSite = document.getElementById("addSite");
+    addSite.onclick = function() {
+
+        var siteName = document.getElementById("siteName").value;
+        var urls = [document.getElementById("urls").value];
+        $.ajax({
+            url: '/piwik/piwikAPI',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            processData: false,
+            data: JSON.stringify({
+                "siteName": siteName,
+                "urls": urls
+            }),
+            success: function(data) {
+                updateSiteList();
+            }
+        });
+    }
+    
+    function updateSiteList() {
+        $.ajax({
+            url: '/piwik/siteList',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            processData: false,
+            data: '',
+            success: function(data) {
+                data = JSON.parse(data);
+                console.log(data);
+                var listOfSites = document.getElementById("siteListTable");
+                listOfSites.innerHTML = "";
+                for (var i = 0; i < data.length; i++) {
+                    var ln = i + 1;
+                    listOfSites.innerHTML += "<tr><td>" + ln + "</td><td><a style='text-transform:capitalize;'>" + data[i].name + "</a></td><td>" + data[i].main_url + "</td><td><a href='/chartjs?app=<%= apps[i].PACKAGE_NAME %>' class='btn btn-primary btn-xs'><i class='fa fa-area-chart'></i> View </a><a href='#' class='btn btn-info btn-xs'><i class='fa fa-download'></i> Download </a><a href='/Build/<%= apps[i].appName %>' class='btn btn-success btn-xs'><i class='fa fa-con'></i> Build </a><a href='/' class='btn btn-danger btn-xs'><i class='fa fa-trash-o'></i> Delete </a></td></tr>"
+                }
             }
         });
     }

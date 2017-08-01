@@ -132,71 +132,6 @@
                                     <li><a href="/users/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                                 </ul>
                             </li>
-
-                            <!-- <li role="presentation" class="dropdown">  
-                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">6</span>
-                                </a>
-                                <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                          <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                          <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                          <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                          <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="text-center">
-                                            <a>
-                                                <strong>See All Alerts</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li> -->
                         </ul>
                     </nav>
                 </div>
@@ -208,19 +143,9 @@
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>Applications <small></small></h3>
+                            <h3>Management <small></small></h3>
                         </div>
 
-                        <!-- <div class="title_right">
-                            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search for...">
-                                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
 
                     <div class="clearfix"></div>
@@ -229,7 +154,106 @@
                         <div class="col-md-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Projects</h2>
+                                    <h2>Applications</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Settings 1</a>
+                                                </li>
+                                                <li><a href="#">Settings 2</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+
+                                                <div class="modal-header">
+                                                    <div>
+                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                                                    </div>
+                                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                                </div>.
+                                                <div class="modal-body" id="abcd">
+                                                    <h4>Fill the below form to add site:</h4>
+                                                    <p></p>
+
+
+                                                    <form>
+                                                        <div>
+                                                            <label>Site Name:</label>
+                                                            <input type="text" class="form-control" placeholder="siteName" name="siteName" id="siteName" />
+                                                        </div>
+                                                        <div>
+                                                            <label>Site Address:</label>
+                                                            <input type="text" class="form-control" placeholder="urls" name="urls" id="urls" />
+                                                        </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="addSite">Add site</button>
+                                                </div>
+                                                </form>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="x_content">
+
+                                    <p style="float:left">List of your Applications</p>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="position:relative; float:right">Add Application</button>
+
+                                    <!-- start project list -->
+                                    <table class="table table-striped projects">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 1%">#</th>
+                                                <th style="width: 30%">Application Name</th>
+                                                <th style="width: 30%">Version</th>
+                                                <th style="width: 30%">#Edit</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% for(var i=0; i<apps.length; i++) {%>
+                                                <tr>
+                                                    <td>#</td>
+                                                    <td>
+                                                        <a style="text-transform: capitalize;">
+                                                            <%= apps[i].appName %>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <%= apps[i].appVersion %>
+                                                    </td>
+                                                    <td>
+                                                        <a href="/chartjs?app=<%= apps[i].PACKAGE_NAME %>" class="btn btn-primary btn-xs"><i class="fa fa-area-chart"></i> View </a>
+                                                        <a href="#" class="btn btn-info btn-xs"><i class="fa fa-download"></i> Download </a>
+                                                        <a href="/Build/<%= apps[i].appName %>" class="btn btn-success btn-xs"><i class="fa fa-con"></i> Build </a>
+                                                        <a href="/" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                                                    </td>
+                                                </tr>
+                                                <% } %>
+
+                                        </tbody>
+                                    </table>
+                                    <!-- end project list -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Websites</h2>
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                         </li>
@@ -249,77 +273,26 @@
                                 </div>
                                 <div class="x_content">
 
-                                    <p>List of your Applications</p>
-
+                                    <p style="float:left">List of your tracking Websites</p>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="position:relative; float:right">Add Site</button>
                                     <!-- start project list -->
                                     <table class="table table-striped projects">
                                         <thead>
                                             <tr>
                                                 <th style="width: 1%">#</th>
-                                                <th style="width: 20%">Application Name</th>
-                                                <th></th>
-                                                <!--
-                                                <th>Project Progress</th>
-                                                <th>Status</th>
-                                                -->
-                                                <th>#Edit</th>
+                                                <th style="width: 30%">Site Name</th>
+                                                <th style="width: 30%">Site Url</th>
+                                                <th style="width: 30%">#Edit</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <% for(var i=0; i<apps.length; i++) {%>
-                                                <tr>
-                                                    <td>#</td>
-                                                    <td>
-                                                        <a style="text-transform: capitalize;">
-                                                            <%= apps[i].appName %>
-                                                        </a>
-                                                        <br />
-                                                        <small><%= apps[i].appVersion %></small>
-                                                    </td>
-                                                    <td>
-                                                    </td>
-                                                    <!--
-                                                <td>
-                                                    <ul class="list-inline">
-                                                        <li>
-                                                            <img src="images/user.png" class="avatar" alt="Avatar">
-                                                        </li>
-                                                        <li>
-                                                            <img src="images/user.png" class="avatar" alt="Avatar">
-                                                        </li>
-                                                        <li>
-                                                            <img src="images/user.png" class="avatar" alt="Avatar">
-                                                        </li>
-                                                        <li>
-                                                            <img src="images/user.png" class="avatar" alt="Avatar">
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                                    <td class="project_progress">
-                                                        <div class="progress progress_sm">
-                                                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="57"></div>
-                                                        </div>
-                                                        <small>57% Complete</small>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-success btn-xs">Success</button>
-                                                    </td>
-                                                    -->
-                                                    <td>
-                                                        <a href="/chartjs?app=<%= apps[i].PACKAGE_NAME %>" class="btn btn-primary btn-xs"><i class="fa fa-area-chart"></i> View </a>
-                                                        <a href="#" class="btn btn-info btn-xs"><i class="fa fa-download"></i> Download </a>
-                                                        <a href="/Build/<%= apps[i].appName %>" class="btn btn-success btn-xs"><i class="fa fa-con"></i> Build </a>
-                                                        <a href="/" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                                                    </td>
-                                                </tr>
-                                                <% } %>
-
+                                        <tbody id="siteListTable">
                                         </tbody>
                                     </table>
                                     <!-- end project list -->
                                 </div>
                             </div>
                         </div>
+                        <div id="listOfSites" class="table"></div>
                     </div>
                 </div>
             </div>
@@ -349,7 +322,7 @@
     <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
+    <script src="../build/js/custom.js"></script>
 </body>
 
 </html>

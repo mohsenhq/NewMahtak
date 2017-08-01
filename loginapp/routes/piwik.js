@@ -4,6 +4,7 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var btoa = require('btoa');
 var router = express.Router();
 var Application = require('../models/application');
+var request = require('request');
 
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
@@ -21,36 +22,28 @@ function ensureAuthenticated(req, res, next) {
 }
 
 router.post('/piwikAPI', ensureAuthenticated, function(req, res) {
-    // MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, db) {
-    //     // if (err) {
-    //     //     console.log('Unable to connect to the mongoDB server. Error:', err)
-    //     // } else {
-    //     //     // var collection = db.collection('customEvent');
-    //     //     // collection.find({
-    //     //     //     "APP": currentApp
-    //     //     // }, {
-    //     //     //     _id: 0,
-    //     //     //     custom: 1
-    //     //     // }).toArray(function(err, results) {
-    //     //     //     res.write(JSON.stringify(results[0].custom));
-    //     //     //     res.end();
-    //     //     // });
-    //     // }
-    // });
+
     var method = "SitesManager.addSite";
     var siteName = req.body.siteName;
     var siteUrls = req.body.urls;
-    var XML = new XMLHttpRequest();
-    var url = "http://localhost/piwik/?module=API&method=" + method + "&siteName=" + siteName + "&urls=" + siteUrls + "&token_auth=fbfbd1c44a838aa7afc3bb9cf2d3aece";
-    url = "http://localhost/piwik/?module=API&method=SitesManager.getAllSites&token_auth=fbfbd1c44a838aa7afc3bb9cf2d3aece&format=HTML";
-    XML.open("get", url);
-    XML.send();
-    console.log(XML.responseText);
+    var group = res.locals.user.username;
+    var url = "http://localhost/piwik/?module=API&method=" + method + "&siteName=" + siteName + "&urls=" + siteUrls + "&group=" + group + "&token_auth=fbfbd1c44a838aa7afc3bb9cf2d3aece";
 
-
-    res.write(JSON.stringify(""));
-    res.end();
+    request(url, function(error, response, body) {
+        res.write(JSON.stringify(body));
+        res.end();
+    });
 });
 
+
+router.post('/siteList', ensureAuthenticated, function(req, res) {
+    var group = res.locals.user.username;
+    url = "http://localhost/piwik/?module=API&method=SitesManager.getSitesFromGroup&group=" + group + "&token_auth=fbfbd1c44a838aa7afc3bb9cf2d3aece&format=JSON";
+    request(url, function(error, response, body) {
+        res.write(JSON.stringify(body));
+        res.end();
+    });
+
+});
 
 module.exports = router;
