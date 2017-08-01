@@ -37,16 +37,17 @@ router.post('/piwikAPI', ensureAuthenticated, function(req, res) {
     //     //     // });
     //     // }
     // });
-
     var method = "SitesManager.addSite";
     var siteName = req.body.siteName;
     var siteUrls = req.body.urls;
-    var request = new XMLHttpRequest();
+    var XML = new XMLHttpRequest();
     var url = "http://localhost/piwik/?module=API&method=" + method + "&siteName=" + siteName + "&urls=" + siteUrls + "&token_auth=fbfbd1c44a838aa7afc3bb9cf2d3aece";
-    request.open("get", url);
-    request.send();
+    url = "http://localhost/piwik/?module=API&method=SitesManager.getAllSites&token_auth=fbfbd1c44a838aa7afc3bb9cf2d3aece&format=HTML";
+    XML.open("get", url);
+    XML.send();
+    console.log(XML.responseText);
 
-    console.log(req.body.urls);
+
     res.write(JSON.stringify(""));
     res.end();
 });
