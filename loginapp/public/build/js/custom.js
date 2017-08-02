@@ -6473,7 +6473,7 @@ if ($('#piwik').length) {
 
 if ($('#siteListTable').length) {
     updateSiteList();
-    
+
     var addSite = document.getElementById("addSite");
     addSite.onclick = function() {
 
@@ -6494,7 +6494,28 @@ if ($('#siteListTable').length) {
             }
         });
     }
-    
+
+    var addApp = document.getElementById("addApp");
+    addApp.onclick = function() {
+        var appName = document.getElementById("appName").value;
+        var PACKAGE_NAME = document.getElementById("PACKAGE_NAME").value;
+        var appVersion = document.getElementById("appVersion").value;
+        $.ajax({
+            url: '/users/addApp',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            processData: false,
+            data: JSON.stringify({
+                "appName": appName,
+                "PACKAGE_NAME": PACKAGE_NAME,
+                "appVersion": appVersion
+            }),
+            success: function(data) {
+                location.reload(true);
+            }
+        });
+    };
+
     function updateSiteList() {
         $.ajax({
             url: '/piwik/siteList',
@@ -6508,9 +6529,13 @@ if ($('#siteListTable').length) {
                 console.log(data);
                 var listOfSites = document.getElementById("siteListTable");
                 listOfSites.innerHTML = "";
+                var siteSidebar = document.getElementById("siteSidebar");
+                siteSidebar.innerHTML = "";
                 for (var i = 0; i < data.length; i++) {
                     var ln = i + 1;
                     listOfSites.innerHTML += "<tr><td>" + ln + "</td><td><a style='text-transform:capitalize;'>" + data[i].name + "</a></td><td>" + data[i].main_url + "</td><td><a href='/chartjs?app=<%= apps[i].PACKAGE_NAME %>' class='btn btn-primary btn-xs'><i class='fa fa-area-chart'></i> View </a><a href='#' class='btn btn-info btn-xs'><i class='fa fa-download'></i> Download </a><a href='/Build/<%= apps[i].appName %>' class='btn btn-success btn-xs'><i class='fa fa-con'></i> Build </a><a href='/' class='btn btn-danger btn-xs'><i class='fa fa-trash-o'></i> Delete </a></td></tr>"
+                    siteSidebar.innerHTML += "<li><a><i class='fa fa-globe'></i>" + data[i].name;
+                    // "<span class='fa fa-chevron-down'></span></a><ul class='nav child_menu'><li><a href='#' style='text-transform: capitalize;'><i class='fa fa-bar-chart-o'></i>Charts</a></li><li><a href='#' style='text-transform: capitalize;'><i class='fa fa-pie-chart'></i>Custom Events</a></li></ul></li>";
                 }
             }
         });

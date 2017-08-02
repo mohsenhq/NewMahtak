@@ -82,6 +82,24 @@
                                     </li>
                                     <% } %>
                             </ul>
+                            <br/>
+                            <h3>Websites:</h3>
+                            <ul class="nav side-menu" id="siteSidebar">
+                                <li><a><i class="fa fa-android"></i> hi <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="google.com" style="text-transform: capitalize;">
+                                                <i class="fa fa-bar-chart-o"></i>Charts
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="yahoo.com" style="text-transform: capitalize;">
+                                                <i class="fa fa-pie-chart"></i>Custom Events
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <!-- /sidebar menu -->
@@ -171,7 +189,7 @@
                                         </li>
                                     </ul>
                                     <div class="clearfix"></div>
-                                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="siteModal">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
 
@@ -179,13 +197,10 @@
                                                     <div>
                                                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
                                                     </div>
-                                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                                    <h4 class="modal-title" id="myModalLabel">Fill the below form to add new site:</h4>
                                                 </div>.
                                                 <div class="modal-body" id="abcd">
-                                                    <h4>Fill the below form to add site:</h4>
-                                                    <p></p>
-
-
+                                                    <br/>
                                                     <form>
                                                         <div>
                                                             <label>Site Name:</label>
@@ -206,11 +221,49 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="applicationModal">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+
+                                                <div class="modal-header">
+                                                    <div>
+                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                                                    </div>
+                                                    <h4 class="modal-title" id="myModalLabel">Fill the below form to add new Application</h4>
+                                                </div>
+                                                <div class="modal-body" id="abcd">
+                                                    <br/>
+
+                                                    <form>
+                                                        <div>
+                                                            <label>Application Name:</label>
+                                                            <input type="text" class="form-control" placeholder="Application Name" name="applicationName" id="appName" />
+                                                        </div>
+                                                        <div>
+                                                            <label>PACKAGE NAME:</label>
+                                                            <input type="text" class="form-control" placeholder="PACKAGE NAME" name="PACKAGE_NAME" id="PACKAGE_NAME" />
+                                                        </div>
+                                                        <div>
+                                                            <label>Application Version:</label>
+                                                            <input type="text" class="form-control" placeholder="Application Version" name="appVersion" id="appVersion" />
+                                                        </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="addApp">Add App</button>
+                                                </div>
+                                                </form>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="x_content">
 
                                     <p style="float:left">List of your Applications</p>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="position:relative; float:right">Add Application</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applicationModal" style="position:relative; float:right">Add Application</button>
 
                                     <!-- start project list -->
                                     <table class="table table-striped projects">
@@ -274,7 +327,7 @@
                                 <div class="x_content">
 
                                     <p style="float:left">List of your tracking Websites</p>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="position:relative; float:right">Add Site</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#siteModal" style="position:relative; float:right">Add Site</button>
                                     <!-- start project list -->
                                     <table class="table table-striped projects">
                                         <thead>
