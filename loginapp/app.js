@@ -1,4 +1,9 @@
 var express = require('express');
+
+var i18next = require('i18next');
+var i18nextMiddleware = require('i18next-express-middleware');
+var Backend = require('i18next-node-fs-backend');
+
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -18,8 +23,26 @@ var routes = require('./routes/index');
 var piwik = require('./routes/piwik');
 var users = require('./routes/users');
 
+i18next
+    .use(Backend)
+    .use(i18nextMiddleware.LanguageDetector)
+    .init({
+        backend: {
+            loadPath: __dirname + '/locales/{{lng}}.json',
+            addPath: __dirname + '/locales/{{lng}}.missing.json'
+        },
+        fallbackLng: 'en',
+        preload: ['en', 'fa'],
+        saveMissing: true
+    });
+
 // Init App
 var app = express();
+
+app.use(i18nextMiddleware.handle(i18next, {
+    removeLngFromUrl: false
+}));
+
 
 // View Engine
 // app.set('views', path.join(__dirname, 'views'));

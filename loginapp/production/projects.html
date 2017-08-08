@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -29,7 +29,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>Home</span></a>
+                        <a href="/" class="site_title"><i class="fa fa-paw"></i> <span><%= t("home") %></span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -40,7 +40,7 @@
                             <img src="images/img.jpg" alt="..." class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
-                            <span>Welcome,</span>
+                            <span><%= t("welcome")%></span>
                             <h2>
                                 <%= apps[0].username %>
                             </h2>
@@ -117,6 +117,9 @@
                         </a> -->
                         <a data-toggle="tooltip" data-placement="top" title="Logout" href="/users/logout">
                             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Change Language" href="/changeLng?fa">
+                            <span class="fa fa-language" aria-hidden="true"></span>
                         </a>
                     </div>
                     <!-- /menu footer buttons -->

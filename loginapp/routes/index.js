@@ -476,6 +476,13 @@ router.post('/customEvent', ensureAuthenticated, function(req, res) {
 });
 
 
+router.get('/changeLng', ensureAuthenticated, function(req, res) {
+    // changeLng("fa")
+    // req.i18next.changeLanguage("fa")
+    res.cookie('locale', req.params.locale);
+    res.redirect(req.get('referer'));
+});
+
 function authenticateUser(user, password) {
     var token = user + ":" + password;
     // Base64 Encoding -> btoa
