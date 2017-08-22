@@ -8,7 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <title>
+        <%= t("Page Title") %>
+    </title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -20,7 +22,11 @@
     <link href="../vendors/animate.css/animate.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom_RTL.css" rel="stylesheet">
+    <% if(t("MahTak")== "مهتاک"){ %>
+        <link href="../build/css/custom_RTL.css" rel="stylesheet">
+    <% } else{ %>
+        <link href="../build/css/custom.css" rel="stylesheet">
+    <% } %>
 </head>
 
 <body class="login">
@@ -56,7 +62,9 @@
             <div class="animate form login_form">
                 <section class="login_content">
                     <form method="post" action="/users/login">
-                        <h1>Login Form</h1>
+                        <h1>
+                            <%= t("login") %>
+                        </h1>
                         <div>
                             <input type="text" class="form-control" name="username" placeholder="Username" required="" />
                         </div>
@@ -64,15 +72,18 @@
                             <input type="password" class="form-control" name="password" placeholder="Password" required="" />
                         </div>
                         <div>
-                            <button class="btn btn-default submit">Log in</button>
+                            <button class="btn btn-default submit"><%= t("Log in") %></button>
                             <!--<a class="reset_pass" href="#">Lost your password?</a>-->
                         </div>
 
                         <div class="clearfix"></div>
 
                         <div class="separator">
-                            <p class="change_link">New to site?
-                                <a href="#signup" class="to_register"> Create Account </a>
+                            <p class="change_link">
+                                <%= t("New to site") %>?
+                                    <a href="#signup" class="to_register">
+                                        <%= t("Create Account") %>
+                                    </a>
                             </p>
 
                             <div class="clearfix"></div>
@@ -90,7 +101,9 @@
             <div id="register" class="animate form registration_form">
                 <section class="login_content">
                     <form method="post" action="/users/register" id="register-form">
-                        <h1>Create Account</h1>
+                        <h1>
+                            <%= t("Create Account") %>
+                        </h1>
                         <div>
                             <input type="text" class="form-control" placeholder="Name" name="name" id="name" />
                         </div>
@@ -107,7 +120,7 @@
                             <input type="password" class="form-control" placeholder="Confirm Password" name="password2" id="password2" />
                         </div>
                         <div>
-                            <button class="btn btn-default submit">Submit</button>
+                            <button class="btn btn-default submit"><%= t("Submit") %></button>
                         </div>
 
                         <div class="clearfix"></div>

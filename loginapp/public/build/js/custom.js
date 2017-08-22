@@ -3746,8 +3746,8 @@ function init_echarts() {
 
                 echartBar.setOption({
                     title: {
-                        text: 'Daily Users',
-                        subtext: 'Number of users per day using the app'
+                        // text: 'Daily Users',
+                        // subtext: 'Number of users per day using the app'
                     },
                     tooltip: {
                         trigger: 'axis'
@@ -3810,10 +3810,10 @@ function init_echarts() {
                 var echartBar = echarts.init(document.getElementById('mainb3'), theme);
 
                 echartBar.setOption({
-                    title: {
-                        text: 'Daily Use',
-                        subtext: 'daily App usage'
-                    },
+                    // title: {
+                    //     text: 'Daily Use',
+                    //     subtext: 'daily App usage'
+                    // },
                     tooltip: {
                         trigger: 'axis'
                     },
@@ -3898,10 +3898,10 @@ function init_echarts() {
                 var echartBar = echarts.init(document.getElementById('mainb4'), theme);
 
                 echartBar.setOption({
-                    title: {
-                        text: 'Daily installs',
-                        subtext: 'daily App installation count'
-                    },
+                    // title: {
+                    //     text: 'Daily installs',
+                    //     subtext: 'daily App installation count'
+                    // },
                     tooltip: {
                         trigger: 'axis'
                     },
@@ -3963,10 +3963,10 @@ function init_echarts() {
                 var echartBar = echarts.init(document.getElementById('mainb5'), theme);
 
                 echartBar.setOption({
-                    title: {
-                        text: 'Session time',
-                        subtext: 'number of times'
-                    },
+                    // title: {
+                    //     text: 'Session time',
+                    //     subtext: 'number of times'
+                    // },
                     tooltip: {
                         trigger: 'axis'
                     },
@@ -4042,130 +4042,130 @@ function init_echarts() {
         });
     }
 
-    if ($('#mainb6').length) {
-        // $.ajax({
-        //     url: '/duration',
-        //     type: 'POST',
-        //     data: '',
-        //     contentType: 'application/json; charset=utf-8',
-        //     dataType: 'json',
-        //     success: function(data) {
-        //         console.log(data);
+    // if ($('#mainb6').length) {
+    //     // $.ajax({
+    //     //     url: '/duration',
+    //     //     type: 'POST',
+    //     //     data: '',
+    //     //     contentType: 'application/json; charset=utf-8',
+    //     //     dataType: 'json',
+    //     //     success: function(data) {
+    //     //         console.log(data);
 
-        var echartBar = echarts.init(document.getElementById('mainb6'), theme);
+    //     var echartBar = echarts.init(document.getElementById('mainb6'), theme);
 
-        echartBar.setOption({
-            title: {
-                text: 'Session time',
-                subtext: 'number of times'
-            },
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                data: "daily installs"
-            },
-            toolbox: {
-                show: true,
-                orient: 'vertical',
-                feature: {
-                    restore: {
-                        show: true,
-                        title: "Restore"
-                    },
-                    saveAsImage: {
-                        show: true,
-                        title: "Save Image"
-                    }
-                }
-            },
-            calculable: false,
-            xAxis: [{
-                boundaryGap: false,
-                type: 'category',
-                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            }],
-            yAxis: [{
-                type: 'value'
-            }],
-            dataZoom: [{
-                type: 'inside',
-                start: 70,
-                end: 100,
-            }, {
-                type: 'slider',
-                show: true,
-                start: 70,
-                end: 100,
-                xAxisIndex: [0],
-                filterMode: 'filtered'
-            }, {
-                handleSize: '80%',
-                handleStyle: {
-                    color: '#fff',
-                    shadowBlur: 3,
-                    shadowColor: 'rgba(0, 0, 0, 0.6)',
-                    shadowOffsetX: 2,
-                    shadowOffsetY: 2
-                }
-            }],
-            series: [{
-                name: 'times',
-                type: 'line',
-                smooth: true,
-                itemStyle: {
-                    normal: {
-                        areaStyle: {
-                            type: 'default',
-                        }
-                    }
-                },
-                data: [4, 6, 4, 9, 1, 24, 6, 23, 2, 11],
-                markPoint: {
-                    data: [{
-                        type: 'max',
-                        name: 'max'
-                    }, {
-                        type: 'min',
-                        name: 'min'
-                    }]
-                },
-                markLine: {
-                    data: [{
-                        type: 'average',
-                        name: 'average'
-                    }]
-                }
-            }, {
-                name: 'over times',
-                type: 'line',
-                smooth: true,
-                itemStyle: {
-                    normal: {
-                        areaStyle: {
-                            type: 'default',
-                        }
-                    }
-                },
-                data: [5, 7, 6, 11, 14, 26, 16, 27, 7, 18],
-                markPoint: {
-                    data: [{
-                        type: 'max',
-                        name: 'max'
-                    }, {
-                        type: 'min',
-                        name: 'min'
-                    }]
-                },
-                markLine: {
-                    data: [{
-                        type: 'average',
-                        name: 'average'
-                    }]
-                }
-            }]
-        });
-    }
+    //     echartBar.setOption({
+    //         title: {
+    //             text: 'Session time',
+    //             subtext: 'number of times'
+    //         },
+    //         tooltip: {
+    //             trigger: 'axis'
+    //         },
+    //         legend: {
+    //             data: "daily installs"
+    //         },
+    //         toolbox: {
+    //             show: true,
+    //             orient: 'vertical',
+    //             feature: {
+    //                 restore: {
+    //                     show: true,
+    //                     title: "Restore"
+    //                 },
+    //                 saveAsImage: {
+    //                     show: true,
+    //                     title: "Save Image"
+    //                 }
+    //             }
+    //         },
+    //         calculable: false,
+    //         xAxis: [{
+    //             boundaryGap: false,
+    //             type: 'category',
+    //             data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    //         }],
+    //         yAxis: [{
+    //             type: 'value'
+    //         }],
+    //         dataZoom: [{
+    //             type: 'inside',
+    //             start: 70,
+    //             end: 100,
+    //         }, {
+    //             type: 'slider',
+    //             show: true,
+    //             start: 70,
+    //             end: 100,
+    //             xAxisIndex: [0],
+    //             filterMode: 'filtered'
+    //         }, {
+    //             handleSize: '80%',
+    //             handleStyle: {
+    //                 color: '#fff',
+    //                 shadowBlur: 3,
+    //                 shadowColor: 'rgba(0, 0, 0, 0.6)',
+    //                 shadowOffsetX: 2,
+    //                 shadowOffsetY: 2
+    //             }
+    //         }],
+    //         series: [{
+    //             name: 'times',
+    //             type: 'line',
+    //             smooth: true,
+    //             itemStyle: {
+    //                 normal: {
+    //                     areaStyle: {
+    //                         type: 'default',
+    //                     }
+    //                 }
+    //             },
+    //             data: [4, 6, 4, 9, 1, 24, 6, 23, 2, 11],
+    //             markPoint: {
+    //                 data: [{
+    //                     type: 'max',
+    //                     name: 'max'
+    //                 }, {
+    //                     type: 'min',
+    //                     name: 'min'
+    //                 }]
+    //             },
+    //             markLine: {
+    //                 data: [{
+    //                     type: 'average',
+    //                     name: 'average'
+    //                 }]
+    //             }
+    //         }, {
+    //             name: 'over times',
+    //             type: 'line',
+    //             smooth: true,
+    //             itemStyle: {
+    //                 normal: {
+    //                     areaStyle: {
+    //                         type: 'default',
+    //                     }
+    //                 }
+    //             },
+    //             data: [5, 7, 6, 11, 14, 26, 16, 27, 7, 18],
+    //             markPoint: {
+    //                 data: [{
+    //                     type: 'max',
+    //                     name: 'max'
+    //                 }, {
+    //                     type: 'min',
+    //                     name: 'min'
+    //                 }]
+    //             },
+    //             markLine: {
+    //                 data: [{
+    //                     type: 'average',
+    //                     name: 'average'
+    //                 }]
+    //             }
+    //         }]
+    //     });
+    // }
 
     //echart Radar
 
@@ -6438,41 +6438,211 @@ function init_echarts() {
             // }
         }
     }
-}
 
-if ($('#piwik').length) {
-
-    var addSite = document.getElementById("addSite");
-    addSite.onclick = function() {
-
-        var siteName = document.getElementById("siteName").value;
-        var urls = [document.getElementById("urls").value];
+    if ($('#siteGraph').length) {
         $.ajax({
-            url: '/piwik/piwikAPI',
+            url: '/visits',
             type: 'POST',
+            data: '',
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            processData: false,
-            data: JSON.stringify({
-                "siteName": siteName,
-                "urls": urls
-            }),
             success: function(data) {
-                data = JSON.parse(data);
                 console.log(data);
-                var listOfSites = document.getElementById("siteListTable");
-                listOfSites.innerHTML = "";
-                for (var i = 0; i < data.length; i++) {
-                    var ln = i + 1;
-                    listOfSites.innerHTML += "<tr><td>" + ln + "</td><td><a style='text-transform:capitalize;'>" + data[i].name + "</a></td><td>" + data[i].main_url + "</td><td><a href='/chartjs?app=<%= apps[i].PACKAGE_NAME %>' class='btn btn-primary btn-xs'><i class='fa fa-area-chart'></i> View </a><a href='#' class='btn btn-info btn-xs'><i class='fa fa-download'></i> Download </a><a href='/Build/<%= apps[i].appName %>' class='btn btn-success btn-xs'><i class='fa fa-con'></i> Build </a><a href='/' class='btn btn-danger btn-xs'><i class='fa fa-trash-o'></i> Delete </a></td></tr>"
-                }
+
+                var echartBar1 = echarts.init(document.getElementById('firstPiwik'), theme);
+
+                echartBar1.setOption({
+                    // title: {
+                    //     text: 'Daily Users',
+                    //     subtext: 'Number of users per day using the app'
+                    // },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: ["Visitors", "Unique Visitors", "Number Of Actions"],
+                        selected: {
+                            "Visitors": true,
+                            "Unique Visitors": false,
+                            "Number Of Actions": false
+                        },
+                        // orient: "vertical",
+                        // backgroundColor: 'rgb(128, 128, 128)'
+                    },
+                    toolbox: {
+                        show: true
+                    },
+                    calculable: false,
+                    xAxis: [{
+                        boundaryGap: true,
+                        type: 'category',
+                        data: data.dates,
+                        splitNumber: 10,
+                    }],
+                    yAxis: [{
+                        type: 'value'
+                    }],
+                    series: [{
+                        name: 'Visitors',
+                        type: 'bar',
+                        smooth: true,
+                        data: data.visitors,
+                        markPoint: {
+                            data: [{
+                                type: 'max',
+                                name: 'max'
+                            }, {
+                                type: 'min',
+                                name: 'min'
+                            }]
+                        },
+                        markLine: {
+                            data: [{
+                                type: 'average',
+                                name: 'average'
+                            }]
+                        }
+                    }, {
+                        name: 'Unique Visitors',
+                        type: 'bar',
+                        smooth: true,
+                        data: data.uniqueVisitors,
+                        markPoint: {
+                            data: [{
+                                type: 'max',
+                                name: 'max'
+                            }, {
+                                type: 'min',
+                                name: 'min'
+                            }]
+                        },
+                        markLine: {
+                            data: [{
+                                type: 'average',
+                                name: 'average'
+                            }]
+                        }
+                    }, {
+                        name: 'Number Of Actions',
+                        type: 'bar',
+                        smooth: true,
+                        data: data.numberOfActions,
+                        markPoint: {
+                            data: [{
+                                type: 'max',
+                                name: 'max'
+                            }, {
+                                type: 'min',
+                                name: 'min'
+                            }]
+                        },
+                        markLine: {
+                            data: [{
+                                type: 'average',
+                                name: 'average'
+                            }]
+                        }
+                    }]
+                });
+
+                var echartBar2 = echarts.init(document.getElementById('secondPiwik'), theme);
+                echartBar2.setOption({
+                    // title: {
+                    //     text: 'Daily Users',
+                    //     subtext: 'Number of users per day using the app'
+                    // },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: ["Total time spent, in seconds", "Avrage time spent, in seconds"],
+                        selected: {
+                            "Total time spent, in seconds": true,
+                            "Avrage time spent, in seconds": true
+                        },
+                        // orient: "vertical",
+                        // backgroundColor: 'rgb(128, 128, 128)'
+                    },
+                    toolbox: {
+                        show: true
+                    },
+                    calculable: false,
+                    xAxis: [{
+                        boundaryGap: true,
+                        type: 'category',
+                        data: data.dates,
+                        splitNumber: 10,
+                    }],
+                    yAxis: [{
+                        type: 'value'
+                    }],
+                    series: [{
+                        name: 'Total time spent, in seconds',
+                        type: 'line',
+                        smooth: true,
+                        itemStyle: {
+                            normal: {
+                                areaStyle: {
+                                    type: 'default',
+                                }
+                            }
+                        },
+                        data: data.sumOfVisitsLenght,
+                        markPoint: {
+                            data: [{
+                                type: 'max',
+                                name: 'max'
+                            }, {
+                                type: 'min',
+                                name: 'min'
+                            }]
+                        },
+                        markLine: {
+                            data: [{
+                                type: 'average',
+                                name: 'average'
+                            }]
+                        }
+                    }, {
+                        name: 'Avrage time spent, in seconds',
+                        type: 'line',
+                        smooth: true,
+                        itemStyle: {
+                            normal: {
+                                areaStyle: {
+                                    type: 'default',
+                                }
+                            }
+                        },
+                        data: data.avgTimeOnSite,
+                        markPoint: {
+                            data: [{
+                                type: 'max',
+                                name: 'max'
+                            }, {
+                                type: 'min',
+                                name: 'min'
+                            }]
+                        },
+                        markLine: {
+                            data: [{
+                                type: 'average',
+                                name: 'average'
+                            }]
+                        }
+                    }]
+                });
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
             }
         });
+
     }
 }
 
 if ($('#siteListTable').length) {
-    updateSiteList();
+    // updateSiteList();
 
     var addSite = document.getElementById("addSite");
     addSite.onclick = function() {
@@ -6490,7 +6660,8 @@ if ($('#siteListTable').length) {
                 "urls": urls
             }),
             success: function(data) {
-                updateSiteList();
+                // updateSiteList();
+                location.reload(true);
             }
         });
     }
@@ -6516,30 +6687,30 @@ if ($('#siteListTable').length) {
         });
     };
 
-    function updateSiteList() {
-        $.ajax({
-            url: '/piwik/siteList',
-            type: 'POST',
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            processData: false,
-            data: '',
-            success: function(data) {
-                data = JSON.parse(data);
-                console.log(data);
-                var listOfSites = document.getElementById("siteListTable");
-                listOfSites.innerHTML = "";
-                var siteSidebar = document.getElementById("siteSidebar");
-                siteSidebar.innerHTML = "";
-                for (var i = 0; i < data.length; i++) {
-                    var ln = i + 1;
-                    listOfSites.innerHTML += "<tr><td>" + ln + "</td><td><a style='text-transform:capitalize;'>" + data[i].name + "</a></td><td>" + data[i].main_url + "</td><td><a href='/chartjs?app=<%= apps[i].PACKAGE_NAME %>' class='btn btn-primary btn-xs'><i class='fa fa-area-chart'></i> View </a><a href='#' class='btn btn-info btn-xs'><i class='fa fa-download'></i> Download </a><a href='/Build/<%= apps[i].appName %>' class='btn btn-success btn-xs'><i class='fa fa-con'></i> Build </a><a href='/' class='btn btn-danger btn-xs'><i class='fa fa-trash-o'></i> Delete </a></td></tr>"
-                    siteSidebar.innerHTML += "<li><a><i class='fa fa-globe'></i>" + data[i].name;
-                    // "<span class='fa fa-chevron-down'></span></a><ul class='nav child_menu'><li><a href='#' style='text-transform: capitalize;'><i class='fa fa-bar-chart-o'></i>Charts</a></li><li><a href='#' style='text-transform: capitalize;'><i class='fa fa-pie-chart'></i>Custom Events</a></li></ul></li>";
-                }
-            }
-        });
-    }
+    // function updateSiteList() {
+    //     $.ajax({
+    //         url: '/piwik/siteList',
+    //         type: 'POST',
+    //         contentType: 'application/json; charset=utf-8',
+    //         dataType: 'json',
+    //         processData: false,
+    //         data: '',
+    //         success: function(data) {
+    //             data = JSON.parse(data);
+    //             console.log(data);
+    //             var listOfSites = document.getElementById("siteListTable");
+    //             listOfSites.innerHTML = "";
+    //             // var siteSidebar = document.getElementById("siteSidebar");
+    //             // siteSidebar.innerHTML = "";
+    //             for (var i = 0; i < data.length; i++) {
+    //                 var ln = i + 1;
+    //                 listOfSites.innerHTML += "<tr><td>" + ln + "</td><td><a style='text-transform:capitalize;'>" + data[i].name + "</a></td><td>" + data[i].main_url + "</td><td><a href='/chartjs?app=<%= apps[i].PACKAGE_NAME %>' class='btn btn-primary btn-xs'><i class='fa fa-area-chart'></i>View</a><a href='#' class='btn btn-info btn-xs'><i class='fa fa-download'></i>Download</a><a href='/Build/<%= apps[i].appName %>' class='btn btn-success btn-xs'><i class='fa fa-con'></i>Build</a><a href='/' class='btn btn-danger btn-xs'><i class='fa fa-trash-o'></i>Delete</a></td></tr>"
+    //                     // siteSidebar.innerHTML += "<li><a><i class='fa fa-globe'></i>" + data[i].name;
+    //                     // "<span class='fa fa-chevron-down'></span></a><ul class='nav child_menu'><li><a href='#' style='text-transform: capitalize;'><i class='fa fa-bar-chart-o'></i>Charts</a></li><li><a href='#' style='text-transform: capitalize;'><i class='fa fa-pie-chart'></i>Custom Events</a></li></ul></li>";
+    //             }
+    //         }
+    //     });
+    // }
 }
 
 $(document).ready(function() {

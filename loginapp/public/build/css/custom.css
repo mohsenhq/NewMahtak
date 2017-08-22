@@ -764,6 +764,7 @@ a:focus {
 }
 .nav.side-menu>li>a,
 .nav.child_menu>li>a {
+    left: 15px;
     color: #E7E7E7;
     font-weight: 500
 }
@@ -1671,7 +1672,7 @@ span.right {
 .sidebar-footer a {
     padding: 7px 0 3px;
     text-align: center;
-    width: 25%;
+    width: 50%;
     font-size: 17px;
     display: block;
     float: left;
@@ -4238,4 +4239,10 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 
 .dataTables_wrapper > .row{
   overflow:auto !important; /*prevent datatables overflowing its container*/
+}
+.floatBefor{
+    float: left
+}
+.floatAfter{
+    float: right
 }

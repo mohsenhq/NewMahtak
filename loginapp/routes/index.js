@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+var request = require('request');
 var btoa = require('btoa');
 var router = express.Router();
 var Application = require('../models/application');
@@ -9,57 +10,115 @@ var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 
 var appz;
+var sitez;
 var currentApp;
+var currentSite;
+var lang = 'en';
+
 router.get('/', ensureAuthenticated, function(req, res) {
-    Application.viewTable(res.locals.user.username, function(err, application) {
-        if (err) throw err;
-        appz = application;
-        res.render('projects', {
-            apps: application
+    var group = res.locals.user.username;
+    url = "http://localhost/piwik/?module=API&method=SitesManager.getSitesFromGroup&group=" + group + "&token_auth=fbfbd1c44a838aa7afc3bb9cf2d3aece&format=JSON";
+    request(url, function(error, response, webSites) {
+        sitez = JSON.parse(webSites);
+        Application.viewTable(res.locals.user.username, function(err, application) {
+            if (err) throw err;
+            req.i18n.changeLanguage(lang);
+            appz = application;
+            res.render('projects', {
+                apps: application,
+                sites: sitez
+            });
         });
     });
 });
 
 router.get('/projects', ensureAuthenticated, function(req, res) {
+    req.i18n.changeLanguage(lang);
     res.render('index', {
-        apps: appz
+        apps: appz,
+        sites: sitez
     });
 });
 
 router.get('/chartjs', ensureAuthenticated, function(req, res) {
+    req.i18n.changeLanguage(lang);
     if (req.query.app != null) {
         currentApp = req.query.app;
     }
     res.render('echarts', {
-        apps: appz
+        apps: appz,
+        sites: sitez
     });
 });
 
 router.get('/piwik', ensureAuthenticated, function(req, res) {
-    if (req.query.app != null) {
-        currentApp = req.query.app;
+    req.i18n.changeLanguage(lang);
+    if (req.query.site != null) {
+        currentSite = req.query.site;
     }
     res.render('piwik', {
-        apps: appz
+        apps: appz,
+        sites: sitez,
+        currentSite: currentSite
     });
 });
 
+router.post('/visits', ensureAuthenticated, function(req, res) {
+    var group = res.locals.user.username;
+    url2 = "http://localhost/piwik/?module=API&method=VisitsSummary.get&idSite=1&period=day&date=last30&format=JSON&token_auth=fbfbd1c44a838aa7afc3bb9cf2d3aece"
+    var visits = {
+        'dates': [],
+        'visitors': [],
+        'uniqueVisitors': [],
+        'numberOfActions': [],
+        'sumOfVisitsLenght': [],
+        'avgTimeOnSite': []
+    };
+    request(url2, function(error, response, body) {
+        resBody = JSON.parse(body);
+        for (var i in resBody) {
+            visits.dates.push(i);
+            if (resBody[i].length == 0) {
+                visits.visitors.push(0);
+                visits.uniqueVisitors.push(0);
+                visits.numberOfActions.push(0);
+                visits.sumOfVisitsLenght.push(0);
+                visits.avgTimeOnSite.push(0);
+            } else {
+                visits.visitors.push(resBody[i].nb_visits);
+                visits.uniqueVisitors.push(resBody[i].nb_uniq_visitors);
+                visits.numberOfActions.push(resBody[i].nb_actions);
+                visits.sumOfVisitsLenght.push(resBody[i].sum_visit_length);
+                visits.avgTimeOnSite.push(resBody[i].avg_time_on_site);
+            }
+        }
+
+        res.write(JSON.stringify(visits));
+        res.end();
+    });
+
+});
+
 router.get('/events', ensureAuthenticated, function(req, res) {
+    req.i18n.changeLanguage(lang);
     if (req.query.app != null) {
         currentApp = req.query.app;
     }
     res.render('events', {
-        apps: appz
+        apps: appz,
+        sites: sitez
     });
 });
 
 
 router.get('/chartjs2', ensureAuthenticated, function(req, res) {
+    req.i18n.changeLanguage(lang);
     if (req.query.app != null) {
         currentApp = req.query.app;
     }
     res.render('chartjs', {
-        apps: appz
+        apps: appz,
+        sites: sitez
     });
 });
 
@@ -96,7 +155,7 @@ router.post('/installDate', ensureAuthenticated, function(req, res) {
                     'dates': [],
                     'newInstalls': [],
                     'totalInstalls': [],
-                    'app':[currentApp]
+                    'app': [currentApp]
                 };
                 // var installDateArray = [];
                 var sumInstals = 0;
@@ -477,9 +536,16 @@ router.post('/customEvent', ensureAuthenticated, function(req, res) {
 
 
 router.get('/changeLng', ensureAuthenticated, function(req, res) {
-    // changeLng("fa")
-    // req.i18next.changeLanguage("fa")
-    res.cookie('locale', req.params.locale);
+    // if (req.session.lng == 'en') {
+    //     req.session.lng = 'fa'
+    // } else {
+    //     req.session.lng = 'en'
+    // }
+    if (lang == 'en') {
+        lang = 'fa';
+    } else {
+        lang = 'en';
+    }
     res.redirect(req.get('referer'));
 });
 

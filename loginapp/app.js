@@ -31,9 +31,15 @@ i18next
             loadPath: __dirname + '/locales/{{lng}}.json',
             addPath: __dirname + '/locales/{{lng}}.missing.json'
         },
+        detection: {
+            order: ['session'],
+            lookupSession: 'lng'
+        },
         fallbackLng: 'en',
         preload: ['en', 'fa'],
         saveMissing: true
+    }, function() {
+        i18nextMiddleware.addRoute(i18next, '/:lng/key-to-translate', ['en', 'fa'], app, 'get', function(req, res) {});
     });
 
 // Init App
@@ -101,7 +107,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-
+// app.set("lang","en");
 
 app.use('/', routes);
 app.use('/piwik', piwik);
