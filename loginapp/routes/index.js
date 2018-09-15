@@ -36,8 +36,10 @@ router.get('/', ensureAuthenticated, function(req, res) {
             Application.viewTable(res.locals.user.username, function(err, application) {
                 if (err) throw err;
                 req.i18n.changeLanguage(lang);
+                user =res.locals.user.name;
                 appz = application;
                 res.render('projects', {
+                    NameOfUser:user,
                     apps: application,
                     sites: {}
                 });
