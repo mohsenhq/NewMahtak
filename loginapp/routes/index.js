@@ -20,19 +20,19 @@ router.get('/', ensureAuthenticated, function(req, res) {
     url = "http://localhost/piwik/?module=API&method=SitesManager.getSitesFromGroup&group=" + group + "&token_auth=fbfbd1c44a838aa7afc3bb9cf2d3aece&format=JSON";
     request(url, function(error, response, webSites) {
 
-        if (typeof webSites !== 'undefined' && webSites) {
+        // if (typeof webSites !== 'undefined' && webSites) {
 
-            sitez = JSON.parse(webSites);
-            Application.viewTable(res.locals.user.username, function(err, application) {
-                if (err) throw err;
-                req.i18n.changeLanguage(lang);
-                appz = application;
-                res.render('projects', {
-                    apps: application,
-                    sites: sitez
-                });
-            });
-        } else {
+        //     sitez = JSON.parse(webSites);
+        //     Application.viewTable(res.locals.user.username, function(err, application) {
+        //         if (err) throw err;
+        //         req.i18n.changeLanguage(lang);
+        //         appz = application;
+        //         res.render('projects', {
+        //             apps: application,
+        //             sites: sitez
+        //         });
+        //     });
+        // } else {
             Application.viewTable(res.locals.user.username, function(err, application) {
                 if (err) throw err;
                 req.i18n.changeLanguage(lang);
@@ -42,7 +42,7 @@ router.get('/', ensureAuthenticated, function(req, res) {
                     sites: {}
                 });
             });
-        }
+        // }
 
     });
 
