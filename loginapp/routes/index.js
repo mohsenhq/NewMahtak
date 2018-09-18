@@ -15,35 +15,36 @@ var currentApp;
 var currentSite;
 var lang = 'en';
 
-router.get('/', ensureAuthenticated, function(req, res) {
+router.get('/', ensureAuthenticated, function (req, res) {
     var group = res.locals.user.username;
-    url = "http://localhost/piwik/?module=API&method=SitesManager.getSitesFromGroup&group=" + group + "&token_auth=fbfbd1c44a838aa7afc3bb9cf2d3aece&format=JSON";
-    request(url, function(error, response, webSites) {
-
-        // if (typeof webSites !== 'undefined' && webSites) {
-
-        //     sitez = JSON.parse(webSites);
-        //     Application.viewTable(res.locals.user.username, function(err, application) {
-        //         if (err) throw err;
-        //         req.i18n.changeLanguage(lang);
-        //         appz = application;
-        //         res.render('projects', {
-        //             apps: application,
-        //             sites: sitez
-        //         });
-        //     });
-        // } else {
-            Application.viewTable(res.locals.user.username, function(err, application) {
+    url = "http://81.31.168.201/analytics/?module=API&method=SitesManager.getSitesFromGroup&group=" + group + "&token_auth=4e8f3fc4f69cd6cb5c0f61af5305e71d&format=JSON";
+    request(url, function (error, response, webSites) {
+        if (typeof webSites !== 'undefined' && webSites) {
+            sitez = JSON.parse(webSites);
+            Application.viewTable(res.locals.user.username, function (err, application) {
                 if (err) throw err;
                 req.i18n.changeLanguage(lang);
-                user =res.locals.user.name;
+                user = res.locals.user.name;
                 appz = application;
                 res.render('projects', {
-                    NameOfUser:user,
+                    NameOfUser: user,
                     apps: application,
-                    sites: {}
+                    sites: sitez
                 });
             });
+        }
+        // } else {
+        // Application.viewTable(res.locals.user.username, function (err, application) {
+        //     if (err) throw err;
+        //     req.i18n.changeLanguage(lang);
+        //     user = res.locals.user.name;
+        //     appz = application;
+        //     res.render('projects', {
+        //         NameOfUser: user,
+        //         apps: application,
+        //         sites: {}
+        //     });
+        // });
         // }
 
     });
@@ -51,7 +52,7 @@ router.get('/', ensureAuthenticated, function(req, res) {
 
 });
 
-router.get('/projects', ensureAuthenticated, function(req, res) {
+router.get('/projects', ensureAuthenticated, function (req, res) {
     req.i18n.changeLanguage(lang);
     res.render('index', {
         apps: appz,
@@ -59,7 +60,7 @@ router.get('/projects', ensureAuthenticated, function(req, res) {
     });
 });
 
-router.get('/chartjs', ensureAuthenticated, function(req, res) {
+router.get('/chartjs', ensureAuthenticated, function (req, res) {
     req.i18n.changeLanguage(lang);
     if (req.query.app != null) {
         currentApp = req.query.app;
@@ -70,7 +71,7 @@ router.get('/chartjs', ensureAuthenticated, function(req, res) {
     });
 });
 
-router.get('/piwik', ensureAuthenticated, function(req, res) {
+router.get('/piwik', ensureAuthenticated, function (req, res) {
     req.i18n.changeLanguage(lang);
     if (req.query.site != null) {
         currentSite = req.query.site;
@@ -82,9 +83,9 @@ router.get('/piwik', ensureAuthenticated, function(req, res) {
     });
 });
 
-router.post('/visits', ensureAuthenticated, function(req, res) {
+router.post('/visits', ensureAuthenticated, function (req, res) {
     var group = res.locals.user.username;
-    url2 = "http://localhost/piwik/?module=API&method=VisitsSummary.get&idSite=1&period=day&date=last30&format=JSON&token_auth=fbfbd1c44a838aa7afc3bb9cf2d3aece"
+    url2 = "http://81.31.168.201/analytics/?module=API&method=VisitsSummary.get&idSite=1&period=day&date=last30&format=JSON&token_auth=fbfbd1c44a838aa7afc3bb9cf2d3aece"
     var visits = {
         'dates': [],
         'visitors': [],
@@ -93,7 +94,7 @@ router.post('/visits', ensureAuthenticated, function(req, res) {
         'sumOfVisitsLenght': [],
         'avgTimeOnSite': []
     };
-    request(url2, function(error, response, body) {
+    request(url2, function (error, response, body) {
         resBody = JSON.parse(body);
         for (var i in resBody) {
             visits.dates.push(i);
@@ -118,7 +119,7 @@ router.post('/visits', ensureAuthenticated, function(req, res) {
 
 });
 
-router.get('/events', ensureAuthenticated, function(req, res) {
+router.get('/events', ensureAuthenticated, function (req, res) {
     req.i18n.changeLanguage(lang);
     if (req.query.app != null) {
         currentApp = req.query.app;
@@ -130,7 +131,7 @@ router.get('/events', ensureAuthenticated, function(req, res) {
 });
 
 
-router.get('/chartjs2', ensureAuthenticated, function(req, res) {
+router.get('/chartjs2', ensureAuthenticated, function (req, res) {
     req.i18n.changeLanguage(lang);
     if (req.query.app != null) {
         currentApp = req.query.app;
@@ -141,24 +142,24 @@ router.get('/chartjs2', ensureAuthenticated, function(req, res) {
     });
 });
 
-router.get('/addApp', ensureAuthenticated, function(req, res) {
+router.get('/addApp', ensureAuthenticated, function (req, res) {
     res.render('index');
 });
 
-router.get('/Build/*', ensureAuthenticated, function(req, res) {
+router.get('/Build/*', ensureAuthenticated, function (req, res) {
     CallWebAPI(req.params[0]);
-    res.redirect('/projects');
+    res.redirect('/');
 });
 
 // opens dashboard html page 
-router.get('/MahtakDashboard', ensureAuthenticated, function(req, res) {
+router.get('/MahtakDashboard', ensureAuthenticated, function (req, res) {
     // res.sendFile(path.join(__dirname, '../public', 'index2.html'));
     res.render('dashboard');
 });
 
 // query @installDate db and responds @dates and @newInstalls 
-router.post('/installDate', ensureAuthenticated, function(req, res) {
-    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, database) {
+router.post('/installDate', ensureAuthenticated, function (req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function (err, database) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
@@ -168,36 +169,36 @@ router.post('/installDate', ensureAuthenticated, function(req, res) {
             collection.find({
                 "APP": currentApp
             }, {
-                _id: 0
-            }).sort({
-                _id: +1
-            }).toArray(function(err, results) {
-                var installDateArray = {
-                    'dates': [],
-                    'newInstalls': [],
-                    'totalInstalls': [],
-                    'app': [currentApp]
-                };
-                // var installDateArray = [];
-                var sumInstals = 0;
-                for (i = 0; i < results.length; i++) {
-                    // installDateArray.push([results[i].date, results[i].newInstalls]);
-                    installDateArray.dates.push(results[i].date);
-                    installDateArray.newInstalls.push(results[i].newInstalls);
-                    sumInstals += results[i].newInstalls;
-                }
-                installDateArray.totalInstalls.push(sumInstals);
-                res.write(JSON.stringify(installDateArray));
-                res.end();
+                    _id: 0
+                }).sort({
+                    _id: +1
+                }).toArray(function (err, results) {
+                    var installDateArray = {
+                        'dates': [],
+                        'newInstalls': [],
+                        'totalInstalls': [],
+                        'app': [currentApp]
+                    };
+                    // var installDateArray = [];
+                    var sumInstals = 0;
+                    for (i = 0; i < results.length; i++) {
+                        // installDateArray.push([results[i].date, results[i].newInstalls]);
+                        installDateArray.dates.push(results[i].date);
+                        installDateArray.newInstalls.push(results[i].newInstalls);
+                        sumInstals += results[i].newInstalls;
+                    }
+                    installDateArray.totalInstalls.push(sumInstals);
+                    res.write(JSON.stringify(installDateArray));
+                    res.end();
 
-            });
+                });
         }
     });
 });
 
 // query @dailyUsers db and responds @dates and @usersNumber
-router.post('/dailyUsers', ensureAuthenticated, function(req, res) {
-    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, database) {
+router.post('/dailyUsers', ensureAuthenticated, function (req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function (err, database) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
@@ -207,26 +208,26 @@ router.post('/dailyUsers', ensureAuthenticated, function(req, res) {
             collection.find({
                 "APP": currentApp
             }, {
-                _id: 0
-            }).toArray(function(err, results) {
-                var dailyUsersArray = {
-                    'dates': [],
-                    'usersNumber': []
-                };
-                for (i = 0; i < results.length; i++) {
-                    dailyUsersArray.dates.push(results[i].date);
-                    dailyUsersArray.usersNumber.push(results[i].UUID.length);
-                }
-                res.write(JSON.stringify(dailyUsersArray));
-                res.end();
-            });
+                    _id: 0
+                }).toArray(function (err, results) {
+                    var dailyUsersArray = {
+                        'dates': [],
+                        'usersNumber': []
+                    };
+                    for (i = 0; i < results.length; i++) {
+                        dailyUsersArray.dates.push(results[i].date);
+                        dailyUsersArray.usersNumber.push(results[i].UUID.length);
+                    }
+                    res.write(JSON.stringify(dailyUsersArray));
+                    res.end();
+                });
         }
     });
 });
 
 // query @usageDate db and responds @dates and @sequences 
-router.post('/usageDate', ensureAuthenticated, function(req, res) {
-    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, database) {
+router.post('/usageDate', ensureAuthenticated, function (req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function (err, database) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
@@ -235,28 +236,28 @@ router.post('/usageDate', ensureAuthenticated, function(req, res) {
             collection.find({
                 "APP": currentApp
             }, {
-                _id: 0
-            }).sort({
-                _id: +1
-            }).toArray(function(err, results) {
-                var usageDateArray = {
-                    'dates': [],
-                    'sequences': []
-                };
-                for (i = 0; i < results.length; i++) {
-                    usageDateArray.dates.push(results[i].date);
-                    usageDateArray.sequences.push(results[i].sequence);
-                }
-                res.write(JSON.stringify(usageDateArray));
-                res.end();
-            });
+                    _id: 0
+                }).sort({
+                    _id: +1
+                }).toArray(function (err, results) {
+                    var usageDateArray = {
+                        'dates': [],
+                        'sequences': []
+                    };
+                    for (i = 0; i < results.length; i++) {
+                        usageDateArray.dates.push(results[i].date);
+                        usageDateArray.sequences.push(results[i].sequence);
+                    }
+                    res.write(JSON.stringify(usageDateArray));
+                    res.end();
+                });
         }
     });
 });
 
 // query @
-router.post('/duration', ensureAuthenticated, function(req, res) {
-    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, database) {
+router.post('/duration', ensureAuthenticated, function (req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function (err, database) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
@@ -276,7 +277,7 @@ router.post('/duration', ensureAuthenticated, function(req, res) {
                 }
             }]).sort({
                 _id: +1
-            }).toArray(function(err, results) {
+            }).toArray(function (err, results) {
                 var duration = {
                     'time': [],
                     'count': []
@@ -293,8 +294,8 @@ router.post('/duration', ensureAuthenticated, function(req, res) {
 });
 
 // ToDo item first
-router.post('/custom', ensureAuthenticated, function(req, res) {
-    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, database) {
+router.post('/custom', ensureAuthenticated, function (req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function (err, database) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
@@ -312,36 +313,36 @@ router.post('/custom', ensureAuthenticated, function(req, res) {
             customCharts.update({
                 'APP': currentApp
             }, {
-                $addToSet: {
-                    'values': selectedEvents
-                }
-            }, {
-                'upsert': true
-            }, function(err, result) {
-                if (err) {
-                    console.log("hello .. " + err)
-                }
-            });
-            selectedEvents.forEach(function(element) {
+                    $addToSet: {
+                        'values': selectedEvents
+                    }
+                }, {
+                    'upsert': true
+                }, function (err, result) {
+                    if (err) {
+                        console.log("hello .. " + err)
+                    }
+                });
+            selectedEvents.forEach(function (element) {
                 collection.aggregate([{
-                        $match: {
-                            "PACKAGE_NAME": currentApp,
-                            [element]: {
-                                $exists: true
-                            }
-                        }
-                    },
-                    {
-                        $group: {
-                            _id: {
-                                $substr: ['$date', 0, 10]
-                            },
-                            count: {
-                                $sum: "$" + element
-                            }
+                    $match: {
+                        "PACKAGE_NAME": currentApp,
+                        [element]: {
+                            $exists: true
                         }
                     }
-                ]).toArray(function(err, results) {
+                },
+                {
+                    $group: {
+                        _id: {
+                            $substr: ['$date', 0, 10]
+                        },
+                        count: {
+                            $sum: "$" + element
+                        }
+                    }
+                }
+                ]).toArray(function (err, results) {
                     var temp = {
                         'date': [],
                         'count': []
@@ -362,8 +363,8 @@ router.post('/custom', ensureAuthenticated, function(req, res) {
     });
 });
 
-router.post("/loadCustoms", ensureAuthenticated, function(req, res) {
-    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, database) {
+router.post("/loadCustoms", ensureAuthenticated, function (req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function (err, database) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
@@ -374,7 +375,7 @@ router.post("/loadCustoms", ensureAuthenticated, function(req, res) {
             // var customCharts = db.collection('customCharts');
             customCharts.find({
                 'APP': currentApp
-            }).toArray(function(err, result) {
+            }).toArray(function (err, result) {
                 if (err) {
                     console.log("hello .. " + err)
                 } else {
@@ -390,8 +391,8 @@ router.post("/loadCustoms", ensureAuthenticated, function(req, res) {
     });
 });
 // query @
-router.post('/dailyDuration', ensureAuthenticated, function(req, res) {
-    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, database) {
+router.post('/dailyDuration', ensureAuthenticated, function (req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function (err, database) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
@@ -412,7 +413,7 @@ router.post('/dailyDuration', ensureAuthenticated, function(req, res) {
                 }
             }]).sort({
                 _id: +1
-            }).toArray(function(err, results) {
+            }).toArray(function (err, results) {
                 var duration = {
                     'date': [],
                     'duration': []
@@ -430,8 +431,8 @@ router.post('/dailyDuration', ensureAuthenticated, function(req, res) {
 
 
 // query @
-router.post('/operator', ensureAuthenticated, function(req, res) {
-    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, database) {
+router.post('/operator', ensureAuthenticated, function (req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function (err, database) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
@@ -451,7 +452,7 @@ router.post('/operator', ensureAuthenticated, function(req, res) {
                 }
             }]).sort({
                 _id: +1
-            }).toArray(function(err, results) {
+            }).toArray(function (err, results) {
                 var operators = {
                     'operator': [],
                     'count': []
@@ -469,8 +470,8 @@ router.post('/operator', ensureAuthenticated, function(req, res) {
 
 
 // query @
-router.post('/manufacturer', ensureAuthenticated, function(req, res) {
-    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, database) {
+router.post('/manufacturer', ensureAuthenticated, function (req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function (err, database) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
@@ -490,7 +491,7 @@ router.post('/manufacturer', ensureAuthenticated, function(req, res) {
                 }
             }]).sort({
                 _id: +1
-            }).toArray(function(err, results) {
+            }).toArray(function (err, results) {
                 var Manufacturers = {
                     'manufacturer': [],
                     'count': []
@@ -508,8 +509,8 @@ router.post('/manufacturer', ensureAuthenticated, function(req, res) {
 
 
 
-router.post('/deviceType', ensureAuthenticated, function(req, res) {
-    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, db) {
+router.post('/deviceType', ensureAuthenticated, function (req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function (err, db) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
@@ -534,8 +535,8 @@ router.post('/deviceType', ensureAuthenticated, function(req, res) {
 });
 
 // query @
-router.post('/appVersion', ensureAuthenticated, function(req, res) {
-    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, database) {
+router.post('/appVersion', ensureAuthenticated, function (req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function (err, database) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
@@ -555,7 +556,7 @@ router.post('/appVersion', ensureAuthenticated, function(req, res) {
                 }
             }]).sort({
                 _id: +1
-            }).toArray(function(err, results) {
+            }).toArray(function (err, results) {
                 var Versions = {
                     'versuinName': [],
                     'count': []
@@ -571,8 +572,8 @@ router.post('/appVersion', ensureAuthenticated, function(req, res) {
     });
 });
 
-router.post('/customEvent', ensureAuthenticated, function(req, res) {
-    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function(err, database) {
+router.post('/customEvent', ensureAuthenticated, function (req, res) {
+    MongoClient.connect('mongodb://mohsenhq:Mohsenhq102@localhost:27017/data?authMechanism=DEFAULT&authSource=admin', function (err, database) {
         if (err) {
             console.log('Unable to connect to the mongoDB server. Error:', err)
         } else {
@@ -582,18 +583,18 @@ router.post('/customEvent', ensureAuthenticated, function(req, res) {
             collection.find({
                 "APP": currentApp
             }, {
-                _id: 0,
-                custom: 1
-            }).toArray(function(err, results) {
-                res.write(JSON.stringify(results[0].custom));
-                res.end();
-            });
+                    _id: 0,
+                    custom: 1
+                }).toArray(function (err, results) {
+                    res.write(JSON.stringify(results[0].custom));
+                    res.end();
+                });
         }
     });
 });
 
 
-router.get('/changeLng', ensureAuthenticated, function(req, res) {
+router.get('/changeLng', ensureAuthenticated, function (req, res) {
     // if (req.session.lng == 'en') {
     //     req.session.lng = 'fa'
     // } else {
@@ -631,7 +632,7 @@ function ensureAuthenticated(req, res, next) {
 function CallWebAPI(a) {
     var username = a;
     var request = new XMLHttpRequest();
-    request.open("POST", "http://198.143.180.135:8080/job/Module/buildWithParameters?token=mohsen&AAR=aarName=" + username, false);
+    request.open("POST", "http://81.31.168.201:8080/job/Module/buildWithParameters?token=mohsen&AAR=aarName=" + username, false);
     request.setRequestHeader("Authorization", authenticateUser('mohsenhq', 'Mohsenhq102w.hq'));
     request.send();
 };
