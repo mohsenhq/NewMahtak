@@ -586,7 +586,9 @@ router.post('/customEvent', ensureAuthenticated, function (req, res) {
                     _id: 0,
                     custom: 1
                 }).toArray(function (err, results) {
-                    res.write(JSON.stringify(results[0].custom));
+                    if (JSON.stringify(results) === '{}') {
+                        res.write(JSON.stringify(results[0].custom));
+                    }
                     res.end();
                 });
         }
