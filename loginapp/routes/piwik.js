@@ -27,7 +27,7 @@ router.post('/piwikAPI', ensureAuthenticated, function(req, res) {
     var siteName = req.body.siteName;
     var siteUrls = req.body.urls;
     var group = res.locals.user.username;
-    var url = "http://81.31.168.201/analytics/?module=API&method=" + method + "&siteName=" + siteName + "&urls=" + siteUrls + "&group=" + group + "&token_auth=4e8f3fc4f69cd6cb5c0f61af5305e71d";
+    var url = "http://localhost/analytics/?module=API&method=" + method + "&siteName=" + siteName + "&urls=" + siteUrls + "&group=" + group + "&token_auth=4e8f3fc4f69cd6cb5c0f61af5305e71d";
 
     request(url, function(error, response, body) {
         res.write(JSON.stringify(body));
@@ -38,7 +38,7 @@ router.post('/piwikAPI', ensureAuthenticated, function(req, res) {
 
 router.post('/siteList', ensureAuthenticated, function(req, res) {
     var group = res.locals.user.username;
-    url = "http://81.31.168.201/analytics/?module=API&method=SitesManager.getSitesFromGroup&group=" + group + "&token_auth=4e8f3fc4f69cd6cb5c0f61af5305e71d&format=JSON";
+    url = "http://localhost/analytics/?module=API&method=SitesManager.getSitesFromGroup&group=" + group + "&token_auth=4e8f3fc4f69cd6cb5c0f61af5305e71d&format=JSON";
     request(url, function(error, response, body) {
         res.write(JSON.stringify(body));
         res.end();

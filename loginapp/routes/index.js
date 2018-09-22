@@ -17,7 +17,7 @@ var lang = 'en';
 
 router.get('/', ensureAuthenticated, function (req, res) {
     var group = res.locals.user.username;
-    url = "http://81.31.168.201/analytics/?module=API&method=SitesManager.getSitesFromGroup&group=" + group + "&token_auth=4e8f3fc4f69cd6cb5c0f61af5305e71d&format=JSON";
+    url = "http://localhost/analytics/?module=API&method=SitesManager.getSitesFromGroup&group=" + group + "&token_auth=4e8f3fc4f69cd6cb5c0f61af5305e71d&format=JSON";
     request(url, function (error, response, webSites) {
         if (typeof webSites !== 'undefined' && webSites) {
             sitez = JSON.parse(webSites);
@@ -85,7 +85,7 @@ router.get('/piwik', ensureAuthenticated, function (req, res) {
 
 router.post('/visits', ensureAuthenticated, function (req, res) {
     var group = res.locals.user.username;
-    url2 = "http://81.31.168.201/analytics/?module=API&method=VisitsSummary.get&idSite=1&period=day&date=last30&format=JSON&token_auth=fbfbd1c44a838aa7afc3bb9cf2d3aece"
+    url2 = "http://localhost/analytics/?module=API&method=VisitsSummary.get&idSite=1&period=day&date=last30&format=JSON&token_auth=fbfbd1c44a838aa7afc3bb9cf2d3aece"
     var visits = {
         'dates': [],
         'visitors': [],
