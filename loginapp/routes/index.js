@@ -17,7 +17,7 @@ var lang = 'en';
 
 router.get('/', ensureAuthenticated, function (req, res) {
     var group = res.locals.user.username;
-    url = "http://localhost/analytics/?module=API&method=SitesManager.getSitesFromGroup&group=" + group + "&token_auth=4e8f3fc4f69cd6cb5c0f61af5305e71d&format=JSON";
+    url = "http://localhost/analytics/?module=API&method=SitesManager.getSitesFromGroup&group=" + group + "&token_auth=47458ddf8cddbe4c66ba4df08e0651c7&format=JSON";
     request(url, function (error, response, webSites) {
         if (typeof webSites !== 'undefined' && webSites) {
             sitez = JSON.parse(webSites);
@@ -143,7 +143,7 @@ router.get('/chartjs2', ensureAuthenticated, function (req, res) {
 });
 
 router.get('/addApp', ensureAuthenticated, function (req, res) {
-    res.render('index');
+    res.render('projects');
 });
 
 router.get('/Build/*', ensureAuthenticated, function (req, res) {
@@ -634,7 +634,7 @@ function ensureAuthenticated(req, res, next) {
 function CallWebAPI(a) {
     var username = a;
     var request = new XMLHttpRequest();
-    request.open("POST", "http://81.31.168.201:8080/job/Module/buildWithParameters?token=mohsen&AAR=aarName=" + username, false);
+    request.open("POST", "http://81.31.168.201:8080/job/Mahtak%20module/buildWithParameters?token=mohsen&AAR=aarName=" + username, false);
     request.setRequestHeader("Authorization", authenticateUser('mohsenhq', 'Mohsenhq102w.hq'));
     request.send();
 };
