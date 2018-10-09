@@ -634,8 +634,8 @@ function ensureAuthenticated(req, res, next) {
 function CallWebAPI(a) {
     var username = a;
     var request = new XMLHttpRequest();
-    request.open("POST", "http://81.31.168.201:8080/job/Mahtak%20module/buildWithParameters?token=mohsen&AAR=aarName=" + username, false);
-    request.setRequestHeader("Authorization", authenticateUser('mohsenhq', 'Mohsenhq102w.hq'));
+    request.open("GET", "http://81.31.168.201:8080/job/Mahtak%20module/buildWithParameters?token=mohsen&AAR=" + username);
+    request.setRequestHeader("Authorization", authenticateUser('mohsenhq', 'mohsenhqw'));
     request.send();
 };
 
